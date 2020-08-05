@@ -7,6 +7,7 @@ services:
     ports:
       - "1883:1883"
     user: "1000:995"
+    restart: always
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
       - /mnt/elements1/mosquitto/data:/mosquitto/data

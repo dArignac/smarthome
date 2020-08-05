@@ -95,3 +95,5 @@ In this case it's `1000` for `pi`, and `995` for `docker`. If they are different
 * https://www.docker.com/blog/happy-pi-day-docker-raspberry-pi/
 * http://nilhcem.com/iot/home-monitoring-with-mqtt-influxdb-grafana
 * https://www.raspberrypi.org/documentation/configuration/external-storage.md
+* https://hub.docker.com/_/eclipse-mosquitto
+* https://github.com/eclipse/mosquitto/issues/1078#issuecomment-489438907
