@@ -45,6 +45,17 @@ Enable the `pi` user to use Docker: `sudo usermod -aG docker pi`, afterwards log
 
 Check that Docker is running: `sudo systemctl status docker`.
 
+Install docker-compose:
+
+```
+sudo apt-get install libffi-dev libssl-dev
+sudo apt install python3-dev
+sudo apt-get install -y python3 python3-pip
+sudo pip3 install docker-compose
+sudo -E curl -L -o /etc/bash_completion.d/docker-compose https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose
+
+```
+
 ## Attach Hard Disk
 
 Ensure it has `etx4` file system. Plug it in. Ensure it can be found with `sudo lsblk -o UUID,NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,MODEL`.
@@ -63,18 +74,24 @@ Edit `fstab` (`sudo nano /etc/fstab`) and add the line (replace the `UUID` with 
 PARTUUID=14ec74ef-01  /mnt/elements1  ext4    defaults,auto,users,rw,nofail 0 0
 ```
 
-## Run Mosquitto
+## Mosquitto
 
-`docker run -d -p 1883:1883 eclipse-mosquitto`
+Will be run by `docker-compose`, but there are some prerequisites:
 
-TODO: should save its data to the HDD
-TODO: tie the docker stuff together in the server-tools repo (or create a new one) with docker-compose
+Create a folder where to store the mosquitto data: `sudo mkdir -P /mnt/elements/mosquitto/data /mnt/elements/mosquitto/log`.
+
+Find your `pi` user id (usually `1000`) and the id of the docker group:
+
+```
+$ id pi
+uid=1000(pi) gid=1000(pi) groups=1000(pi),4(adm),20(dialout),24(cdrom),27(sudo),29(audio),44(video),46(plugdev),60(games),100(users),105(input),109(netdev),999(spi),998(i2c),997(gpio),995(docker)
+```
+
+In this case it's `1000` for `pi`, and `995` for `docker`. If they are different from the `user` value in the `docker-compose.yaml`, then adjust it there.
 
 
-
-
-# Sources
+## Sources
 
 * https://www.docker.com/blog/happy-pi-day-docker-raspberry-pi/
 * http://nilhcem.com/iot/home-monitoring-with-mqtt-influxdb-grafana
-  
+* https://www.raspberrypi.org/documentation/configuration/external-storage.md
