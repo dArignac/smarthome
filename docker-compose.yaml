@@ -3,7 +3,7 @@ version: "3.8"
 services:
 
   mqtt:
-    image: eclipse-mosquitto
+    image: eclipse-mosquitto:latest
     ports:
       - "1883:1883"
     user: "1000:995"
@@ -12,3 +12,11 @@ services:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
       - /mnt/elements1/mosquitto/data:/mosquitto/data
       - /mnt/elements1/mosquitto/log:/mosquitto/log
+  
+  nodered:
+    image: nodered/node-red:latest
+    ports:
+      - "1880:1880"
+    restart: always
+    volumes:
+      - /mnt/elements1/nodered:/data

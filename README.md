@@ -1,5 +1,8 @@
 # Smart Home?
 
+## Todos
+**Join the setups to not repeat youself**
+
 ## Prepare Raspberry Image
 
 Use the Github project https://github.com/RPi-Distro/pi-gen to generate a proper Raspberry Pi image.
@@ -56,6 +59,10 @@ sudo -E curl -L -o /etc/bash_completion.d/docker-compose https://raw.githubuserc
 
 ```
 
+Sources:
+
+* https://www.docker.com/blog/happy-pi-day-docker-raspberry-pi/
+
 ## Attach Hard Disk
 
 Ensure it has `etx4` file system. Plug it in. Ensure it can be found with `sudo lsblk -o UUID,NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,MODEL`.
@@ -74,11 +81,15 @@ Edit `fstab` (`sudo nano /etc/fstab`) and add the line (replace the `UUID` with 
 PARTUUID=14ec74ef-01  /mnt/elements1  ext4    defaults,auto,users,rw,nofail 0 0
 ```
 
+Sources:
+
+* https://www.raspberrypi.org/documentation/configuration/external-storage.md
+
 ## Mosquitto
 
 Will be run by `docker-compose`, but there are some prerequisites:
 
-Create a folder where to store the mosquitto data: `sudo mkdir -P /mnt/elements/mosquitto/data /mnt/elements/mosquitto/log`.
+Create a folder where to store the mosquitto data: `sudo mkdir -P /mnt/elements1/mosquitto/data /mnt/elements1/mosquitto/log`.
 
 Find your `pi` user id (usually `1000`) and the id of the docker group:
 
@@ -89,11 +100,26 @@ uid=1000(pi) gid=1000(pi) groups=1000(pi),4(adm),20(dialout),24(cdrom),27(sudo),
 
 In this case it's `1000` for `pi`, and `995` for `docker`. If they are different from the `user` value in the `docker-compose.yaml`, then adjust it there.
 
+Sources:
+
+* https://hub.docker.com/_/eclipse-mosquitto
+* https://github.com/eclipse/mosquitto/issues/1078#issuecomment-489438907
+
+## Nodered
+
+Will be run by `docker-compose`, but there are some prerequisites.
+
+Create a folder for storing the user data and set the permissions:
+
+```
+sudo mkdir -p /mnt/elements1/nodered && sudo chown 1000:995 /mnt/elements1/nodered
+```
+
+Sources:
+
+* https://nodered.org/docs/getting-started/docker
+
 
 ## Sources
 
-* https://www.docker.com/blog/happy-pi-day-docker-raspberry-pi/
 * http://nilhcem.com/iot/home-monitoring-with-mqtt-influxdb-grafana
-* https://www.raspberrypi.org/documentation/configuration/external-storage.md
-* https://hub.docker.com/_/eclipse-mosquitto
-* https://github.com/eclipse/mosquitto/issues/1078#issuecomment-489438907
