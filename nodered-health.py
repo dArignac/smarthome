@@ -1,3 +1,4 @@
+import json
 import subprocess
 import paho.mqtt.client as mqtt
 
@@ -13,7 +14,7 @@ def gather_and_publish():
   data['cpu-temp'] = p.stdout.read()[5:-3]
 
   # publish as a single data set
-  client.publish('/home/pis/nodered/health', payload=data, qos=1)
+  client.publish('/home/pis/nodered/health', payload=json.dumps(data), qos=1)
 
 def initialize():
   client.connect('127.0.0.1', 1883)
