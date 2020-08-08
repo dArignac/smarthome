@@ -1,11 +1,35 @@
 # Smart Home?
 
-## Todos
-**Join the setups to not repeat youself**
+We're going to use the following tools to tie together a smart home of some sorts on a Raspberry Pi:
+
+* [Nodered](https://nodered.org/)
+* [Mosquitto](https://https://mosquitto.org/)
+
+## Open Tasks aka Roadmap
+
+* script the pi setup mentioned in this readme
+  * user and group ids via env (here in readme and compose file)
+  * credentials in compose can be overwritten with `docker-compose.override.yaml`
+* setup influxdb
+* setup grafana
+* create some smart stuff
+  * gather raspberry sensors and display them in grafana
+    * https://willy-tech.de/raspberry-pi-cpu-temperatur-auslesen/
+    * https://linuxhint.com/raspberry_pi_temperature_monitor/
+    * https://www.elektronik-kompendium.de/sites/raspberry-pi/1911251.htm
+    * https://www.elektronik-kompendium.de/sites/raspberry-pi/2006071.htm
+    * https://learn.adafruit.com/an-illustrated-shell-command-primer/checking-file-space-usage-du-and-df
+  * collect and display the temperature of tmp sensors via jeelink - https://flows.nodered.org/flow/05a76b25495eb8fd8d3082343f56c645
+  * display weather forecast (based on regional weather station data?)
+  * gather plant sensor data
+    * must see how to assign to a special plant to have alerts based on requirements of the plant
+  * integrate the fritz smart plugs into nodered dashboard and get rid of the android app
+  * if in homeoffice (calendar?) switch on the plug for the office desk
+
 
 ## Prepare Raspberry Image
 
-Use the Github project https://github.com/RPi-Distro/pi-gen to generate a proper Raspberry Pi image.
+Use the Github project https://github.com/RPi-Distro/pi-gen to generate a proper Raspberry Pi image. I'm in Germay so I set the keyboard etc. accordingly-
 
 Therefore create a `config` file like this:
 
@@ -25,10 +49,6 @@ It installs a somewhat minimal version of Raspberry OS having Wifi and SSH enabl
 Then run the image creation with `./build-docker.sh`. It may take a while.
 
 If it was successfull, write the image to the SD card. Use the Raspberry Pi Imager for that: https://www.raspberrypi.org/downloads/
-
-## Initialize Raspberry Pi
-
-Log in, change password and grab Bash aliases: `curl -s https://raw.githubusercontent.com/darignac/fx/master/.bash_aliases > ~/.bash_aliases && source ~/.bash_aliases`.
 
 ## Install Docker
 
@@ -59,15 +79,13 @@ sudo -E curl -L -o /etc/bash_completion.d/docker-compose https://raw.githubuserc
 
 ```
 
-Sources:
-
-* https://www.docker.com/blog/happy-pi-day-docker-raspberry-pi/
-
 ## Attach Hard Disk
+
+An external hard disk is used to store all the data, as writing it to the Raspberry's SD card will decrease its lifespan.
 
 Ensure it has `etx4` file system. Plug it in. Ensure it can be found with `sudo lsblk -o UUID,NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,MODEL`.
 
-If found, create a new mount folder: `sudo mkdir /mnt/elements1`
+If found, create a new mount folder (of course you can name it different): `sudo mkdir /mnt/elements1`
 
 With `sudo blkid` check the path of the disk and mount it accordingly: `sudo mount /dev/sda1 /mnt/elements1`
 
@@ -81,45 +99,33 @@ Edit `fstab` (`sudo nano /etc/fstab`) and add the line (replace the `UUID` with 
 PARTUUID=14ec74ef-01  /mnt/elements1  ext4    defaults,auto,users,rw,nofail 0 0
 ```
 
-Sources:
+## Tools
 
-* https://www.raspberrypi.org/documentation/configuration/external-storage.md
+All tools being used are setup up via Docker and integrated into the `docker-compose.yaml` file.
 
-## Mosquitto
+But before ramping it up, we need to do some preparations:
 
-Will be run by `docker-compose`, but there are some prerequisites:
+### Storage folders
 
-Create a folder where to store the mosquitto data: `sudo mkdir -P /mnt/elements1/mosquitto/data /mnt/elements1/mosquitto/log`.
-
-Find your `pi` user id (usually `1000`) and the id of the docker group:
+Grep the id of your `pi` user (or whatever you named it) and of the `docker` group.
 
 ```
 $ id pi
 uid=1000(pi) gid=1000(pi) groups=1000(pi),4(adm),20(dialout),24(cdrom),27(sudo),29(audio),44(video),46(plugdev),60(games),100(users),105(input),109(netdev),999(spi),998(i2c),997(gpio),995(docker)
 ```
 
-In this case it's `1000` for `pi`, and `995` for `docker`. If they are different from the `user` value in the `docker-compose.yaml`, then adjust it there.
-
-Sources:
-
-* https://hub.docker.com/_/eclipse-mosquitto
-* https://github.com/eclipse/mosquitto/issues/1078#issuecomment-489438907
-
-## Nodered
-
-Will be run by `docker-compose`, but there are some prerequisites.
-
-Create a folder for storing the user data and set the permissions:
+Create the folders and set the permissions:
 
 ```
-sudo mkdir -p /mnt/elements1/nodered && sudo chown 1000:995 /mnt/elements1/nodered
+sudo mkdir -P /mnt/elements1/mosquitto/data /mnt/elements1/mosquitto/log /mnt/elements1/nodered /mnt/elements1/influxdb
+sudo chown 1000:995 /mnt/elements1/mosquitto /mnt/elements1/nodered /mnt/elements1/influxdb
 ```
-
-Sources:
-
-* https://nodered.org/docs/getting-started/docker
-
-
 ## Sources
 
+* https://www.docker.com/blog/happy-pi-day-docker-raspberry-pi/
+* https://nodered.org/docs/getting-started/docker
+* https://hub.docker.com/_/eclipse-mosquitto
+* https://www.raspberrypi.org/documentation/configuration/external-storage.md
+* https://github.com/eclipse/mosquitto/issues/1078#issuecomment-489438907
 * http://nilhcem.com/iot/home-monitoring-with-mqtt-influxdb-grafana
+* https://hub.docker.com/_/influxdb
