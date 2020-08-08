@@ -4,6 +4,8 @@ We're going to use the following tools to tie together a smart home of some sort
 
 * [Nodered](https://nodered.org/)
 * [Mosquitto](https://https://mosquitto.org/)
+* [influxdb](https://www.influxdata.com/products/influxdb-overview/)
+* [Grafana](https://grafana.com/)
 
 ## Open Tasks aka Roadmap
 
@@ -13,6 +15,7 @@ We're going to use the following tools to tie together a smart home of some sort
 * setup influxdb
 * setup grafana
 * create some smart stuff
+  * fritzbox stats
   * gather raspberry sensors and display them in grafana
     * https://willy-tech.de/raspberry-pi-cpu-temperatur-auslesen/
     * https://linuxhint.com/raspberry_pi_temperature_monitor/
@@ -129,3 +132,4 @@ sudo chown 1000:995 /mnt/elements1/mosquitto /mnt/elements1/nodered /mnt/element
 * https://github.com/eclipse/mosquitto/issues/1078#issuecomment-489438907
 * http://nilhcem.com/iot/home-monitoring-with-mqtt-influxdb-grafana
 * https://hub.docker.com/_/influxdb
+* https://grafana.com/docs/grafana/latest/installation/configure-docker/
