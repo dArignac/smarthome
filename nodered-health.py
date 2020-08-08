@@ -11,7 +11,7 @@ def gather_and_publish():
 
   # cpu temp
   p = subprocess.Popen('vcgencmd measure_temp', shell=True, stdout=subprocess.PIPE)
-  data['cpu-temp'] = p.stdout.read()[5:-3]
+  data['cpu-temp'] = p.stdout.read()[5:-3].decode('utf-8')
 
   # publish as a single data set
   client.publish('/home/pis/nodered/health', payload=json.dumps(data), qos=1)
