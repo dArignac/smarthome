@@ -43,6 +43,8 @@ services:
       - "3000:3000"
     user: "1000:995"
     container_name: grafana
+    depends_on:
+      - influxdb
     restart: always
     volumes:
       - /mnt/elements1/grafana:/var/lib/grafana

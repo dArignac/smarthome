@@ -120,8 +120,8 @@ uid=1000(pi) gid=1000(pi) groups=1000(pi),4(adm),20(dialout),24(cdrom),27(sudo),
 Create the folders and set the permissions:
 
 ```
-sudo mkdir -P /mnt/elements1/mosquitto/data /mnt/elements1/mosquitto/log /mnt/elements1/nodered /mnt/elements1/influxdb
-sudo chown 1000:995 /mnt/elements1/mosquitto /mnt/elements1/nodered /mnt/elements1/influxdb
+sudo mkdir -P /mnt/elements1/mosquitto/data /mnt/elements1/mosquitto/log /mnt/elements1/nodered /mnt/elements1/influxdb /mnt/elements1/grafana
+sudo chown 1000:995 /mnt/elements1/mosquitto /mnt/elements1/nodered /mnt/elements1/influxdb /mnt/elements1/grafana
 ```
 ## Sources
 
