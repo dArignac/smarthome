@@ -3,13 +3,19 @@ import paho.mqtt.client as mqtt
 
 client = mqtt.Client()
 
-def publish_cpu_temperature():
+def gather_and_publish():
+  data = {}
+
+  # cpu temp
   p = subprocess.Popen('vcgencmd measure_temp', shell=True, stdout=subprocess.PIPE)
-  client.publish('/home/pis/nodered/cpu/temperature', payload=p.stdout.read()[5:-3], qos=1)
+  data['cpu-temp'] = p.stdout.read()[5:-3]
+
+  # publish as a single data set
+  client.publish('/home/pis/nodered/cpu/temperature', payload=data, qos=1)
 
 def initialize():
   client.connect('127.0.0.1', 1883)
-  publish_cpu_temperature()
+  gather_and_publish()
 
 if __name__ == '__main__':
   initialize()

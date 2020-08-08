@@ -16,6 +16,7 @@ We're going to use the following tools to tie together a smart home of some sort
 * setup grafana
 * create some smart stuff
   * fritzbox stats
+    * power usage on plugs
   * gather raspberry sensors and display them in grafana
     * cpu temp
     * cpu load
@@ -41,14 +42,29 @@ We're going to use the following tools to tie together a smart home of some sort
 
 See [SETUP.md](SETUP.md).
 
+### Nodered
+
+Additionally install the following packages:
+
+```
+node-red-dashboard
+node-red-contrib-influxdb
+```
+
 ## Publish RPi health data
 
 As everything runs in Docker but we want to gather the health data of the Raspberry Pi that runs all the services, we need to publish the data via MQTT and then handle in nodered.
 
-There we use a small script that gathers all the information and publishes them to the MQTT topic. via cronjob every minute. Therefore we need to install some Python libs:
+There we use a small script that gathers all the information and publishes them to the MQTT topic via cronjob every minute. Therefore we need to install some Python libs:
 
 ```
 pip3 install paho-mqtt
+```
+
+And setup the crontab:
+
+```
+echo "* * * * * python3 /home/pi/smarthome/nodered-health.py" | crontab -
 ```
 
 ## MQTT Topics
