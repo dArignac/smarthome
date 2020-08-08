@@ -71,11 +71,7 @@ echo "* * * * * python3 /home/pi/smarthome/nodered-health.py" | crontab -
 
 ```
 # topic for all raspberry pis data
-/home/pis/<pi-name>/cpu/[temperature|load]
-/home/pis/<pi-name>/[load|tasks]
-/home/pis/<pi-name>/ram[used|free]
-/home/pis/<pi-name>/sdcard/[used|free]
-/home/pis/<pi-name>/hdd/[used|free]
+/home/pis/<pi-name>/health
 ```
 
 ## Flows
