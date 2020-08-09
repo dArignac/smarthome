@@ -67,6 +67,10 @@ And setup the crontab:
 echo "* * * * * python3 /home/pi/smarthome/nodered-health.py" | crontab -
 ```
 
+## Influxdb shell
+
+Run `docker-compose exec influxdb influx -precision rfc3339 -database db0`
+
 ## MQTT Topics
 
 ```
