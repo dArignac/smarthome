@@ -140,12 +140,12 @@
       "hiddenSeries": false,
       "id": 6,
       "legend": {
-        "alignAsTable": true,
+        "alignAsTable": false,
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
-        "rightSide": true,
+        "rightSide": false,
         "show": true,
         "total": false,
         "values": false
@@ -710,5 +710,5 @@
   "timezone": "",
   "title": "RPi nodered",
   "uid": "hyFOi5Zgk",
-  "version": 8
+  "version": 9
 }
