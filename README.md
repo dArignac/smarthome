@@ -13,21 +13,17 @@ We're going to use the following tools to tie together a smart home of some sort
   * user and group ids via env (here in readme and compose file)
   * credentials in compose can be overwritten with `docker-compose.override.yaml`
 * setup influxdb
-* setup grafana
+  * create retention policy https://docs.influxdata.com/influxdb/v1.8/query_language/manage-database/
 * create some smart stuff
   * fritzbox stats
     * power usage on plugs
   * gather raspberry sensors and display them in grafana
-    * cpu temp
-    * cpu load
     * task count
     * sdcard used|free space
     * sdcard used|free space
     * hdd free space in relation to size
     * smart stats for external hdd and sdcard?
-    * 
-    * https://willy-tech.de/raspberry-pi-cpu-temperatur-auslesen/
-    * https://linuxhint.com/raspberry_pi_temperature_monitor/
+    * influxdb stats?
     * https://www.elektronik-kompendium.de/sites/raspberry-pi/1911251.htm
     * https://www.elektronik-kompendium.de/sites/raspberry-pi/2006071.htm
     * https://learn.adafruit.com/an-illustrated-shell-command-primer/checking-file-space-usage-du-and-df
@@ -55,10 +51,11 @@ node-red-contrib-influxdb
 
 As everything runs in Docker but we want to gather the health data of the Raspberry Pi that runs all the services, we need to publish the data via MQTT and then handle in nodered.
 
-There we use a small script that gathers all the information and publishes them to the MQTT topic via cronjob every minute. Therefore we need to install some Python libs:
+There we use a small script that gathers all the information and publishes them to the MQTT topic via cronjob every minute. Therefore we need to install some libs:
 
 ```
 pip3 install paho-mqtt
+sudo apt-get install sysstat
 ```
 
 And setup the crontab:
@@ -92,4 +89,5 @@ Rough overview what is currently done with the setup:
 * https://github.com/eclipse/mosquitto/issues/1078#issuecomment-489438907
 * http://nilhcem.com/iot/home-monitoring-with-mqtt-influxdb-grafana
 * https://hub.docker.com/_/influxdb
+* https://docs.influxdata.com/influxdb/v1.8/concepts/key_concepts/
 * https://grafana.com/docs/grafana/latest/installation/configure-docker/

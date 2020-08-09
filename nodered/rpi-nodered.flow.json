@@ -1,0 +1,142 @@
+[
+  {
+      "id": "e4be0906.89dbf8",
+      "type": "tab",
+      "label": "RPi \"nodered\"",
+      "disabled": false,
+      "info": ""
+  },
+  {
+      "id": "f4b82c56.08a9f",
+      "type": "debug",
+      "z": "e4be0906.89dbf8",
+      "name": "",
+      "active": false,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "payload",
+      "targetType": "msg",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 930,
+      "y": 320,
+      "wires": []
+  },
+  {
+      "id": "9a41ab01.ab3b18",
+      "type": "mqtt in",
+      "z": "e4be0906.89dbf8",
+      "name": "RPi \"nodered\" Health",
+      "topic": "/home/pis/nodered/health",
+      "qos": "2",
+      "datatype": "auto",
+      "broker": "74c06745.534938",
+      "x": 290,
+      "y": 320,
+      "wires": [
+          [
+              "fd3b3e55.16e12"
+          ]
+      ]
+  },
+  {
+      "id": "25dafa9b.7ece76",
+      "type": "influxdb out",
+      "z": "e4be0906.89dbf8",
+      "influxdb": "48be3484.8291ec",
+      "name": "Store to Influx",
+      "measurement": "raspberries",
+      "precision": "",
+      "retentionPolicy": "",
+      "x": 940,
+      "y": 380,
+      "wires": []
+  },
+  {
+      "id": "55a3e6cf.eb4168",
+      "type": "function",
+      "z": "e4be0906.89dbf8",
+      "name": "Prepare for InfluxDB",
+      "func": "let fields = {\n    'cpu_temp': parseFloat(msg.payload.cpu.temperature),\n    'cpu_usr': msg.payload.cpu.usage.usr,\n    'cpu_nice': msg.payload.cpu.usage.nice,\n    'cpu_sys': msg.payload.cpu.usage.sys,\n    'cpu_iowait': msg.payload.cpu.usage.iowait,\n    'cpu_irq': msg.payload.cpu.usage.irq,\n    'cpu_soft': msg.payload.cpu.usage.soft,\n    'cpu_steal': msg.payload.cpu.usage.steal,\n    'cpu_guest': msg.payload.cpu.usage.guest,\n    'cpu_gnice': msg.payload.cpu.usage.gnice,\n    'cpu_idle': msg.payload.cpu.usage.idle\n};\nlet tags = {\n    'raspberry': 'nodered'\n};\nreturn {'payload': [fields, tags]};",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "x": 700,
+      "y": 320,
+      "wires": [
+          [
+              "f4b82c56.08a9f",
+              "25dafa9b.7ece76"
+          ]
+      ]
+  },
+  {
+      "id": "fd3b3e55.16e12",
+      "type": "json",
+      "z": "e4be0906.89dbf8",
+      "name": "text2json",
+      "property": "payload",
+      "action": "obj",
+      "pretty": false,
+      "x": 500,
+      "y": 320,
+      "wires": [
+          [
+              "55a3e6cf.eb4168",
+              "1299de0.4f59622"
+          ]
+      ]
+  },
+  {
+      "id": "1299de0.4f59622",
+      "type": "debug",
+      "z": "e4be0906.89dbf8",
+      "name": "",
+      "active": false,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "false",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 700,
+      "y": 260,
+      "wires": []
+  },
+  {
+      "id": "74c06745.534938",
+      "type": "mqtt-broker",
+      "z": "",
+      "name": "mosquittoe",
+      "broker": "mosquitto",
+      "port": "1883",
+      "clientid": "",
+      "usetls": false,
+      "compatmode": false,
+      "keepalive": "60",
+      "cleansession": true,
+      "birthTopic": "",
+      "birthQos": "0",
+      "birthPayload": "",
+      "closeTopic": "",
+      "closeQos": "0",
+      "closePayload": "",
+      "willTopic": "",
+      "willQos": "0",
+      "willPayload": ""
+  },
+  {
+      "id": "48be3484.8291ec",
+      "type": "influxdb",
+      "z": "",
+      "hostname": "influxdb",
+      "port": "8086",
+      "protocol": "http",
+      "database": "db0",
+      "name": "InfluxDB",
+      "usetls": false,
+      "tls": ""
+  }
+]
