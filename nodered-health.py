@@ -16,7 +16,7 @@ def gather_and_publish():
   # cpu stats
   p = subprocess.Popen('mpstat --dec=2 -P 0 -o JSON', shell=True, stdout=subprocess.PIPE)
   stats = json.loads(p.stdout.read().decode('utf-8'))
-  data['cpu']['stats'] = stats['sysstat']['hosts'][0]['statistics'][0]['cpu-load'][0]
+  data['cpu']['usage'] = stats['sysstat']['hosts'][0]['statistics'][0]['cpu-load'][0]
 
   # publish as a single data set
   client.publish('/home/pis/nodered/health', payload=json.dumps(data), qos=1)
