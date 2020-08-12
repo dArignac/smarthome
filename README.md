@@ -47,6 +47,17 @@ node-red-dashboard
 node-red-contrib-influxdb
 ```
 
+## Influxdb shell
+
+Run `docker-compose exec influxdb influx -precision rfc3339 -database db0`
+
+## MQTT Topics
+
+```
+# topic for all raspberry pis data
+/home/pis/<pi-name>/health
+```
+
 ## Publish RPi health data
 
 As everything runs in Docker but we want to gather the health data of the Raspberry Pi that runs all the services, we need to publish the data via MQTT and then handle in nodered.
@@ -62,17 +73,6 @@ And setup the crontab:
 
 ```
 echo "* * * * * python3 /home/pi/smarthome/nodered-health.py" | crontab -
-```
-
-## Influxdb shell
-
-Run `docker-compose exec influxdb influx -precision rfc3339 -database db0`
-
-## MQTT Topics
-
-```
-# topic for all raspberry pis data
-/home/pis/<pi-name>/health
 ```
 
 ## Flows

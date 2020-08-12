@@ -88,6 +88,18 @@ uid=1000(pi) gid=1000(pi) groups=1000(pi),4(adm),20(dialout),24(cdrom),27(sudo),
 Create the folders and set the permissions:
 
 ```
-sudo mkdir -P /mnt/elements1/mosquitto/data /mnt/elements1/mosquitto/log /mnt/elements1/nodered /mnt/elements1/influxdb /mnt/elements1/grafana
+sudo mkdir -p /mnt/elements1/mosquitto/data /mnt/elements1/mosquitto/log /mnt/elements1/nodered /mnt/elements1/influxdb /mnt/elements1/grafana
 sudo chown 1000:995 /mnt/elements1/mosquitto /mnt/elements1/nodered /mnt/elements1/influxdb /mnt/elements1/grafana
 ```
+
+# JeeLink
+
+Attach in USB port and check fi recognized: `lsusb`.
+It should be something like `Future Technology Devices International, Ltd FT232 Serial (UART) IC`.
+
+Check `dmesg` to find where it was mounted: `dmesg | grep tty`
+Should print something like that: `[  303.711275] usb 1-1.4: FTDI USB Serial Device converter now attached to ttyUSB0`.
+
+Check that `/dev/ttyUSB0` exists.
+
+Check the id of `dialout` group and adjust `docker-compose.yaml` at the nodered service ( `group_add`).
