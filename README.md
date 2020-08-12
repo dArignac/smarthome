@@ -36,7 +36,7 @@ We're going to use the following tools to tie together a smart home of some sort
 
 ## Setup of Raspberry Pi and tooling
 
-See [SETUP.md](SETUP.md).
+See [setup/README.md](setup/README.md).
 
 ### Nodered
 
@@ -45,6 +45,7 @@ Additionally install the following packages:
 ```
 node-red-dashboard
 node-red-contrib-influxdb
+node-red-node-serialport
 ```
 
 ## Influxdb shell
@@ -91,3 +92,4 @@ Rough overview what is currently done with the setup:
 * https://hub.docker.com/_/influxdb
 * https://docs.influxdata.com/influxdb/v1.8/concepts/key_concepts/
 * https://grafana.com/docs/grafana/latest/installation/configure-docker/
+* https://flows.nodered.org/flow/05a76b25495eb8fd8d3082343f56c645
