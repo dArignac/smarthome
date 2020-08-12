@@ -70,20 +70,7 @@
       "pluginVersion": "7.1.3",
       "targets": [
         {
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
+          "groupBy": [],
           "measurement": "raspberries",
           "orderByTime": "ASC",
           "policy": "default",
@@ -99,7 +86,7 @@
               },
               {
                 "params": [],
-                "type": "mean"
+                "type": "last"
               }
             ]
           ],
@@ -710,5 +697,5 @@
   "timezone": "",
   "title": "RPi nodered",
   "uid": "hyFOi5Zgk",
-  "version": 9
+  "version": 10
 }
