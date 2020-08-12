@@ -24,6 +24,8 @@ services:
       - 20
     volumes:
       - /mnt/pi1/nodered:/data
+    devices: 
+      - /dev/ttyUSB0:/dev/ttyUSB0
 
   influxdb:
     image: influxdb:1.8.1

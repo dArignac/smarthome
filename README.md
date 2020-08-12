@@ -92,3 +92,4 @@ Rough overview what is currently done with the setup:
 * https://docs.influxdata.com/influxdb/v1.8/concepts/key_concepts/
 * https://grafana.com/docs/grafana/latest/installation/configure-docker/
 * https://flows.nodered.org/flow/05a76b25495eb8fd8d3082343f56c645
+* https://serialport.io/docs/guide-installation#alpine-linux
