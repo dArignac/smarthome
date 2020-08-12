@@ -45,7 +45,6 @@ Additionally install the following packages:
 ```
 node-red-dashboard
 node-red-contrib-influxdb
-node-red-node-serialport
 ```
 
 ## Influxdb shell

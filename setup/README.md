@@ -56,9 +56,9 @@ An external hard disk is used to store all the data, as writing it to the Raspbe
 
 Ensure it has `etx4` file system. Plug it in. Ensure it can be found with `sudo lsblk -o UUID,NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL,MODEL`.
 
-If found, create a new mount folder (of course you can name it different): `sudo mkdir /mnt/elements1`
+If found, create a new mount folder (of course you can name it different): `sudo mkdir /mnt/pi1`
 
-With `sudo blkid` check the path of the disk and mount it accordingly: `sudo mount /dev/sda1 /mnt/elements1`
+With `sudo blkid` check the path of the disk and mount it accordingly: `sudo mount /dev/sda1 /mnt/pi1`
 
 ## Auto mounting
 
@@ -67,7 +67,7 @@ Grab the partition UUID `PARTUUID` with `sudo blkid`.
 Edit `fstab` (`sudo nano /etc/fstab`) and add the line (replace the `UUID` with the partition id):
 
 ```
-PARTUUID=14ec74ef-01  /mnt/elements1  ext4    defaults,auto,users,rw,nofail 0 0
+PARTUUID=14ec74ef-01  /mnt/pi1  ext4    defaults,auto,users,rw,nofail 0 0
 ```
 
 # Tools
@@ -88,8 +88,8 @@ uid=1000(pi) gid=1000(pi) groups=1000(pi),4(adm),20(dialout),24(cdrom),27(sudo),
 Create the folders and set the permissions:
 
 ```
-sudo mkdir -p /mnt/elements1/mosquitto/data /mnt/elements1/mosquitto/log /mnt/elements1/nodered /mnt/elements1/influxdb /mnt/elements1/grafana
-sudo chown 1000:995 /mnt/elements1/mosquitto /mnt/elements1/nodered /mnt/elements1/influxdb /mnt/elements1/grafana
+sudo mkdir -p /mnt/pi1/mosquitto/data /mnt/pi1/mosquitto/log /mnt/pi1/nodered /mnt/pi1/influxdb /mnt/pi1/grafana
+sudo chown 1000:995 /mnt/pi1/mosquitto /mnt/pi1/nodered /mnt/pi1/influxdb /mnt/pi1/grafana
 ```
 
 # JeeLink

@@ -11,8 +11,8 @@ services:
     restart: always
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - /mnt/elements1/mosquitto/data:/mosquitto/data
-      - /mnt/elements1/mosquitto/log:/mosquitto/log
+      - /mnt/pi1/mosquitto/data:/mosquitto/data
+      - /mnt/pi1/mosquitto/log:/mosquitto/log
 
   nodered:
     image: darignac/node-red:1.1.3
@@ -23,7 +23,7 @@ services:
     group_add:
       - 20
     volumes:
-      - /mnt/elements1/nodered:/data
+      - /mnt/pi1/nodered:/data
 
   influxdb:
     image: influxdb:1.8.1
@@ -33,7 +33,7 @@ services:
     container_name: influxdb
     restart: always
     volumes:
-      - /mnt/elements1/influxdb:/var/lib/influxdb
+      - /mnt/pi1/influxdb:/var/lib/influxdb
     environment: 
       - INFLUXDB_DB=db0
       - INFLUXDB_USER=user
@@ -49,4 +49,4 @@ services:
       - influxdb
     restart: always
     volumes:
-      - /mnt/elements1/grafana:/var/lib/grafana
+      - /mnt/pi1/grafana:/var/lib/grafana
