@@ -104,8 +104,11 @@ Check that `/dev/ttyUSB0` exists.
 
 Check the id of `dialout` group and adjust `docker-compose.yaml` at the nodered service ( `group_add`).
 
-## Disable blue LED
+## Flash Jeelink to turn off blue led
 
-```
-crontab -l > /tmp/crontab; echo "@reboot /home/pi/smarthome/disable-jeelink-led.sh" >> /tmp/crontab; crontab /tmp/crontab; rm /tmp/crontab
-```
+Download [Arduino IDE](https://www.arduino.cc/en/Main/Software).
+Load the `LaCrosseITPlusReader10` sketch from the `jeelink` folder in the IDE. You may need to put it to `/home/<user>/Arduino`. Compile it and upload it to the JeeLink.
+
+The sketch was provided by the FHEM project, you can grab it [here](https://svn.fhem.de/trac/browser/trunk/fhem/contrib/arduino/36_LaCrosse-LaCrosseITPlusReader.zip). I adjusted that the blue LED is permanently off because it annoys me.
+
+I had issue with writing to the JeeLink, though my user belongs to the `dialout` group. The crude workaround was to run the Arduino IDE as root ¯\_(ツ)_/¯

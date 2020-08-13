@@ -93,3 +93,4 @@ Rough overview what is currently done with the setup:
 * https://grafana.com/docs/grafana/latest/installation/configure-docker/
 * https://flows.nodered.org/flow/05a76b25495eb8fd8d3082343f56c645
 * https://serialport.io/docs/guide-installation#alpine-linux
+* https://github.com/sysstat/sysstat
