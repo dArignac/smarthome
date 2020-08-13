@@ -72,7 +72,7 @@ sudo apt-get install sysstat
 And setup the crontab:
 
 ```
-echo "* * * * * python3 /home/pi/smarthome/nodered-health.py" | crontab -
+crontab -l > /tmp/crontab; echo "* * * * * python3 /home/pi/smarthome/nodered-health.py" >> /tmp/crontab; crontab /tmp/crontab; rm /tmp/crontab
 ```
 
 ## Flows

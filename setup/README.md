@@ -103,3 +103,9 @@ Should print something like that: `[  303.711275] usb 1-1.4: FTDI USB Serial Dev
 Check that `/dev/ttyUSB0` exists.
 
 Check the id of `dialout` group and adjust `docker-compose.yaml` at the nodered service ( `group_add`).
+
+## Disable blue LED
+
+```
+crontab -l > /tmp/crontab; echo "@reboot /home/pi/smarthome/disable-jeelink-led.sh" >> /tmp/crontab; crontab /tmp/crontab; rm /tmp/crontab
+```
