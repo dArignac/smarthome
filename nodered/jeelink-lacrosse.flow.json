@@ -1,78 +1,127 @@
 [
-  {
-      "id": "38665b48.41c924",
-      "type": "tab",
-      "label": "JeeLink with LaCrosse Sensors",
-      "disabled": true,
-      "info": ""
-  },
-  {
-      "id": "16c88bbe.f73344",
-      "type": "serial in",
-      "z": "38665b48.41c924",
-      "name": "JeeLink",
-      "serial": "f5b6a598.630e08",
-      "x": 270,
-      "y": 300,
-      "wires": [
-          [
-              "f9a66f78.f7292"
-          ]
-      ]
-  },
-  {
-      "id": "21e7d61f.703b8a",
-      "type": "debug",
-      "z": "38665b48.41c924",
-      "name": "",
-      "active": true,
-      "tosidebar": true,
-      "console": false,
-      "tostatus": false,
-      "complete": "payload",
-      "targetType": "msg",
-      "statusVal": "",
-      "statusType": "auto",
-      "x": 660,
-      "y": 220,
-      "wires": []
-  },
-  {
-      "id": "f9a66f78.f7292",
-      "type": "function",
-      "z": "38665b48.41c924",
-      "name": "",
-      "func": "if (msg.payload.startsWith('OK 9')) {\n    const values = msg.payload.split(' ');\n    \n    // FIXME map the id to known sensor names\n    \n    return {\n        'payload': {\n            'id': values[2],\n            'battery_new': (parseInt(values[3]) & 0x80) >> 7,\n            'battery_low': (parseInt(values[6]) & 0x80) >> 7,\n            'type': (parseInt(values[3]) & 0x70) >> 4,\n            'channel': parseInt(values[3]) & 0x0F,\n            'temperature': ((parseInt(values[4]) * 256) + parseInt(values[5]) - 1000)/10,\n            'humidity': parseInt(values[6]) & 0x7f,\n            'message': msg.payload\n        }\n    };\n}\n\nreturn null;",
-      "outputs": 1,
-      "noerr": 0,
-      "initialize": "",
-      "finalize": "",
-      "x": 480,
-      "y": 360,
-      "wires": [
-          [
-              "21e7d61f.703b8a"
-          ]
-      ]
-  },
-  {
-      "id": "f5b6a598.630e08",
-      "type": "serial-port",
-      "z": "",
-      "serialport": "/dev/ttyUSB0",
-      "serialbaud": "57600",
-      "databits": "8",
-      "parity": "none",
-      "stopbits": "1",
-      "waitfor": "",
-      "dtr": "none",
-      "rts": "none",
-      "cts": "none",
-      "dsr": "none",
-      "newline": "\\n",
-      "bin": "false",
-      "out": "char",
-      "addchar": "",
-      "responsetimeout": "10000"
-  }
+    {
+        "id": "38665b48.41c924",
+        "type": "tab",
+        "label": "JeeLink with LaCrosse Sensors",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "16c88bbe.f73344",
+        "type": "serial in",
+        "z": "38665b48.41c924",
+        "name": "JeeLink",
+        "serial": "f5b6a598.630e08",
+        "x": 250,
+        "y": 380,
+        "wires": [
+            [
+                "f9a66f78.f7292"
+            ]
+        ]
+    },
+    {
+        "id": "21e7d61f.703b8a",
+        "type": "debug",
+        "z": "38665b48.41c924",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f9a66f78.f7292",
+        "type": "function",
+        "z": "38665b48.41c924",
+        "name": "Prepare for InfluxDB",
+        "func": "if (msg.payload.startsWith('OK 9')) {\n    const values = msg.payload.split(' ');\n    const id = values[2];\n    // 8 & 44 are seen, too. Not clear if they are mine ;-)\n    if (['56'].includes(id)) {\n        const fields = {\n            'battery_new': (parseInt(values[3]) & 0x80) >> 7,\n            'battery_low': (parseInt(values[6]) & 0x80) >> 7,\n            //'type': (parseInt(values[3]) & 0x70) >> 4,\n            //'channel': parseInt(values[3]) & 0x0F,\n            'temperature': ((parseInt(values[4]) * 256) + parseInt(values[5]) - 1000)/10,\n            'humidity': parseInt(values[6]) & 0x7f\n        };\n        const tags = {\n            'sensor': id\n        };\n        return {\n            'payload': [fields, tags]\n        };\n    }\n}\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 500,
+        "y": 380,
+        "wires": [
+            [
+                "d4e27c27.8d0e1"
+            ]
+        ]
+    },
+    {
+        "id": "d4e27c27.8d0e1",
+        "type": "delay",
+        "z": "38665b48.41c924",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 720,
+        "y": 380,
+        "wires": [
+            [
+                "21e7d61f.703b8a",
+                "412e2e48.b8c67"
+            ]
+        ]
+    },
+    {
+        "id": "412e2e48.b8c67",
+        "type": "influxdb out",
+        "z": "38665b48.41c924",
+        "influxdb": "37dae679.59e84a",
+        "name": "",
+        "measurement": "lacrosses",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 970,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "f5b6a598.630e08",
+        "type": "serial-port",
+        "z": "",
+        "serialport": "/dev/ttyUSB0",
+        "serialbaud": "57600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "37dae679.59e84a",
+        "type": "influxdb",
+        "z": "",
+        "hostname": "influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "db0",
+        "name": "InfluxDB",
+        "usetls": false,
+        "tls": ""
+    }
 ]

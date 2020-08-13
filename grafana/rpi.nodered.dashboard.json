@@ -670,9 +670,7 @@
   "refresh": "1m",
   "schemaVersion": 26,
   "style": "dark",
-  "tags": [
-    "raspberry"
-  ],
+  "tags": [],
   "templating": {
     "list": []
   },
@@ -697,5 +695,5 @@
   "timezone": "",
   "title": "RPi nodered",
   "uid": "hyFOi5Zgk",
-  "version": 10
+  "version": 3
 }
