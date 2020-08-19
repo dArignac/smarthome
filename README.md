@@ -9,6 +9,8 @@ We're going to use the following tools to tie together a smart home of some sort
 
 ## Open Tasks aka Roadmap
 
+* grafana
+  * multiple sensors selectable and the labels are correct
 * script the pi setup mentioned in this readme
   * user and group ids via env (here in readme and compose file)
   * credentials in compose can be overwritten with `docker-compose.override.yaml`
@@ -27,7 +29,6 @@ We're going to use the following tools to tie together a smart home of some sort
     * https://www.elektronik-kompendium.de/sites/raspberry-pi/1911251.htm
     * https://www.elektronik-kompendium.de/sites/raspberry-pi/2006071.htm
     * https://learn.adafruit.com/an-illustrated-shell-command-primer/checking-file-space-usage-du-and-df
-  * collect and display the temperature of tmp sensors via jeelink - https://flows.nodered.org/flow/05a76b25495eb8fd8d3082343f56c645
   * display weather forecast (based on regional weather station data?)
   * gather plant sensor data
     * must see how to assign to a special plant to have alerts based on requirements of the plant

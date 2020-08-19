@@ -12,46 +12,30 @@
         "z": "38665b48.41c924",
         "name": "JeeLink",
         "serial": "f5b6a598.630e08",
-        "x": 250,
-        "y": 380,
+        "x": 90,
+        "y": 220,
         "wires": [
             [
-                "f9a66f78.f7292"
+                "3b65d7f6.0f4dc8"
             ]
         ]
-    },
-    {
-        "id": "21e7d61f.703b8a",
-        "type": "debug",
-        "z": "38665b48.41c924",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 950,
-        "y": 380,
-        "wires": []
     },
     {
         "id": "f9a66f78.f7292",
         "type": "function",
         "z": "38665b48.41c924",
         "name": "Prepare for InfluxDB",
-        "func": "if (msg.payload.startsWith('OK 9')) {\n    const values = msg.payload.split(' ');\n    const id = values[2];\n    // 8 & 44 are seen, too. Not clear if they are mine ;-)\n    if (['56'].includes(id)) {\n        const fields = {\n            'battery_new': (parseInt(values[3]) & 0x80) >> 7,\n            'battery_low': (parseInt(values[6]) & 0x80) >> 7,\n            //'type': (parseInt(values[3]) & 0x70) >> 4,\n            //'channel': parseInt(values[3]) & 0x0F,\n            'temperature': ((parseInt(values[4]) * 256) + parseInt(values[5]) - 1000)/10,\n            'humidity': parseInt(values[6]) & 0x7f\n        };\n        const tags = {\n            'sensor': id\n        };\n        return {\n            'payload': [fields, tags]\n        };\n    }\n}\nreturn null;",
+        "func": "const values = msg.payload.values;\nconst fields = {\n    'battery_new': (parseInt(values[3]) & 0x80) >> 7,\n    'battery_low': (parseInt(values[6]) & 0x80) >> 7,\n    //'type': (parseInt(values[3]) & 0x70) >> 4,\n    //'channel': parseInt(values[3]) & 0x0F,\n    'temperature': ((parseInt(values[4]) * 256) + parseInt(values[5]) - 1000)/10,\n    'humidity': parseInt(values[6]) & 0x7f\n};\nconst tags = {\n    'sensor': msg.payload.name\n};\nreturn {\n    'payload': [fields, tags]\n};",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 500,
-        "y": 380,
+        "x": 760,
+        "y": 300,
         "wires": [
             [
-                "d4e27c27.8d0e1"
+                "8f3b9c30.b8e3",
+                "412e2e48.b8c67"
             ]
         ]
     },
@@ -64,18 +48,17 @@
         "timeout": "5",
         "timeoutUnits": "seconds",
         "rate": "1",
-        "nbRateUnits": "1",
-        "rateUnits": "minute",
+        "nbRateUnits": "30",
+        "rateUnits": "second",
         "randomFirst": "1",
         "randomLast": "5",
         "randomUnits": "seconds",
-        "drop": false,
-        "x": 720,
-        "y": 380,
+        "drop": true,
+        "x": 540,
+        "y": 280,
         "wires": [
             [
-                "21e7d61f.703b8a",
-                "412e2e48.b8c67"
+                "f9a66f78.f7292"
             ]
         ]
     },
@@ -88,9 +71,118 @@
         "measurement": "lacrosses",
         "precision": "",
         "retentionPolicy": "",
-        "x": 970,
-        "y": 440,
+        "x": 990,
+        "y": 340,
         "wires": []
+    },
+    {
+        "id": "8f3b9c30.b8e3",
+        "type": "debug",
+        "z": "38665b48.41c924",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload[1].sensor & \": \" & payload[0].temperature & \"°C / \" & payload[0].humidity & \"%\"",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "c0cd2109.ad66d",
+        "type": "function",
+        "z": "38665b48.41c924",
+        "name": "Filter unknown sensors & name sensors",
+        "func": "const values = msg.payload.split(' ');\nconst id = values[2];\n// 8 & 44 are seen, too. Not clear if they are mine ;-)\nif (['56', '62'].includes(id)) {\n    let name = 'unknown';\n    switch (id) {\n        case '56':\n            name = 'Arbeitszimmer';\n            break;\n        case '62':\n            name = 'Wohnzimmer';\n            break;\n    }\n    const data = {\n        'id': id,\n        'name': name,\n        'values': values\n    }\n    return {'payload': data};\n}\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 620,
+        "y": 220,
+        "wires": [
+            [
+                "e3253b98.7c9b98"
+            ]
+        ]
+    },
+    {
+        "id": "e3253b98.7c9b98",
+        "type": "switch",
+        "z": "38665b48.41c924",
+        "name": "Split Sensors by Id",
+        "property": "payload.id",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "56",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "62",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 280,
+        "wires": [
+            [
+                "d4e27c27.8d0e1"
+            ],
+            [
+                "3e4bec7f.24e434"
+            ]
+        ]
+    },
+    {
+        "id": "3b65d7f6.0f4dc8",
+        "type": "function",
+        "z": "38665b48.41c924",
+        "name": "Filter invalid messages",
+        "func": "if (msg.payload.startsWith('OK 9')) {\n    return msg;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 320,
+        "y": 220,
+        "wires": [
+            [
+                "c0cd2109.ad66d"
+            ]
+        ]
+    },
+    {
+        "id": "3e4bec7f.24e434",
+        "type": "delay",
+        "z": "38665b48.41c924",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "30",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 540,
+        "y": 320,
+        "wires": [
+            [
+                "f9a66f78.f7292"
+            ]
+        ]
     },
     {
         "id": "f5b6a598.630e08",

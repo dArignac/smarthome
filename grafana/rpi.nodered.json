@@ -675,7 +675,7 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -695,5 +695,5 @@
   "timezone": "",
   "title": "RPi nodered",
   "uid": "hyFOi5Zgk",
-  "version": 3
+  "version": 5
 }
