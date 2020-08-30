@@ -1,4 +1,4 @@
-# Prepare Raspberry Image1
+# Prepare Raspberry Image
 
 Use the Github project https://github.com/RPi-Distro/pi-gen to generate a proper Raspberry Pi image. I'm in Germay so I set the keyboard etc. accordingly.
 
@@ -76,11 +76,12 @@ Check the id of `dialout` group and adjust `docker-compose.yaml` at the nodered 
 ## Flash Jeelink to turn off blue led
 
 Download [Arduino IDE](https://www.arduino.cc/en/Main/Software).
+
 Load the `LaCrosseITPlusReader10` sketch from the `jeelink` folder in the IDE. You may need to put it to `/home/<user>/Arduino`. Compile it and upload it to the JeeLink.
 
 The sketch was provided by the FHEM project, you can grab it [here](https://svn.fhem.de/trac/browser/trunk/fhem/contrib/arduino/36_LaCrosse-LaCrosseITPlusReader.zip). I adjusted that the blue LED is permanently off because it annoys me.
 
-I had issue with writing to the JeeLink, though my user belongs to the `dialout` group. The crude workaround was to run the Arduino IDE as root ¯\_(ツ)_/¯
+I had issue with writing to the JeeLink, though my user belongs to the `dialout` group. The crude workaround was to run the Arduino IDE as root ¯\\_(ツ)_/¯
 
 # Publish RPi health data
 
