@@ -1,19 +1,37 @@
-# Smart Home?
+# Smart Home
 
-We're going to use the following tools to tie together a smart home of some sorts on a Raspberry Pi:
+This is my playground for home automation / smart home, whatever you want to call it.
+
+My goal is to integrate the sensors I have and do something useful. There is no final plan, it evolves as I wade. Please note that the flows are tied to my environment and you might need to adjust them if you reuse them.
+
+## Basic Setup
+
+### Hardware
+
+* [RaspberryPi 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)
+* an external 2,5 inch hard disk, I use [Intenso Memory Board](https://www.intenso.de/en/products/hard-drives/memory%20board)
+* [Jeelink](https://www.digitalsmarties.net/products/jeelink)
+* [La Crosse based temperature sensor: Technoline TX29DTH-IT](https://www.amazon.de/Technoline-Au%C3%9Fensender-Temperatur-Luftfeuchtesender-Display/dp/B00392XX5U/)
+* [Fritz!DECT 200 smart plug](https://en.avm.de/products/fritzdect/fritzdect-200/)
+* [Xiaomi Mi Plant sensor](https://de.gearbest.com/other-garden-supplies/pp_373947.html)
+
+### Software
 
 * [Nodered](https://nodered.org/)
 * [Mosquitto](https://https://mosquitto.org/)
 * [influxdb](https://www.influxdata.com/products/influxdb-overview/)
 * [Grafana](https://grafana.com/)
 
-## Open Tasks aka Roadmap
+## Open Tasks
 
-* grafana
-  * multiple sensors selectable and the labels are correct
+This is the list of open tasks, that I intend to solve. They covers the functionality itself as well as making the setup of the whole thing as easy as possible.
+
+* nodered: install the required packages beforehand to avoid manual setup
 * script the pi setup mentioned in this readme
   * user and group ids via env (here in readme and compose file)
   * credentials in compose can be overwritten with `docker-compose.override.yaml`
+* grafana
+  * multiple sensors selectable and the labels are correct
 * setup influxdb
   * create retention policy https://docs.influxdata.com/influxdb/v1.8/query_language/manage-database/
 * create some smart stuff
@@ -35,11 +53,20 @@ We're going to use the following tools to tie together a smart home of some sort
   * integrate the fritz smart plugs into nodered dashboard and get rid of the android app
   * if in homeoffice (calendar?) switch on the plug for the office desk
 
-## Setup of Raspberry Pi and tooling
+## Installation
 
-See [setup/README.md](setup/README.md).
+Clone the git repo to some place on your pi. You might need to install git first (`sudo apt install git`).
 
-### Nodered
+Then follow [setup/README.md](setup/README.md).
+
+Afterwards ramp the services up by running `docker-compose up -d`.
+
+If everything was alright, then you can access the services as follows (Note that my pi is named `nodered`, yours probably has a different name):
+
+* Nodered: http://nodered:1880
+* Grafana: http://nodered:3000
+
+### Nodered packages
 
 Additionally install the following packages:
 
@@ -48,38 +75,29 @@ node-red-dashboard
 node-red-contrib-influxdb
 ```
 
-## Influxdb shell
+## Nodered Flows
 
-Run `docker-compose exec influxdb influx -precision rfc3339 -database db0`
+* [Raspberry Pi Health to Influxdb](./nodered/rpi-nodered.flow.json)
+* [La Crosse Temparatur/Humidity to Influxdb via Jeelink](./nodered/jeelink-lacrosse.flow.json)
+** this is tied to my sensors, you need to adjust the flows
 
-## MQTT Topics
+## Grafana Dashboards
+
+* [Raspberry Health](./grafana/rpi.nodered.json)
+* [Temperature & Humidity](./grafana/lacrosse.json)
+
+## Additional information
+
+### MQTT Topics
 
 ```
 # topic for all raspberry pis data
 /home/pis/<pi-name>/health
 ```
 
-## Publish RPi health data
+### Influxdb shell
 
-As everything runs in Docker but we want to gather the health data of the Raspberry Pi that runs all the services, we need to publish the data via MQTT and then handle in nodered.
-
-There we use a small script that gathers all the information and publishes them to the MQTT topic via cronjob every minute. Therefore we need to install some libs:
-
-```
-pip3 install paho-mqtt
-sudo apt-get install sysstat
-```
-
-And setup the crontab:
-
-```
-crontab -l > /tmp/crontab; echo "* * * * * python3 /home/pi/smarthome/nodered-health.py" >> /tmp/crontab; crontab /tmp/crontab; rm /tmp/crontab
-```
-
-## Flows
-Rough overview what is currently done with the setup:
-
-* (INPROGRESS) `nodered` pi health data (via script) -> mqtt -> nodered (normalization) -> influxdb -> grafana dashboard
+Run `docker-compose exec influxdb influx -precision rfc3339 -database db0`
 
 ## Sources used for creating this (loose order)
 

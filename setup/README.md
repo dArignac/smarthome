@@ -45,13 +45,7 @@ Edit `fstab` (`sudo nano /etc/fstab`) and add the line (replace the `UUID` with 
 PARTUUID=14ec74ef-01  /mnt/pi1  ext4    defaults,auto,users,rw,nofail 0 0
 ```
 
-# Tools
-
-All tools being used are setup up via Docker and integrated into the `docker-compose.yaml` file.
-
-But before ramping it up, we need to do some preparations:
-
-## Storage folders
+# Storage folders
 
 Grep the id of your `pi` user (or whatever you named it) and of the `docker` group.
 
@@ -87,3 +81,20 @@ Load the `LaCrosseITPlusReader10` sketch from the `jeelink` folder in the IDE. Y
 The sketch was provided by the FHEM project, you can grab it [here](https://svn.fhem.de/trac/browser/trunk/fhem/contrib/arduino/36_LaCrosse-LaCrosseITPlusReader.zip). I adjusted that the blue LED is permanently off because it annoys me.
 
 I had issue with writing to the JeeLink, though my user belongs to the `dialout` group. The crude workaround was to run the Arduino IDE as root ¯\_(ツ)_/¯
+
+# Publish RPi health data
+
+As everything runs in Docker but we want to gather the health data of the Raspberry Pi that runs all the services, we need to publish the data via MQTT and then handle in nodered.
+
+There we use a small script that gathers all the information and publishes them to the MQTT topic via cronjob every minute. Therefore we need to install some libs:
+
+```
+pip3 install paho-mqtt
+sudo apt-get install sysstat
+```
+
+And setup the crontab:
+
+```
+crontab -l > /tmp/crontab; echo "* * * * * python3 /home/pi/smarthome/nodered-health.py" >> /tmp/crontab; crontab /tmp/crontab; rm /tmp/crontab
+```
