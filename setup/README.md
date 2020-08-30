@@ -1,6 +1,6 @@
 # Prepare Raspberry Image1
 
-Use the Github project https://github.com/RPi-Distro/pi-gen to generate a proper Raspberry Pi image. I'm in Germay so I set the keyboard etc. accordingly-
+Use the Github project https://github.com/RPi-Distro/pi-gen to generate a proper Raspberry Pi image. I'm in Germay so I set the keyboard etc. accordingly.
 
 Therefore create a `config` file like this:
 
