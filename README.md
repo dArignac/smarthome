@@ -18,6 +18,7 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 ### Software
 
 * [Nodered](https://nodered.org/)
+** I use a customized fork of [node-red-docker](https://github.com/dArignac/node-red-docker), where the prerequities for using the serial port are made, see [here](https://github.com/node-red/node-red-docker/compare/master...dArignac:master). It is also published to dockerhub: https://hub.docker.com/r/darignac/node-red
 * [Mosquitto](https://https://mosquitto.org/)
 * [influxdb](https://www.influxdata.com/products/influxdb-overview/)
 * [Grafana](https://grafana.com/)
