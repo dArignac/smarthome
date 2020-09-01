@@ -18,7 +18,10 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 ### Software
 
 * [Nodered](https://nodered.org/)
-** I use a customized fork of [node-red-docker](https://github.com/dArignac/node-red-docker), where the prerequities for using the serial port are made, see [here](https://github.com/node-red/node-red-docker/compare/master...dArignac:master). It is also published to dockerhub: https://hub.docker.com/r/darignac/node-red
+  * I use a customized fork of [node-red-docker](https://github.com/dArignac/node-red-docker), where the prerequities for using the serial port are made, see [here](https://github.com/node-red/node-red-docker/compare/master...dArignac:master)
+  * it is build for `armv8` (Raspberry Pi 4)
+  * it additionally has the `node-red-dashboard` and `node-red-contrib-influxdb` packages preinstalled
+  * it is also published to dockerhub: https://hub.docker.com/r/darignac/node-red
 * [Mosquitto](https://https://mosquitto.org/)
 * [influxdb](https://www.influxdata.com/products/influxdb-overview/)
 * [Grafana](https://grafana.com/)
@@ -28,7 +31,6 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 This is the list of open tasks, that I intend to solve. They covers the functionality itself as well as making the setup of the whole thing as easy as possible.
 
 * add a fancy image illustrating the setup to avoid writing text
-* nodered: install the required packages beforehand to avoid manual setup
 * script the pi setup mentioned in this readme
   * user and group ids via env (here in readme and compose file)
   * credentials in compose can be overwritten with `docker-compose.override.yaml`
@@ -67,15 +69,6 @@ If everything was alright, then you can access the services as follows (Note tha
 
 * Nodered: http://nodered:1880
 * Grafana: http://nodered:3000
-
-### Nodered packages
-
-Additionally install the following packages:
-
-```
-node-red-dashboard
-node-red-contrib-influxdb
-```
 
 ## Nodered Flows
 

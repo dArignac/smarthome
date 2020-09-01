@@ -11,19 +11,45 @@ KEYBOARD_LAYOUT='Deutsch'
 TIMEZONE_DEFAULT='Europe/Berlin'
 WPA_ESSID='Wifi-Name'
 WPA_PASSWORD='Wifi-Password'
+WPA_COUNTRY='DE'
 ENABLE_SSH=1
 STAGE_LIST='stage0 stage1 stage2'
 ```
 
 It installs a somewhat minimal version of Raspberry OS having Wifi and SSH enabled and configured.
 
+**NOTE:** for the Raspberry Pi 4 model with 5 GHz wifi, the wifi is disabled per default.
+
+There is a [PR](https://github.com/RPi-Distro/pi-gen/pull/416) open as of 2020-09-01 that fixes the issue. Until it is merged, you can grab the changes like so:
+
+```
+# if already cloned, ensure your on the current master
+git clone https://github.com/RPi-Distro/pi-gen.git
+cd pi-gen
+git fetch origin pull/416/head:wifi-fix
+git checkout wifi-fix
+```
+
 Then run the image creation with `./build-docker.sh`. It will take a while.
+If it fails (it certainly does on my system), just rerun with `CONTINUE=1 ./build-docker.sh`.
 
 If it was successfull, write the image (it is in the `deploy` folder) to the SD card. Use the Raspberry Pi Imager for that: https://www.raspberrypi.org/downloads/.
 
+# Raspberry Pi Setup
+
+Start the Pi and connect via SSH.
+
+Set a new password for the `pi` user: `passwd`.
+
+Install git to be able to clone the repo: `sudo apt install -y git`.
+
+Clone the repo `git clone https://github.com/dArignac/smarthome.git`.
+
 # Docker
 
-Run `setup-docker.sh`.
+Run `setup-docker.sh`. It should complete without any error and shows that docker is running.
+
+Log out and log in again to have the group change reflected on the current user.
 
 # Attach Hard Disk
 
