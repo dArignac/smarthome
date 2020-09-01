@@ -27,7 +27,6 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 
 This is the list of open tasks, that I intend to solve. They covers the functionality itself as well as making the setup of the whole thing as easy as possible.
 
-* export the grafana dashboards as reusable ones
 * add a fancy image illustrating the setup to avoid writing text
 * nodered: install the required packages beforehand to avoid manual setup
 * script the pi setup mentioned in this readme
