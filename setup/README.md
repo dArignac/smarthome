@@ -65,7 +65,7 @@ With `sudo blkid` check the path of the disk and mount it accordingly: `sudo mou
 
 Grab the partition UUID `PARTUUID` with `sudo blkid`.
 
-Edit `fstab` (`sudo nano /etc/fstab`) and add the line (replace the `UUID` with the partition id):
+Edit `fstab` (`sudo nano /etc/fstab`) and add the line (replace the `PARTUUID` with the partition id):
 
 ```
 PARTUUID=14ec74ef-01  /mnt/pi1  ext4    defaults,auto,users,rw,nofail 0 0
