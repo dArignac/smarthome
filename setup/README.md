@@ -19,7 +19,7 @@ It installs a somewhat minimal version of Raspberry OS having Wifi and SSH enabl
 
 Then run the image creation with `./build-docker.sh`. It will take a while.
 
-If it was successfull, write the image to the SD card. Use the Raspberry Pi Imager for that: https://www.raspberrypi.org/downloads/.
+If it was successfull, write the image (it is in the `deploy` folder) to the SD card. Use the Raspberry Pi Imager for that: https://www.raspberrypi.org/downloads/.
 
 # Docker
 
