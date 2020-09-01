@@ -73,10 +73,10 @@ PARTUUID=14ec74ef-01  /mnt/pi1  ext4    defaults,auto,users,rw,nofail 0 0
 
 # Storage folders
 
-Grep the id of your `pi` user (or whatever you named it) and of the `docker` group.
+Grep the id of your user and of the `docker` group.
 
 ```
-$ id pi
+$ id $USER
 uid=1000(pi) gid=1000(pi) groups=1000(pi),4(adm),20(dialout),24(cdrom),27(sudo),29(audio),44(video),46(plugdev),60(games),100(users),105(input),109(netdev),999(spi),998(i2c),997(gpio),995(docker)
 ```
 
@@ -89,7 +89,7 @@ sudo chown 1000:995 -R /mnt/pi1/mosquitto /mnt/pi1/nodered /mnt/pi1/influxdb /mn
 
 # JeeLink
 
-Attach in USB port and check fi recognized: `lsusb`.
+Attach in USB port and check if recognized: `lsusb`.
 It should be something like `Future Technology Devices International, Ltd FT232 Serial (UART) IC`.
 
 Check `dmesg` to find where it was mounted: `dmesg | grep tty`
@@ -97,7 +97,7 @@ Should print something like that: `[  303.711275] usb 1-1.4: FTDI USB Serial Dev
 
 Check that `/dev/ttyUSB0` exists.
 
-Check the id of `dialout` group and adjust `docker-compose.yaml` at the nodered service ( `group_add`).
+Check the id of `dialout` group and adjust `docker-compose.yaml` at the nodered service ( `group_add`) if the id **is not** `20`.
 
 ## Flash Jeelink to turn off blue led
 
@@ -117,11 +117,13 @@ There we use a small script that gathers all the information and publishes them 
 
 ```
 pip3 install paho-mqtt
-sudo apt-get install sysstat
+sudo apt install -y sysstat
 ```
 
 And setup the crontab:
 
 ```
-crontab -l > /tmp/crontab; echo "* * * * * python3 /home/pi/smarthome/nodered-health.py" >> /tmp/crontab; crontab /tmp/crontab; rm /tmp/crontab
+crontab -l > /tmp/crontab; echo "* * * * * python3 /home/$USER/smarthome/nodered-health.py" >> /tmp/crontab; crontab /tmp/crontab; rm /tmp/crontab
 ```
+
+Note that the crontab will fail until the applications are started.
