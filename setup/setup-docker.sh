@@ -9,7 +9,7 @@ sudo apt install -y && \
   libffi-dev libssl-dev python3-dev python3 python3-pip
 echo "============================================================"
 
-# ensure certificates are alright - maybe not necessary, we'll do in anyways
+# ensure certificates are alright - it is always wrong in the image
 echo "> Ensuring correct ca-certificates..."
 sudo apt install --reinstall ca-certificates && sudo c_rehash
 echo "============================================================"
