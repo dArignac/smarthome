@@ -30,6 +30,7 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 
 This is the list of open tasks, that I intend to solve. They covers the functionality itself as well as making the setup of the whole thing as easy as possible.
 
+* automate creating of Grafana influxdb data source
 * add a fancy image illustrating the setup to avoid writing text
 * script the pi setup mentioned in this readme
   * user and group ids via env (here in readme and compose file)
@@ -68,7 +69,16 @@ Afterwards ramp the services up by running `docker-compose up -d`.
 If everything was alright, then you can access the services as follows (Note that my pi is named `nodered`, yours probably has a different name):
 
 * Nodered: http://nodered:1880
+  * import the flows from the `nodered` folder - they work out of the box
 * Grafana: http://nodered:3000
+  * the default credentials are `admin:admin`
+  * first, create the datasource for the influxdb at http://nodered:3000/datasources/new
+    * URL: `http://influxdb:8086`
+    * Database: `db0`
+    * User: `user`
+    * Password: `password`
+    * click `Save & Test`
+  * import the dashboards from the `grafana` folder at http://nodered:3000/dashboard/import and choose the influxdb instance
 
 ## Nodered Flows
 
@@ -93,6 +103,13 @@ If everything was alright, then you can access the services as follows (Note tha
 ### Influxdb shell
 
 Run `docker-compose exec influxdb influx -precision rfc3339 -database db0`
+
+Then query around, e.g.:
+
+```
+SELECT * FROM "raspberries"
+SELECT * FROM "lacrosses"
+```
 
 ## Sources used for creating this (loose order)
 
