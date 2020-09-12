@@ -52,3 +52,9 @@ services:
     restart: always
     volumes:
       - /mnt/pi1/grafana:/var/lib/grafana
+
+  miflora:
+    image: darignac/miflora-debug
+    container_name: miflora
+    devices: 
+      - /dev/ttyAMA0:/dev/ttyAMA0
