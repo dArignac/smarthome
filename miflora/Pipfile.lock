@@ -1,0 +1,42 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "a19abe0bbf5fd64ed7ccfdf002045d5f7d46c2a490c0589cb4c2f95677431cc3"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.7"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.python.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "bluepy": {
+            "hashes": [
+                "sha256:2a71edafe103565fb990256ff3624c1653036a837dfc90e1e32b839f83971cec"
+            ],
+            "index": "pypi",
+            "version": "==1.3.0"
+        },
+        "btlewrap": {
+            "hashes": [
+                "sha256:374e83cc3be2ef77f3e389d965ed6a677261b6fda804ea613beb01ffc5c40813"
+            ],
+            "version": "==0.0.10"
+        },
+        "miflora": {
+            "hashes": [
+                "sha256:10395390ea454cd91d29a3597778053f81e5c2c44b71ed168bb218c85c418c70",
+                "sha256:17f9f9257c0410a7c85958f099e38efe73ee284febdadbfcb54c9a8b081b8919"
+            ],
+            "index": "pypi",
+            "version": "==0.7.1"
+        }
+    },
+    "develop": {}
+}
