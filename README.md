@@ -80,6 +80,9 @@ If everything was alright, then you can access the services as follows (Note tha
     * click `Save & Test`
   * import the dashboards from the `grafana` folder at http://nodered:3000/dashboard/import and choose the influxdb instance
 
+### PiCoolFAN4
+If you use PiCoolFAN4 for cooling the Raspberry PI, check out [PiCoolFAN4/README.md](PiCoolFAN4/README.md).
+
 ## Nodered Flows
 
 * [Raspberry Pi Health to Influxdb](./nodered/rpi-nodered.flow.json)
