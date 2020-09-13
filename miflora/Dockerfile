@@ -7,6 +7,9 @@ COPY requirements.txt /requirements.txt
 RUN sudo pip install --user -r requirements.txt
 RUN [ "cross-build-end" ]
 
+COPY demo.py /demo.py
+CMD ["python", "/demo.py"]
+
 # FIXME build image is ca. 740 MB while the run is 270 MB
 # FIXME either copy the right paths from the build image or install the required prerequisites in the run image
 # FIMXE you can analyse the image layers withh "dive"
