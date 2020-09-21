@@ -60,9 +60,7 @@ This is the list of open tasks, that I intend to solve. They covers the function
 
 ## Installation
 
-Clone the git repo to some place on your pi. You might need to install git first (`sudo apt install git`).
-
-Then follow [setup/README.md](setup/README.md).
+Follow [setup/README.md](setup/README.md).
 
 Afterwards ramp the services up by running `docker-compose up -d`.
 
