@@ -52,7 +52,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1598972434729,
+  "iteration": 1600705947229,
   "links": [],
   "panels": [
     {
@@ -381,7 +381,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 10
       },
       "id": 12,
       "panels": [],
@@ -415,7 +415,7 @@
         "h": 13,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 11
       },
       "hiddenSeries": false,
       "id": 2,
@@ -574,7 +574,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:177",
           "format": "celsius",
           "label": null,
           "logBase": 1,
@@ -583,7 +582,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:178",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -649,5 +647,5 @@
   "timezone": "",
   "title": "Temperature & Humidity",
   "uid": "5YpNTyWRz",
-  "version": 15
+  "version": 2
 }
