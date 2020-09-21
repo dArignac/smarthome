@@ -19,7 +19,7 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 
 * [Nodered](https://nodered.org/)
   * I use a customized fork of [node-red-docker](https://github.com/dArignac/node-red-docker), where the prerequities for using the serial port are made, see [here](https://github.com/node-red/node-red-docker/compare/master...dArignac:master)
-  * it is build for `armv8` (Raspberry Pi 4)
+  * it is build for `armv7` (Raspberry Pi)
   * it additionally has the `node-red-dashboard` and `node-red-contrib-influxdb` packages preinstalled
   * it is also published to dockerhub: https://hub.docker.com/r/darignac/node-red
 * [Mosquitto](https://https://mosquitto.org/)
