@@ -19,7 +19,7 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 
 * [Nodered](https://nodered.org/)
   * I use a customized fork of [node-red-docker](https://github.com/dArignac/node-red-docker), where the prerequities for using the serial port are made, see [here](https://github.com/node-red/node-red-docker/compare/master...dArignac:master)
-  * it is build for `armv8` (Raspberry Pi 4)
+  * it is build for `armv7` (Raspberry Pi)
   * it additionally has the `node-red-dashboard` and `node-red-contrib-influxdb` packages preinstalled
   * it is also published to dockerhub: https://hub.docker.com/r/darignac/node-red
 * [Mosquitto](https://https://mosquitto.org/)
@@ -60,9 +60,7 @@ This is the list of open tasks, that I intend to solve. They covers the function
 
 ## Installation
 
-Clone the git repo to some place on your pi. You might need to install git first (`sudo apt install git`).
-
-Then follow [setup/README.md](setup/README.md).
+Follow [setup/README.md](setup/README.md).
 
 Afterwards ramp the services up by running `docker-compose up -d`.
 
@@ -79,6 +77,9 @@ If everything was alright, then you can access the services as follows (Note tha
     * Password: `password`
     * click `Save & Test`
   * import the dashboards from the `grafana` folder at http://nodered:3000/dashboard/import and choose the influxdb instance
+
+### PiCoolFAN4
+If you use PiCoolFAN4 for cooling the Raspberry PI, check out [PiCoolFAN4/README.md](PiCoolFAN4/README.md).
 
 ## Nodered Flows
 
