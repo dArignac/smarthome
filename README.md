@@ -6,9 +6,7 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 
 ## Basic Setup
 
-![Overview diagram](overview.png "Overview diagram")
-
-The image is generated from PlantUML, see [overview.puml](overview.puml).
+![Overview diagram](overview.svg "Overview diagram")
 
 ### Hardware
 
