@@ -1,25 +1,35 @@
 @startuml
+skinparam shadowing false
+
 skinparam package {
   BackgroundColor white
   BorderColor black
   FontStyle italic bold
-  Shadowing false
 
+  BackgroundColor<<Environment>> PaleGreen
+  BackgroundColor<<RaspberryPi>> LightSalmon
+  BackgroundColor<<Hardware>> SeaShell
   BackgroundColor<<Docker>> LightSkyBlue
+}
+
+skinparam class {
+  BackgroundColor none
+  BorderColor Black
 }
 
 hide members
 hide circle
 hide stereotype
 
-package Environment {
+package Environment <<Environment>> {
   class "La Crosse Sensor(s)" as lacrosse
 }
 
-package RaspberryPi {
-  package "Attached Hardware" {
+package RaspberryPi <<RaspberryPi>> {
+  package "Attached Hardware" <<Hardware>> {
     class "JeeLink" as jeelink
   }
+
   package Docker <<Docker>> {
     class nodered
     class grafana
