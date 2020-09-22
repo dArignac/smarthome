@@ -1,0 +1,43 @@
+@startuml
+skinparam package {
+  BackgroundColor white
+  BorderColor black
+  FontStyle italic bold
+  Shadowing false
+
+  BackgroundColor<<Docker>> LightSkyBlue
+}
+
+hide members
+hide circle
+hide stereotype
+
+package Environment {
+  class "La Crosse Sensor(s)" as lacrosse
+}
+
+package RaspberryPi {
+  package "Attached Hardware" {
+    class "JeeLink" as jeelink
+  }
+  package Docker <<Docker>> {
+    class nodered
+    class grafana
+    class influxdb
+    class mosquitto
+
+    mosquitto -down-> nodered: push data
+    nodered -down-> influxdb: store timeseries data
+    grafana -up-> influxdb: get timeseries data
+  }
+
+  package "Crontab Scripts" {
+    class "nodered-health.py" as pihealth
+  }
+
+  pihealth -right-> mosquitto: send RPi health data
+}
+
+lacrosse -left-> jeelink: send data
+jeelink <-right- nodered: receive data
+@enduml

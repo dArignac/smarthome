@@ -6,6 +6,10 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 
 ## Basic Setup
 
+![Overview diagram](overview.png "Overview diagram")
+
+The image is generated from PlantUML, see [overview.puml](overview.puml).
+
 ### Hardware
 
 * [RaspberryPi 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)
@@ -28,10 +32,13 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 
 ## Open Tasks
 
+See https://github.com/dArignac/smarthome/issues.
+
+I haven't moved all of the tasks here, will do so later:
+
 This is the list of open tasks, that I intend to solve. They covers the functionality itself as well as making the setup of the whole thing as easy as possible.
 
 * automate creating of Grafana influxdb data source
-* add a fancy image illustrating the setup to avoid writing text
 * script the pi setup mentioned in this readme
   * user and group ids via env (here in readme and compose file)
   * credentials in compose can be overwritten with `docker-compose.override.yaml`
