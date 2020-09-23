@@ -52,8 +52,3 @@ services:
     restart: always
     volumes:
       - /mnt/pi1/grafana:/var/lib/grafana
-
-  miflora:
-    image: darignac/miflora
-    container_name: miflora
-    network_mode: host
