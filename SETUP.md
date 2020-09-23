@@ -45,9 +45,9 @@ Install git to be able to clone the repo: `sudo apt install -y git`.
 
 Clone the repo `git clone https://github.com/dArignac/smarthome.git`.
 
-# Docker
+# Docker and other prerequisites
 
-Run `setup-docker.sh`. It should complete without any error and shows that docker is running.
+Run `setup.sh`. It should complete without any error and shows that docker is running.
 
 Log out and log in again to have the group change reflected on the current user.
 
@@ -113,14 +113,9 @@ I had issue with writing to the JeeLink, though my user belongs to the `dialout`
 
 As everything runs in Docker but we want to gather the health data of the Raspberry Pi that runs all the services, we need to publish the data via MQTT and then handle in nodered.
 
-There we use a small script that gathers all the information and publishes them to the MQTT topic via cronjob every minute. Therefore we need to install some libs:
+There we use a small script that gathers all the information and publishes them to the MQTT topic via cronjob every minute.
 
-```
-pip3 install paho-mqtt
-sudo apt install -y sysstat
-```
-
-And setup the crontab:
+Therefore we need to setup the crontab:
 
 ```
 crontab -l > /tmp/crontab; echo "* * * * * python3 /home/$USER/smarthome/nodered-health.py" >> /tmp/crontab; crontab /tmp/crontab; rm /tmp/crontab

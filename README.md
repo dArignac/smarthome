@@ -65,7 +65,7 @@ This is the list of open tasks, that I intend to solve. They covers the function
 
 ## Installation
 
-Follow [setup/README.md](setup/README.md).
+Follow [SETUP.md](SETUP.md).
 
 Afterwards ramp the services up by running `docker-compose up -d`.
 
