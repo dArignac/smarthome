@@ -90,7 +90,7 @@ If you use PiCoolFAN4 for cooling the Raspberry PI, check out [PiCoolFAN4/README
 
 * [Raspberry Pi Health to Influxdb](./nodered/rpi-nodered.flow.json)
 * [La Crosse Temparatur/Humidity to Influxdb via Jeelink](./nodered/jeelink-lacrosse.flow.json)
-** this is tied to my sensors, you need to adjust the flows
+  * this is tied to my sensors, you need to adjust the flows
 
 ## Grafana Dashboards
 
