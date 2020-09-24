@@ -113,12 +113,4 @@ I had issue with writing to the JeeLink, though my user belongs to the `dialout`
 
 As everything runs in Docker but we want to gather the health data of the Raspberry Pi that runs all the services, we need to publish the data via MQTT and then handle in nodered.
 
-There we use a small script that gathers all the information and publishes them to the MQTT topic via cronjob every minute.
-
-Therefore we need to setup the crontab:
-
-```
-crontab -l > /tmp/crontab; echo "* * * * * python3 /home/$USER/smarthome/nodered-health.py" >> /tmp/crontab; crontab /tmp/crontab; rm /tmp/crontab
-```
-
-Note that the crontab will fail until the applications are started.
+There we use a small script that gathers all the information and publishes them to the MQTT topic via cronjob every minute. The script is automatically installed in the crontab.
