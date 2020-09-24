@@ -19,3 +19,12 @@ Run `sudo bluetoothctl` and then run `scan on` and wait, to scan and list the de
 
 ### Raspberry Pi 4
 Run `sudo hcitool -lescan`.
+
+## Sensor configuration
+Add a line per sensor to the `config.ini` file with the name of the sensor and its mac address. Ensure that the name is unique.
+
+```
+[sensors]
+Name1 = C4:7C:8D:00:00:01
+Name2 = C4:7C:8D:00:00:02
+```

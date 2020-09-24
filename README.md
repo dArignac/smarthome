@@ -104,6 +104,7 @@ If you use PiCoolFAN4 for cooling the Raspberry PI, check out [PiCoolFAN4/README
 ```
 # topic for all raspberry pis data
 /home/pis/<pi-name>/health
+/home/miflora/<sensor-name>
 ```
 
 ### Influxdb shell
