@@ -32,37 +32,6 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 
 See https://github.com/dArignac/smarthome/issues.
 
-I haven't moved all of the tasks here, will do so later:
-
-This is the list of open tasks, that I intend to solve. They covers the functionality itself as well as making the setup of the whole thing as easy as possible.
-
-* automate creating of Grafana influxdb data source
-* script the pi setup mentioned in this readme
-  * user and group ids via env (here in readme and compose file)
-  * credentials in compose can be overwritten with `docker-compose.override.yaml`
-* grafana
-  * multiple sensors selectable and the labels are correct
-* setup influxdb
-  * create retention policy https://docs.influxdata.com/influxdb/v1.8/query_language/manage-database/
-* create some smart stuff
-  * fritzbox stats
-    * power usage on plugs
-  * gather raspberry sensors and display them in grafana
-    * task count
-    * sdcard used|free space
-    * sdcard used|free space
-    * hdd free space in relation to size
-    * smart stats for external hdd and sdcard?
-    * influxdb stats?
-    * https://www.elektronik-kompendium.de/sites/raspberry-pi/1911251.htm
-    * https://www.elektronik-kompendium.de/sites/raspberry-pi/2006071.htm
-    * https://learn.adafruit.com/an-illustrated-shell-command-primer/checking-file-space-usage-du-and-df
-  * display weather forecast (based on regional weather station data?)
-  * gather plant sensor data
-    * must see how to assign to a special plant to have alerts based on requirements of the plant
-  * integrate the fritz smart plugs into nodered dashboard and get rid of the android app
-  * if in homeoffice (calendar?) switch on the plug for the office desk
-
 ## Installation
 
 Follow [SETUP.md](SETUP.md).
