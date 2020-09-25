@@ -21,8 +21,12 @@ hide members
 hide circle
 hide stereotype
 
-package Environment <<Environment>> {
-  class "La Crosse Sensor(s)" as lacrosse
+package "Environment" as E1 <<Environment>> {
+  class "La Crosse Sensor(s)" as sensorLacrosse
+}
+
+package "Environment" as E2 <<Environment>> {
+  class "MiFlora Sensor(s)" as sensorMiflora
 }
 
 package RaspberryPi <<RaspberryPi>> {
@@ -42,12 +46,17 @@ package RaspberryPi <<RaspberryPi>> {
   }
 
   package "Crontab Scripts" {
-    class "nodered-health.py" as pihealth
+    class "raspi-health.py" as scriptRaspiHealth
+    class "miflora/gather.py" as scriptMiflora
+
+    scriptMiflora-down[hidden]-> scriptRaspiHealth
   }
 
-  pihealth -right-> mosquitto: send RPi health data
+  scriptRaspiHealth -right-> mosquitto: send RPi health data
 }
 
-lacrosse -left-> jeelink: send data
+sensorLacrosse -left-> jeelink: send data
 jeelink <-right- nodered: receive data
+sensorMiflora <-up- scriptMiflora: poll data
+scriptMiflora -right-> mosquitto: send miflora data
 @enduml
