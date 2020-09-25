@@ -1,11 +1,10 @@
 # MiFlora
-
-**IMPORTANT: Currently in evaluation, will integrate once it works.**
+Integration of [Xiaomi Mi Plant sensors](https://de.gearbest.com/other-garden-supplies/pp_373947.html).
 
 ## Sensor identification
 To configure the sensor, we need its MAC address. There are multiple ways to gather it.
 
-The MAC address usually starts with `C4:7C:8D`.
+*The MAC address usually starts with `C4:7C:8D`.*
 
 ### Android
 You can use an Android app like [Bluetooth LE Scanner](https://play.google.com/store/apps/details?id=uk.co.alt236.btlescan).
@@ -22,6 +21,8 @@ Run `sudo hcitool -lescan`.
 
 ## Sensor configuration
 Add a line per sensor to the `config.ini` file with the name of the sensor and its mac address. Ensure that the name is unique.
+
+*Please note that the `config.ini` reflects my sensors.*
 
 ```
 [sensors]

@@ -53,7 +53,7 @@ If everything was alright, then you can access the services as follows (Note tha
   * import the dashboards from the `grafana` folder at http://nodered:3000/dashboard/import and choose the influxdb instance
 
 ### PiCoolFAN4
-If you use PiCoolFAN4 for cooling the Raspberry PI, check out [PiCoolFAN4/README.md](PiCoolFAN4/README.md).
+If you use PiCoolFAN4 for cooling the Raspberry Pi, check out [PiCoolFAN4/README.md](PiCoolFAN4/README.md).
 
 ## Nodered Flows
 
@@ -73,7 +73,7 @@ If you use PiCoolFAN4 for cooling the Raspberry PI, check out [PiCoolFAN4/README
 ```
 # topic for all raspberry pis data
 /home/pis/<pi-name>/health
-/home/miflora/<sensor-name>
+/home/miflora
 ```
 
 ### Influxdb shell
