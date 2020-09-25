@@ -10,7 +10,8 @@ echo "> Ensuring correct ca-certificates..."
 sudo apt install --reinstall ca-certificates && sudo c_rehash
 echo "============================================================"
 
-echo "> Installing prerequisites..."
+# setup docker
+echo "> Installing Docker prerequisites..."
 sudo apt update
 # necessary packages:
 # docker-compose: libffi-dev libssl-dev python3-dev python3 python3-pip
@@ -31,3 +32,9 @@ echo "============================================================"
 
 echo ""
 echo ">>> Please logout and login again to be able to use docker with the current user!"
+
+echo "> Installing scripts prerequisites..."
+scripts/setup.sh
+
+echo "> Installing miflora prerequisites..."
+miflora/setup.sh
