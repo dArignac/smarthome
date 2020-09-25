@@ -10,7 +10,7 @@ My goal is to integrate the sensors I have and do something useful. There is no 
 
 ### Hardware
 
-* [RaspberryPi 4](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/)
+* [RaspberryPi 2](https://www.raspberrypi.org/products/raspberry-pi-2-model-b/)
 * an external 2,5 inch hard disk, I use [Intenso Memory Board](https://www.intenso.de/en/products/hard-drives/memory%20board)
 * [Jeelink](https://www.digitalsmarties.net/products/jeelink)
 * [La Crosse based temperature sensor: Technoline TX29DTH-IT](https://www.amazon.de/Technoline-Au%C3%9Fensender-Temperatur-Luftfeuchtesender-Display/dp/B00392XX5U/)
