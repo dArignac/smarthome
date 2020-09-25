@@ -1,0 +1,125 @@
+[
+    {
+        "id": "8dcfb5f9.6206e8",
+        "type": "tab",
+        "label": "Miflora",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ccfd0ef2.c5afb",
+        "type": "mqtt in",
+        "z": "8dcfb5f9.6206e8",
+        "name": "",
+        "topic": "/home/miflora",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "5da78d9f.208014",
+        "x": 320,
+        "y": 220,
+        "wires": [
+            [
+                "588d554.5402dac",
+                "18caa32a.1b3f7d"
+            ]
+        ]
+    },
+    {
+        "id": "b0ebdbe1.171a98",
+        "type": "debug",
+        "z": "8dcfb5f9.6206e8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "588d554.5402dac",
+        "type": "function",
+        "z": "8dcfb5f9.6206e8",
+        "name": "Prepare for influxdb",
+        "func": "const fields = JSON.parse(msg.payload);\nconst tags = {\n    'sensor': fields.name\n};\ndelete fields.name;\nreturn {'payload': [fields, tags]};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 550,
+        "y": 220,
+        "wires": [
+            [
+                "b0ebdbe1.171a98",
+                "b0216ac1.1ad8e8"
+            ]
+        ]
+    },
+    {
+        "id": "18caa32a.1b3f7d",
+        "type": "debug",
+        "z": "8dcfb5f9.6206e8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b0216ac1.1ad8e8",
+        "type": "influxdb out",
+        "z": "8dcfb5f9.6206e8",
+        "influxdb": "c038e80e.695a38",
+        "name": "",
+        "measurement": "miflora",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 780,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "5da78d9f.208014",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "mosquittoe",
+        "broker": "mosquitto",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "c038e80e.695a38",
+        "type": "influxdb",
+        "z": "",
+        "hostname": "influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "db0",
+        "name": "InfluxDB",
+        "usetls": false,
+        "tls": ""
+    }
+]

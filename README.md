@@ -60,6 +60,7 @@ If you use PiCoolFAN4 for cooling the Raspberry Pi, check out [PiCoolFAN4/README
 * [Raspberry Pi Health to Influxdb](./nodered/rpi-nodered.flow.json)
 * [La Crosse Temparatur/Humidity to Influxdb via Jeelink](./nodered/jeelink-lacrosse.flow.json)
   * this is tied to my sensors, you need to adjust the flows
+* [Xiaomi Mi Plant sensor data to Influxdb](./nodred/miflora.flow.json)
 
 ## Grafana Dashboards
 
@@ -85,6 +86,7 @@ Then query around, e.g.:
 ```
 SELECT * FROM "raspberries"
 SELECT * FROM "lacrosses"
+SELECT * FROM "miflora"
 ```
 
 ## Sources used for creating this (loose order)

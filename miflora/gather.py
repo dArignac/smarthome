@@ -8,19 +8,30 @@ import paho.mqtt.client as mqtt
 from btlewrap import BluepyBackend
 
 from miflora import miflora_scanner
-from miflora.miflora_poller import (MI_BATTERY, MI_CONDUCTIVITY, MI_LIGHT,
-                                    MI_MOISTURE, MI_TEMPERATURE, MiFloraPoller)
+from miflora.miflora_poller import (
+    MI_BATTERY,
+    MI_CONDUCTIVITY,
+    MI_LIGHT,
+    MI_MOISTURE,
+    MI_TEMPERATURE,
+    MiFloraPoller,
+)
 
 
 def read_config():
     sensors = []
     config = configparser.ConfigParser()
-    config.read(os.path.join(os.path.dirname(
-        os.path.abspath(__file__)), "config.ini"))
+    config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.ini"))
     if len(config["sensors"]) == 0:
         return sensors
     for key in config["sensors"]:
-        sensors.append((key, config["sensors"][key],))
+        # split key by underscore and captilize, e.g. jasmin_plant will become "Jasmin Plant"
+        sensors.append(
+            (
+                " ".join(list(a.capitalize() for a in key.split("_"))),
+                config["sensors"][key],
+            )
+        )
     return sensors
 
 
@@ -31,7 +42,7 @@ def main():
         sys.exit()
 
     client = mqtt.Client()
-    client.connect('127.0.0.1', 1883)
+    client.connect("127.0.0.1", 1883)
 
     for _, value in enumerate(sensors):
         poller = MiFloraPoller(value[1], BluepyBackend)
@@ -43,7 +54,7 @@ def main():
             "conductivity": poller.parameter_value(MI_CONDUCTIVITY),
             "battery": poller.parameter_value(MI_BATTERY),
         }
-        client.publish('/home/miflora', payload=json.dumps(data), qos=1)
+        client.publish("/home/miflora", payload=json.dumps(data), qos=1)
 
 
 if __name__ == "__main__":
