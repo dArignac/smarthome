@@ -47,7 +47,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1601023807604,
+  "iteration": 1601216536111,
   "links": [],
   "panels": [
     {
@@ -352,6 +352,7 @@
       }
     }
   ],
+  "refresh": "1m",
   "schemaVersion": 26,
   "style": "dark",
   "tags": [],
@@ -402,5 +403,5 @@
   "timezone": "",
   "title": "Miflora",
   "uid": "0bcJeGZgk",
-  "version": 4
+  "version": 5
 }
