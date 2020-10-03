@@ -47,7 +47,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1601216536111,
+  "iteration": 1601712085084,
   "links": [],
   "panels": [
     {
@@ -73,13 +73,15 @@
       "hiddenSeries": false,
       "id": 2,
       "legend": {
+        "alignAsTable": true,
         "avg": false,
-        "current": false,
+        "current": true,
         "max": false,
         "min": false,
+        "rightSide": true,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -95,7 +97,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "Temperature",
+          "alias": "$tag_sensor Temperature",
           "groupBy": [
             {
               "params": [
@@ -110,9 +112,12 @@
               "type": "fill"
             }
           ],
+          "hide": false,
           "measurement": "miflora",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT * FROM (SELECT mean(\"temperature\") FROM \"miflora\" WHERE (\"sensor\" =~ /^$sensor$/) AND $timeFilter GROUP BY time($__interval) fill(linear)) GROUP BY sensor",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -138,7 +143,7 @@
           ]
         },
         {
-          "alias": "Moisture",
+          "alias": "$tag_sensor Moisture",
           "groupBy": [
             {
               "params": [
@@ -156,6 +161,8 @@
           "measurement": "miflora",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT * FROM (SELECT mean(\"moisture\") FROM \"miflora\" WHERE (\"sensor\" =~ /^$sensor$/) AND $timeFilter GROUP BY time($__interval) fill(linear)) GROUP BY sensor",
+          "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
           "select": [
@@ -181,7 +188,7 @@
           ]
         },
         {
-          "alias": "Light",
+          "alias": "$tag_sensor Light",
           "groupBy": [
             {
               "params": [
@@ -199,6 +206,8 @@
           "measurement": "miflora",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT * FROM (SELECT mean(\"light\") FROM \"miflora\" WHERE (\"sensor\" =~ /^$sensor$/) AND $timeFilter GROUP BY time($__interval) fill(linear)) GROUP BY sensor",
+          "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
           "select": [
@@ -224,7 +233,7 @@
           ]
         },
         {
-          "alias": "Conductivity",
+          "alias": "$tag_sensor Conductivity",
           "groupBy": [
             {
               "params": [
@@ -242,6 +251,8 @@
           "measurement": "miflora",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT * FROM (SELECT mean(\"conductivity\") FROM \"miflora\" WHERE (\"sensor\" =~ /^$sensor$/) AND $timeFilter GROUP BY time($__interval) fill(linear)) GROUP BY sensor",
+          "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
           "select": [
@@ -249,49 +260,6 @@
               {
                 "params": [
                   "conductivity"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "sensor",
-              "operator": "=~",
-              "value": "/^$sensor$/"
-            }
-          ]
-        },
-        {
-          "alias": "Battery",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "linear"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "miflora",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "E",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "battery"
                 ],
                 "type": "field"
               },
@@ -383,7 +351,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {
@@ -403,5 +371,5 @@
   "timezone": "",
   "title": "Miflora",
   "uid": "0bcJeGZgk",
-  "version": 5
+  "version": 8
 }

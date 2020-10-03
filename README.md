@@ -87,6 +87,8 @@ Then query around, e.g.:
 SELECT * FROM "raspberries"
 SELECT * FROM "lacrosses"
 SELECT * FROM "miflora"
+SELECT * FROM "miflora" WHERE "sensor" = 'Jasmin'
+DELETE FROM "miflora" WHERE "sensor" = 'Wayne'
 ```
 
 ## Sources used for creating this (loose order)
