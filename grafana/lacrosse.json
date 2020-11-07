@@ -52,7 +52,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1600705947229,
+  "iteration": 1604739879972,
   "links": [],
   "panels": [
     {
@@ -64,328 +64,9 @@
         "x": 0,
         "y": 0
       },
-      "id": 14,
-      "panels": [],
-      "repeat": "sensor",
-      "title": "",
-      "type": "row"
-    },
-    {
-      "datasource": "${DS_INFLUXDB}",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 1,
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "#EAB839",
-                "value": 25
-              },
-              {
-                "color": "red",
-                "value": 30
-              }
-            ]
-          },
-          "unit": "celsius"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 0,
-        "y": 1
-      },
-      "id": 4,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.1.3",
-      "targets": [
-        {
-          "alias": "",
-          "groupBy": [],
-          "measurement": "lacrosses",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "temperature"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "sensor",
-              "operator": "=~",
-              "value": "/^$sensor$/"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "$sensor Temperatur",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": "${DS_INFLUXDB}",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "decimals": 2,
-          "mappings": [],
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "yellow",
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "value": 39
-              },
-              {
-                "color": "green",
-                "value": 40
-              },
-              {
-                "color": "green",
-                "value": 60
-              },
-              {
-                "color": "yellow",
-                "value": 61
-              }
-            ]
-          },
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 3,
-        "y": 1
-      },
-      "id": 9,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.1.3",
-      "targets": [
-        {
-          "alias": "",
-          "groupBy": [],
-          "measurement": "lacrosses",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "humidity"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "sensor",
-              "operator": "=~",
-              "value": "/^$sensor$/"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "$sensor Luftfeuchte",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "datasource": "${DS_INFLUXDB}",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "mappings": [
-            {
-              "from": "",
-              "id": 0,
-              "text": "OK",
-              "to": "",
-              "type": 1,
-              "value": "0"
-            },
-            {
-              "from": "",
-              "id": 1,
-              "text": "Leer",
-              "to": "",
-              "type": 1,
-              "value": "1"
-            },
-            {
-              "from": "",
-              "id": 2,
-              "text": "Fehler",
-              "to": "",
-              "type": 1,
-              "value": "-1"
-            }
-          ],
-          "max": 1,
-          "min": 0,
-          "noValue": "-1",
-          "thresholds": {
-            "mode": "percentage",
-            "steps": [
-              {
-                "color": "dark-green",
-                "value": null
-              },
-              {
-                "color": "orange",
-                "value": -1
-              },
-              {
-                "color": "dark-green",
-                "value": 0
-              },
-              {
-                "color": "red",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 3,
-        "x": 6,
-        "y": 1
-      },
-      "id": 10,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.1.3",
-      "targets": [
-        {
-          "alias": "",
-          "groupBy": [],
-          "measurement": "lacrosses",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "battery_low"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "sensor",
-              "operator": "=~",
-              "value": "/^$sensor$/"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "$sensor Batterie",
-      "transparent": true,
-      "type": "stat"
-    },
-    {
-      "collapsed": false,
-      "datasource": "${DS_INFLUXDB}",
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 10
-      },
       "id": 12,
       "panels": [],
-      "title": "Gesamtwerte",
+      "title": "Trend",
       "type": "row"
     },
     {
@@ -412,21 +93,22 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 13,
+        "h": 15,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 1
       },
       "hiddenSeries": false,
       "id": 2,
       "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": true,
         "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -456,6 +138,10 @@
         {
           "alias": "Wohnzimmer Luftfeuchtigkeit",
           "yaxis": 2
+        },
+        {
+          "alias": "Balkon Luftfeuchtigkeit",
+          "yaxis": 2
         }
       ],
       "spaceLength": 10,
@@ -463,7 +149,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "$tag_sensor Temperatur",
+          "alias": "$tag_sensor Temperature",
           "groupBy": [
             {
               "params": [
@@ -508,7 +194,7 @@
           ]
         },
         {
-          "alias": "$tag_sensor Luftfeuchtigkeit",
+          "alias": "$tag_sensor Humidity",
           "groupBy": [
             {
               "params": [
@@ -558,7 +244,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Temperatur & Luftfeuchte",
+      "title": "Temperature & Humidity",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -594,6 +280,116 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [
+            {
+              "from": "",
+              "id": 0,
+              "text": "OK",
+              "to": "",
+              "type": 1,
+              "value": "0"
+            },
+            {
+              "from": "",
+              "id": 1,
+              "text": "EMPTY",
+              "to": "",
+              "type": 1,
+              "value": "1"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-green",
+                "value": 0
+              },
+              {
+                "color": "dark-red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 8,
+        "x": 0,
+        "y": 16
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "/^lacrosses\\.last$/",
+          "values": true
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.1.3",
+      "repeat": "sensor",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"battery_low\") FROM \"lacrosses\" WHERE (\"sensor\" =~ /^$sensor$/)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Battery Status $sensor",
+      "type": "stat"
     }
   ],
   "refresh": "1m",
@@ -617,7 +413,7 @@
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
-        "sort": 3,
+        "sort": 1,
         "tagValuesQuery": "",
         "tags": [],
         "tagsQuery": "",
@@ -647,5 +443,5 @@
   "timezone": "",
   "title": "Temperature & Humidity",
   "uid": "5YpNTyWRz",
-  "version": 2
+  "version": 6
 }
