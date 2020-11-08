@@ -52,7 +52,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1604739879972,
+  "iteration": 1604819378257,
   "links": [],
   "panels": [
     {
@@ -120,27 +120,15 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "alias": "AZ Luftfeuchte",
+          "alias": "Balkon Humidity",
           "yaxis": 2
         },
         {
-          "alias": "WZ Luftfeuchte",
+          "alias": "Arbeitszimmer Humidity",
           "yaxis": 2
         },
         {
-          "alias": "Arbeitszimmer Luftfeuchte",
-          "yaxis": 2
-        },
-        {
-          "alias": "Arbeitszimmer Luftfeuchtigkeit",
-          "yaxis": 2
-        },
-        {
-          "alias": "Wohnzimmer Luftfeuchtigkeit",
-          "yaxis": 2
-        },
-        {
-          "alias": "Balkon Luftfeuchtigkeit",
+          "alias": "Wohnzimmer Humidity",
           "yaxis": 2
         }
       ],
@@ -268,7 +256,7 @@
           "show": true
         },
         {
-          "format": "short",
+          "format": "percent",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -326,7 +314,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 8,
+        "w": 24,
         "x": 0,
         "y": 16
       },
@@ -443,5 +431,5 @@
   "timezone": "",
   "title": "Temperature & Humidity",
   "uid": "5YpNTyWRz",
-  "version": 6
+  "version": 9
 }
