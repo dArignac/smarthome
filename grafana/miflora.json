@@ -47,7 +47,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1601712085084,
+  "iteration": 1609060316307,
   "links": [],
   "panels": [
     {
@@ -276,6 +276,44 @@
               "value": "/^$sensor$/"
             }
           ]
+        },
+        {
+          "alias": "$tag_sensor Battery",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT * FROM (SELECT mean(\"battery\") FROM \"miflora\" WHERE (\"sensor\" =~ /^$sensor$/) AND $timeFilter GROUP BY time($__interval) fill(linear)) GROUP BY sensor",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
         }
       ],
       "thresholds": [],
@@ -351,7 +389,7 @@
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -371,5 +409,5 @@
   "timezone": "",
   "title": "Miflora",
   "uid": "0bcJeGZgk",
-  "version": 8
+  "version": 9
 }
