@@ -52,7 +52,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1604819378257,
+  "iteration": 1613292454830,
   "links": [],
   "panels": [
     {
@@ -129,6 +129,10 @@
         },
         {
           "alias": "Wohnzimmer Humidity",
+          "yaxis": 2
+        },
+        {
+          "alias": "Schlafzimmer Humidity",
           "yaxis": 2
         }
       ],
@@ -314,7 +318,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 24,
+        "w": 6,
         "x": 0,
         "y": 16
       },
@@ -431,5 +435,5 @@
   "timezone": "",
   "title": "Temperature & Humidity",
   "uid": "5YpNTyWRz",
-  "version": 9
+  "version": 10
 }
