@@ -38,8 +38,7 @@ COPY flows.json /data
 FROM base AS build
 
 # Install Build tools
-RUN apk add --no-cache --virtual buildtools build-base linux-headers udev python && \
-    apk add --no-cache --virtual make gcc g++ && \
+RUN apk add --no-cache --virtual buildtools build-base make gcc g++ linux-headers udev python && \
     npm install serialport@8.x --build-from-source --unsafe-perm && \
     npm install --unsafe-perm --no-update-notifier --no-fund --only=production && \
     /tmp/remove_native_gpio.sh && \

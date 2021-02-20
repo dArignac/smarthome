@@ -9,8 +9,6 @@ This folder contains the following
 ## Custom docker image
 Compare the files from `docker-custom` with the original ones from `docker/docker-custom` to see the differences.
 
-Copy them in the submodule and run `./docker-alpine.sh` there to build the image. Build on the RaspberryPi. Push manually to Dockerhub.
-
 Adjustments made:
 
 - architecure: arm32v7
@@ -18,3 +16,5 @@ Adjustments made:
 - serialports node package installed (as prerequisite for https://flows.nodered.org/node/node-red-node-serialport)
 - node-red-node-serialport installed
 - image is published as [dArignac/node-red:1.1.3](https://hub.docker.com/repository/docker/darignac/node-red)
+
+Build: `build-image.sh`
