@@ -24,10 +24,10 @@ Run `git clone --recurse-submodules https://github.com/dArignac/smarthome.git`.
 ### Software
 
 * [Nodered](https://nodered.org/)
-  * I use a customized fork of [node-red-docker](https://github.com/dArignac/node-red-docker), where the prerequities for using the serial port are made, see [here](https://github.com/node-red/node-red-docker/compare/master...dArignac:master)
-  * it is build for `armv7` (Raspberry Pi)
-  * it additionally has the `node-red-dashboard` and `node-red-contrib-influxdb` packages preinstalled
+  * I use a customized docker image that is build for `armv7` (Raspberry Pi) and has several prerequisites set up (like serial port support)
+  * it additionally has my required node packages installed
   * it is also published to dockerhub: https://hub.docker.com/r/darignac/node-red
+  * see [nodered/README.md](nodered/README.md) for further information
 * [Mosquitto](https://https://mosquitto.org/)
 * [influxdb](https://www.influxdata.com/products/influxdb-overview/)
 * [Grafana](https://grafana.com/)
