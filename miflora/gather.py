@@ -3,6 +3,7 @@ import configparser
 import json
 import os
 import sys
+import threading
 
 import paho.mqtt.client as mqtt
 from btlewrap import BluepyBackend
@@ -34,28 +35,44 @@ def read_config():
         )
     return sensors
 
+def get_sensor_data_and_publish(name, id):
+    print(f"Querying sensor '{name}' with id '{id}")
 
-def main():
-    sensors = read_config()
-    if len(sensors) == 0:
-        print("No sensors configured!")
-        sys.exit()
-
-    client = mqtt.Client()
-    client.connect("127.0.0.1", 1883)
-
-    for _, value in enumerate(sensors):
-        poller = MiFloraPoller(value[1], BluepyBackend)
+    data = None
+    try:
+        poller = MiFloraPoller(id, BluepyBackend)
         data = {
-            "name": value[0],
+            "name": name,
             "temperature": poller.parameter_value(MI_TEMPERATURE),
             "moisture": poller.parameter_value(MI_MOISTURE),
             "light": poller.parameter_value(MI_LIGHT),
             "conductivity": poller.parameter_value(MI_CONDUCTIVITY),
             "battery": poller.parameter_value(MI_BATTERY),
         }
-        client.publish("/home/miflora", payload=json.dumps(data), qos=1)
+    except:
+        print(f"Unable to query sensor {name} with id {id}")
+        return
+    
+    if data is not None:
+        print(f"Publishing sensor '{name}' with id '{id}")
+        try:
+            client.publish("/home/miflora", payload=json.dumps(data), qos=1)
+        except:
+            print(f"Unable to publish data for sensor {name} to mqtt")
 
+client = mqtt.Client()
+
+def main():
+    sensors = read_config()
+    if len(sensors) == 0:
+        print("No sensors configured, please create a config.ini file!")
+        sys.exit()
+
+    client.connect("127.0.0.1", 1883)
+
+    for _, value in enumerate(sensors):
+        # start thread, don't wait for exit
+        threading.Thread(target=get_sensor_data_and_publish, args=(value[0], value[1])).start()
 
 if __name__ == "__main__":
     main()
