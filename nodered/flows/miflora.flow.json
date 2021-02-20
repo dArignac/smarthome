@@ -20,7 +20,8 @@
       "wires": [
           [
               "588d554.5402dac",
-              "18caa32a.1b3f7d"
+              "18caa32a.1b3f7d",
+              "45adf5c7.ab6a0c"
           ]
       ]
   },
@@ -86,6 +87,40 @@
       "retentionPolicy": "",
       "x": 780,
       "y": 220,
+      "wires": []
+  },
+  {
+      "id": "45adf5c7.ab6a0c",
+      "type": "function",
+      "z": "8dcfb5f9.6206e8",
+      "name": "Battery check",
+      "func": "const fields = JSON.parse(msg.payload);\nconst battery = Number(fields.battery);\nconst noValue = isNaN(battery);\n// TODO fix battery threshold\n// TODO limit publication to discord to once every x time units\nif (noValue || battery < 99) {\n    msg.payload = \"Battery warning for \" + fields.name + \". Value is \";\n    if (noValue) {\n        msg.payload += \"not present\";\n    } else {\n        msg.payload += battery;\n    }\n    msg.payload += \".\";\n}\n\nreturn msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "x": 540,
+      "y": 280,
+      "wires": [
+          [
+              "799bc9cc.9ebc68"
+          ]
+      ]
+  },
+  {
+      "id": "799bc9cc.9ebc68",
+      "type": "debug",
+      "z": "8dcfb5f9.6206e8",
+      "name": "",
+      "active": false,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "false",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 770,
+      "y": 280,
       "wires": []
   },
   {
