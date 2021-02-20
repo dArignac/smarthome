@@ -89,6 +89,7 @@ SELECT * FROM "lacrosses"
 SELECT * FROM "miflora"
 SELECT * FROM "miflora" WHERE "sensor" = 'Jasmin'
 DELETE FROM "miflora" WHERE "sensor" = 'Wayne'
+DROP SERIES FROM "miflora" WHERE "sensor" = 'Jasmin'
 ```
 
 ## Sources used for creating this (loose order)
