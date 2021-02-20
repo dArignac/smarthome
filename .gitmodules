@@ -1,0 +1,3 @@
+[submodule "nodered/docker"]
+	path = nodered/docker
+	url = https://github.com/node-red/node-red-docker.git

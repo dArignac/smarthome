@@ -4,6 +4,10 @@ This is my playground for home automation / smart home, whatever you want to cal
 
 My goal is to integrate the sensors I have and do something useful. There is no final plan, it evolves as I wade. Please note that the flows are tied to my environment and you might need to adjust them if you reuse them.
 
+## Clone the repo
+
+Run `git clone --recurse-submodules https://github.com/dArignac/smarthome.git`.
+
 ## Basic Setup
 
 ![Overview diagram](overview.svg "Overview diagram")
