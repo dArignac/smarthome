@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import configparser
 import json
+import logging
+import multiprocessing
 import os
 import sys
 import threading
@@ -18,6 +20,9 @@ from miflora.miflora_poller import (
     MiFloraPoller,
 )
 
+logging.basicConfig(level=logging.DEBUG, format='%(message)s')
+logger = logging.getLogger(__name__)
+logger.addHandler(logging.FileHandler('debug.log', 'a'))
 
 def read_config():
     sensors = []
@@ -70,9 +75,20 @@ def main():
 
     client.connect("127.0.0.1", 1883)
 
+    jobs = []
+
     for _, value in enumerate(sensors):
-        # start thread, don't wait for exit
-        threading.Thread(target=get_sensor_data_and_publish, args=(value[0], value[1])).start()
+        p = multiprocessing.Process(
+            target=get_sensor_data_and_publish,
+            args=(value[0], value[1])
+        )
+        jobs.append(p)
+    
+    for j in jobs:
+        j.start()
+    
+    for j in jobs:
+        j.join()
 
 if __name__ == "__main__":
     main()
