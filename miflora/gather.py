@@ -20,9 +20,9 @@ from miflora.miflora_poller import (
     MiFloraPoller,
 )
 
-logging.basicConfig(level=logging.DEBUG, format='%(message)s')
-logger = logging.getLogger(__name__)
-logger.addHandler(logging.FileHandler('debug.log', 'a'))
+# enable for debugging
+# logging.basicConfig(level=logging.DEBUG, format='%(message)s')
+# logger = logging.getLogger(__name__)
 
 def read_config():
     sensors = []
