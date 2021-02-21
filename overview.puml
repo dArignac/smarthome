@@ -60,7 +60,7 @@ package "External" as Ex {
 }
 
 sensorLacrosse -left-> jeelink: send data
-nodered -left-> jeelink: receive data
+jeelink -left-> nodered : receive data
 scriptMiflora -right-> sensorMiflora: poll data
 scriptMiflora -down-> mosquitto: send miflora data
 nodered -down--> discord: send notifications
