@@ -49,14 +49,19 @@ package RaspberryPi <<RaspberryPi>> {
     class "raspi-health.py" as scriptRaspiHealth
     class "miflora/gather.py" as scriptMiflora
 
-    scriptMiflora-down[hidden]-> scriptRaspiHealth
+    scriptRaspiHealth -right[hidden]-> scriptMiflora
   }
 
-  scriptRaspiHealth -right-> mosquitto: send RPi health data
+  scriptRaspiHealth -down-> mosquitto: send RPi health data
+}
+
+package "External" as Ex {
+  class "DiscordBot" as discord
 }
 
 sensorLacrosse -left-> jeelink: send data
-jeelink <-right- nodered: receive data
-sensorMiflora <-up- scriptMiflora: poll data
-scriptMiflora -right-> mosquitto: send miflora data
+nodered -left-> jeelink: receive data
+scriptMiflora -right-> sensorMiflora: poll data
+scriptMiflora -down-> mosquitto: send miflora data
+nodered -down--> discord: send notifications
 @enduml

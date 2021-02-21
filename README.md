@@ -32,6 +32,11 @@ Run `git clone --recurse-submodules https://github.com/dArignac/smarthome.git`.
 * [influxdb](https://www.influxdata.com/products/influxdb-overview/)
 * [Grafana](https://grafana.com/)
 
+### External Tools
+
+* [Discord](https://discord.com) bot for receiving notifications
+  * utilizing [node-red-node-discord](https://flows.nodered.org/node/node-red-node-discord)
+
 ## Open Tasks
 
 See https://github.com/dArignac/smarthome/issues.

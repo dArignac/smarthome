@@ -85,7 +85,7 @@
       "measurement": "miflora",
       "precision": "",
       "retentionPolicy": "",
-      "x": 780,
+      "x": 800,
       "y": 220,
       "wires": []
   },
@@ -94,7 +94,7 @@
       "type": "function",
       "z": "8dcfb5f9.6206e8",
       "name": "Battery check",
-      "func": "const fields = JSON.parse(msg.payload);\nconst battery = Number(fields.battery);\nconst noValue = isNaN(battery);\n// TODO fix battery threshold\n// TODO limit publication to discord to once every x time units\nif (noValue || battery < 99) {\n    msg.payload = \"Battery warning for \" + fields.name + \". Value is \";\n    if (noValue) {\n        msg.payload += \"not present\";\n    } else {\n        msg.payload += battery;\n    }\n    msg.payload += \".\";\n}\n\nreturn msg;",
+      "func": "const fields = JSON.parse(msg.payload);\nconst battery = Number(fields.battery);\nconst noValue = isNaN(battery);\nif (noValue || battery < 50) {\n    msg.payload = \"Miflora battery warning for \" + fields.name + \". Current value is \";\n    if (noValue) {\n        msg.payload += \"not present\";\n    } else {\n        msg.payload += battery;\n    }\n    msg.payload += \".\";\n    return msg;\n}",
       "outputs": 1,
       "noerr": 0,
       "initialize": "",
@@ -103,25 +103,43 @@
       "y": 280,
       "wires": [
           [
-              "799bc9cc.9ebc68"
+              "e84696ef.559828"
           ]
       ]
   },
   {
-      "id": "799bc9cc.9ebc68",
-      "type": "debug",
+      "id": "3ec6832c.eed00c",
+      "type": "discord-send-messages",
       "z": "8dcfb5f9.6206e8",
-      "name": "",
-      "active": false,
-      "tosidebar": true,
-      "console": false,
-      "tostatus": false,
-      "complete": "false",
-      "statusVal": "",
-      "statusType": "auto",
-      "x": 770,
+      "name": "Publish to Discord",
+      "channel": "smarthome",
+      "token": "",
+      "x": 1030,
       "y": 280,
       "wires": []
+  },
+  {
+      "id": "e84696ef.559828",
+      "type": "delay",
+      "z": "8dcfb5f9.6206e8",
+      "name": "",
+      "pauseType": "rate",
+      "timeout": "5",
+      "timeoutUnits": "seconds",
+      "rate": "1",
+      "nbRateUnits": "1",
+      "rateUnits": "hour",
+      "randomFirst": "1",
+      "randomLast": "5",
+      "randomUnits": "seconds",
+      "drop": true,
+      "x": 770,
+      "y": 280,
+      "wires": [
+          [
+              "3ec6832c.eed00c"
+          ]
+      ]
   },
   {
       "id": "5da78d9f.208014",
