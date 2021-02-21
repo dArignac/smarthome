@@ -49,6 +49,10 @@
       "measurement": "raspberries",
       "precision": "",
       "retentionPolicy": "",
+      "database": "",
+      "retentionPolicyV18Flux": "",
+      "org": "",
+      "bucket": "",
       "x": 960,
       "y": 380,
       "wires": []
@@ -108,7 +112,6 @@
   {
       "id": "5da78d9f.208014",
       "type": "mqtt-broker",
-      "z": "",
       "name": "mosquittoe",
       "broker": "mosquitto",
       "port": "1883",
@@ -130,13 +133,13 @@
   {
       "id": "c038e80e.695a38",
       "type": "influxdb",
-      "z": "",
       "hostname": "influxdb",
       "port": "8086",
       "protocol": "http",
       "database": "db0",
       "name": "InfluxDB",
       "usetls": false,
-      "tls": ""
+      "tls": "",
+      "influxdbVersion": "1.x"
   }
 ]

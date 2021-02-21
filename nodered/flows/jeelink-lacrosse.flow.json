@@ -283,7 +283,6 @@
   {
       "id": "6a89d4c3.09c6ec",
       "type": "serial-port",
-      "z": "",
       "serialport": "/dev/ttyUSB0",
       "serialbaud": "57600",
       "databits": "8",
@@ -303,13 +302,13 @@
   {
       "id": "1c9825b9.74d5ea",
       "type": "influxdb",
-      "z": "",
       "hostname": "influxdb",
       "port": "8086",
       "protocol": "http",
       "database": "db0",
       "name": "InfluxDB",
       "usetls": false,
-      "tls": ""
+      "tls": "",
+      "influxdbVersion": "1.x"
   }
 ]
