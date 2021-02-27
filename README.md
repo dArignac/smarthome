@@ -31,6 +31,7 @@ Run `git clone --recurse-submodules https://github.com/dArignac/smarthome.git`.
 * [Mosquitto](https://https://mosquitto.org/)
 * [influxdb](https://www.influxdata.com/products/influxdb-overview/)
 * [Grafana](https://grafana.com/)
+  * [Docker documentation](https://grafana.com/docs/grafana/latest/installation/docker/)
 
 ### External Tools
 
