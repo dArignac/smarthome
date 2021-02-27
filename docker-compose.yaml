@@ -52,3 +52,17 @@ services:
     restart: always
     volumes:
       - /mnt/pi1/grafana:/var/lib/grafana
+    environment:
+      - GF_AUTH_PROXY_AUTO_SIGN_UP=false
+      - GF_AUTH_PROXY_ENABLED=true
+  
+  caddy:
+    image: caddy:2.3.0-alpine
+    ports:
+      - 8080:8080
+    container_name: caddy
+    depends_on:
+      - grafana
+    restart: always
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile

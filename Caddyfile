@@ -1,0 +1,12 @@
+:8080 {
+
+  reverse_proxy grafana:3000 {
+    header_up X-WEBAUTH-USER viewer
+  }
+
+  log {
+    output stdout
+    format console
+    level ERROR
+  }
+}

@@ -12,6 +12,12 @@
   "__requires": [
     {
       "type": "panel",
+      "id": "alertlist",
+      "name": "Alert list",
+      "version": ""
+    },
+    {
+      "type": "panel",
       "id": "dashlist",
       "name": "Dashboard list",
       "version": ""
@@ -57,29 +63,136 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 15,
+        "h": 8,
         "w": 12,
         "x": 0,
         "y": 0
       },
-      "id": 3,
-      "links": [],
+      "id": 5,
       "options": {
         "folderId": 0,
-        "maxItems": 30,
+        "maxItems": 10,
         "query": "",
-        "showHeadings": true,
-        "showRecentlyViewed": true,
-        "showSearch": false,
-        "showStarred": true,
-        "tags": []
+        "showHeadings": false,
+        "showRecentlyViewed": false,
+        "showSearch": true,
+        "showStarred": false,
+        "tags": [
+          "smarthome"
+        ]
       },
       "pluginVersion": "7.4.3",
-      "tags": [],
-      "title": "Dashboards",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Available Dashboards",
       "type": "dashlist"
+    },
+    {
+      "dashboardFilter": "",
+      "dashboardTags": [],
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "folderId": null,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 7,
+      "limit": 10,
+      "nameFilter": "",
+      "onlyAlertsOnDashboard": false,
+      "pluginVersion": "7.4.3",
+      "show": "current",
+      "sortOrder": 1,
+      "stateFilter": [],
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Alert status",
+      "type": "alertlist"
     }
   ],
+  "refresh": "1m",
   "schemaVersion": 27,
   "style": "dark",
   "tags": [],
@@ -87,7 +200,7 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -120,5 +233,5 @@
   "timezone": "browser",
   "title": "Home",
   "uid": "KU5OAfWRz",
-  "version": 2
+  "version": 7
 }

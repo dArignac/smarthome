@@ -32,6 +32,9 @@ Run `git clone --recurse-submodules https://github.com/dArignac/smarthome.git`.
 * [influxdb](https://www.influxdata.com/products/influxdb-overview/)
 * [Grafana](https://grafana.com/)
   * [Docker documentation](https://grafana.com/docs/grafana/latest/installation/docker/)
+  * [Configuration documentation](https://grafana.com/docs/grafana/latest/administration/configuration/)
+* [Caddy](https://caddyserver.com/) as proxy for Grafana
+  * [Docker image](https://hub.docker.com/_/caddy)
 
 ### External Tools
 
@@ -52,7 +55,7 @@ If everything was alright, then you can access the services as follows (Note tha
 
 * Nodered: http://nodered:1880
   * import the flows from the `nodered` folder - they work out of the box
-* Grafana: http://nodered:3000
+* Grafana (as Admin): http://nodered:3000
   * the default credentials are `admin:admin`
   * first, create the datasource for the influxdb at http://nodered:3000/datasources/new
     * URL: `http://influxdb:8086`
@@ -61,6 +64,8 @@ If everything was alright, then you can access the services as follows (Note tha
     * Password: `password`
     * click `Save & Test`
   * import the dashboards from the `grafana` folder at http://nodered:3000/dashboard/import and choose the influxdb instance
+  * create a new user named `viewer` and assign him the `Viewer` role
+* Grafana (as viewer): http://nodered:8080
 
 ### PiCoolFAN4
 If you use PiCoolFAN4 for cooling the Raspberry Pi, check out [PiCoolFAN4/README.md](PiCoolFAN4/README.md).
@@ -116,3 +121,4 @@ DROP SERIES FROM "miflora" WHERE "sensor" = 'Jasmin'
 * https://flows.nodered.org/flow/05a76b25495eb8fd8d3082343f56c645
 * https://serialport.io/docs/guide-installation#alpine-linux
 * https://github.com/sysstat/sysstat
+* https://community.grafana.com/t/how-to-make-one-live-dashboard-public/12819
