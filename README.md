@@ -79,8 +79,10 @@ If you use PiCoolFAN4 for cooling the Raspberry Pi, check out [PiCoolFAN4/README
 
 ## Grafana Dashboards
 
+* [Home](./grafana/home.json)
 * [Raspberry Health](./grafana/rpi.nodered.json)
 * [Temperature & Humidity](./grafana/lacrosse.json)
+* [Miflora](./grafana/miflora.json)
 
 ## Additional information
 
