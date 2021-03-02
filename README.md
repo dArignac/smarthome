@@ -76,6 +76,8 @@ If you use PiCoolFAN4 for cooling the Raspberry Pi, check out [PiCoolFAN4/README
 * [La Crosse Temparatur/Humidity to Influxdb via Jeelink](./nodered/jeelink-lacrosse.flow.json)
   * this is tied to my sensors, you need to adjust the flows
 * [Xiaomi Mi Plant sensor data to Influxdb](./nodred/miflora.flow.json)
+* [Fritz DECT plug values to Influxdb](./nodered/fritz-dect-200-to-influxdb.json)
+* [Fritz DECT inject AINs for above flow](./nodered/fritz-dect-200-ain-trigger.json)
 
 ## Grafana Dashboards
 
@@ -83,6 +85,7 @@ If you use PiCoolFAN4 for cooling the Raspberry Pi, check out [PiCoolFAN4/README
 * [Raspberry Health](./grafana/rpi.nodered.json)
 * [Temperature & Humidity](./grafana/lacrosse.json)
 * [Miflora](./grafana/miflora.json)
+* [Fritz DECT](./grafana/fritz.dect.json)
 
 ## Additional information
 

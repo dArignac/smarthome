@@ -29,6 +29,12 @@ package "Environment" as E2 <<Environment>> {
   class "MiFlora Sensor(s)" as sensorMiflora
 }
 
+package "Environment" as E3 <<Environment>> {
+  class "FritzBox" as fritzBox
+  class "Fritz DECT 200 smart plug" as fritzPlug
+  fritzPlug <-up-> fritzBox: exchange data
+}
+
 package RaspberryPi <<RaspberryPi>> {
   package "Attached Hardware" <<Hardware>> {
     class "JeeLink" as jeelink
@@ -64,4 +70,5 @@ jeelink -left-> nodered : receive data
 scriptMiflora -right-> sensorMiflora: poll data
 scriptMiflora -down-> mosquitto: send miflora data
 nodered -down--> discord: send notifications
+nodered -left-> fritzBox: get plug data via API
 @enduml
