@@ -10,7 +10,7 @@ Run `git clone --recurse-submodules https://github.com/dArignac/smarthome.git`.
 
 ## Basic Setup
 
-![Overview diagram](overview.svg "Overview diagram")
+![Overview diagram](https://github.com/dArignac/smarthome/raw/master/overview.svg "Overview diagram")
 
 ### Hardware
 
