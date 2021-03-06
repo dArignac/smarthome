@@ -97,13 +97,13 @@
       "type": "function",
       "z": "aa592603.a4b8d8",
       "name": "Filter unknown sensors & name sensors",
-      "func": "const values = msg.payload.split(' ');\nconst id = values[2];\n// 8 & 44 are seen, too. Not clear if they are mine ;-)\nif (['16', '56', '61', '62'].includes(id)) {\n    let name = 'unknown';\n    switch (id) {\n        case '16':\n            name = 'Schlafzimmer';\n            break;\n        case '56':\n            name = 'Arbeitszimmer';\n            break;\n        case '61':\n            name = 'Balkon';\n            break;\n        case '62':\n            name = 'Wohnzimmer';\n            break;\n    }\n    const data = {\n        'id': id,\n        'name': name,\n        'values': values\n    }\n    return {'payload': data};\n}\nreturn null;",
+      "func": "const values = msg.payload.split(' ');\nconst id = values[2];\nconst own = ['16', '38', '56', '61', '62'];\nif (own.includes(id)) {\n    let name = 'unknown';\n    switch (id) {\n        case '16':\n            name = 'Schlafzimmer';\n            break;\n        case '38':\n            name = 'Wurmkiste';\n            break;\n        case '56':\n            name = 'Arbeitszimmer';\n            break;\n        case '61':\n            name = 'Balkon';\n            break;\n        case '62':\n            name = 'Wohnzimmer';\n            break;\n    }\n    const data = {\n        'id': id,\n        'name': name,\n        'values': values\n    }\n    return {'payload': data};\n}\nreturn null;",
       "outputs": 1,
       "noerr": 0,
       "initialize": "",
       "finalize": "",
-      "x": 580,
-      "y": 100,
+      "x": 200,
+      "y": 180,
       "wires": [
           [
               "927b95b2.986448"
@@ -137,13 +137,18 @@
               "t": "eq",
               "v": "16",
               "vt": "str"
+          },
+          {
+              "t": "eq",
+              "v": "38",
+              "vt": "str"
           }
       ],
       "checkall": "true",
       "repair": false,
-      "outputs": 4,
-      "x": 210,
-      "y": 220,
+      "outputs": 5,
+      "x": 190,
+      "y": 280,
       "wires": [
           [
               "3e91c506.05135a"
@@ -156,6 +161,9 @@
           ],
           [
               "cfa36989.460ba8"
+          ],
+          [
+              "5a456b25.88ab64"
           ]
       ]
   },
@@ -205,11 +213,12 @@
       "type": "debug",
       "z": "aa592603.a4b8d8",
       "name": "",
-      "active": false,
+      "active": true,
       "tosidebar": true,
       "console": false,
       "tostatus": false,
-      "complete": "false",
+      "complete": "payload",
+      "targetType": "msg",
       "statusVal": "",
       "statusType": "auto",
       "x": 850,
@@ -244,7 +253,7 @@
       "type": "function",
       "z": "aa592603.a4b8d8",
       "name": "Output Unknown Sensor Ids",
-      "func": "const values = msg.payload.split(' ');\nconst id = values[2];\n// only log if the sensors are none of the known ones\nif (!['16', '56', '61', '62'].includes(id) && !['8', '44'].includes(id)) {\n    return {'payload': id};\n}",
+      "func": "const values = msg.payload.split(' ');\nconst id = values[2];\n// my sensors\nconst own = ['16', '38', '56', '61', '62'];\n// known other sensors around\nconst foreign = ['8', '44', '60'];\n// only log if the sensors are none of the known ones\nif (!own.includes(id) && !foreign.includes(id)) {\n    return {'payload': 'Unknown: ' + id};\n}",
       "outputs": 1,
       "noerr": 0,
       "initialize": "",
@@ -274,6 +283,29 @@
       "drop": true,
       "x": 540,
       "y": 320,
+      "wires": [
+          [
+              "ba508541.967238"
+          ]
+      ]
+  },
+  {
+      "id": "5a456b25.88ab64",
+      "type": "delay",
+      "z": "aa592603.a4b8d8",
+      "name": "",
+      "pauseType": "rate",
+      "timeout": "5",
+      "timeoutUnits": "seconds",
+      "rate": "1",
+      "nbRateUnits": "30",
+      "rateUnits": "second",
+      "randomFirst": "1",
+      "randomLast": "5",
+      "randomUnits": "seconds",
+      "drop": true,
+      "x": 540,
+      "y": 360,
       "wires": [
           [
               "ba508541.967238"
