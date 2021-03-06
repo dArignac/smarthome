@@ -1,129 +1,129 @@
 [
-  {
-      "id": "ab084989.11ee28",
-      "type": "tab",
-      "label": "Fritz DECT 200 AIN Trigger",
-      "disabled": false,
-      "info": ""
-  },
-  {
-      "id": "77ed0f15.dd743",
-      "type": "inject",
-      "z": "ab084989.11ee28",
-      "name": "Inject AINs in intervall",
-      "props": [
-          {
-              "p": "payload"
-          }
-      ],
-      "repeat": "60",
-      "crontab": "",
-      "once": true,
-      "onceDelay": "60",
-      "topic": "",
-      "payload": "{\"ains\":[\"116300168356\",\"116300035048\",\"087610469337\",\"087610469336\"]}",
-      "payloadType": "json",
-      "x": 260,
-      "y": 120,
-      "wires": [
-          [
-              "d27231f2.5a36e"
-          ]
-      ]
-  },
-  {
-      "id": "3b80fb64.1ea804",
-      "type": "split",
-      "z": "ab084989.11ee28",
-      "name": "",
-      "splt": "\\n",
-      "spltType": "str",
-      "arraySplt": 1,
-      "arraySpltType": "len",
-      "stream": false,
-      "addname": "",
-      "x": 650,
-      "y": 120,
-      "wires": [
-          [
-              "c84e2b9b.18d968"
-          ]
-      ]
-  },
-  {
-      "id": "d27231f2.5a36e",
-      "type": "change",
-      "z": "ab084989.11ee28",
-      "name": "",
-      "rules": [
-          {
-              "t": "set",
-              "p": "payload",
-              "pt": "msg",
-              "to": "payload.ains",
-              "tot": "msg"
-          }
-      ],
-      "action": "",
-      "property": "",
-      "from": "",
-      "to": "",
-      "reg": false,
-      "x": 480,
-      "y": 120,
-      "wires": [
-          [
-              "3b80fb64.1ea804"
-          ]
-      ]
-  },
-  {
-      "id": "a4eaf74b.049098",
-      "type": "link out",
-      "z": "ab084989.11ee28",
-      "name": "",
-      "links": [
-          "bf4dba5e.a0ec58"
-      ],
-      "x": 995,
-      "y": 120,
-      "wires": []
-  },
-  {
-      "id": "c84e2b9b.18d968",
-      "type": "change",
-      "z": "ab084989.11ee28",
-      "name": "",
-      "rules": [
-          {
-              "t": "set",
-              "p": "ain",
-              "pt": "msg",
-              "to": "payload",
-              "tot": "msg"
-          },
-          {
-              "t": "delete",
-              "p": "payload",
-              "pt": "msg"
-          },
-          {
-              "t": "delete",
-              "p": "parts",
-              "pt": "msg"
-          }
-      ],
-      "action": "",
-      "property": "",
-      "from": "",
-      "to": "",
-      "reg": false,
-      "x": 840,
-      "y": 120,
-      "wires": [
-          [
-              "a4eaf74b.049098"
-          ]
-      ]
-  }
+    {
+        "id": "ab084989.11ee28",
+        "type": "tab",
+        "label": "Fritz DECT 200 AIN Trigger",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "77ed0f15.dd743",
+        "type": "inject",
+        "z": "ab084989.11ee28",
+        "name": "Inject AINs in intervall",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "60",
+        "topic": "",
+        "payload": "{\"ains\":[\"116300168356\",\"116300035048\",\"087610469337\",\"087610469336\"]}",
+        "payloadType": "json",
+        "x": 260,
+        "y": 120,
+        "wires": [
+            [
+                "d27231f2.5a36e"
+            ]
+        ]
+    },
+    {
+        "id": "3b80fb64.1ea804",
+        "type": "split",
+        "z": "ab084989.11ee28",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 650,
+        "y": 120,
+        "wires": [
+            [
+                "c84e2b9b.18d968"
+            ]
+        ]
+    },
+    {
+        "id": "d27231f2.5a36e",
+        "type": "change",
+        "z": "ab084989.11ee28",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.ains",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 120,
+        "wires": [
+            [
+                "3b80fb64.1ea804"
+            ]
+        ]
+    },
+    {
+        "id": "a4eaf74b.049098",
+        "type": "link out",
+        "z": "ab084989.11ee28",
+        "name": "",
+        "links": [
+            "bf4dba5e.a0ec58"
+        ],
+        "x": 995,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "c84e2b9b.18d968",
+        "type": "change",
+        "z": "ab084989.11ee28",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ain",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "parts",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 120,
+        "wires": [
+            [
+                "a4eaf74b.049098"
+            ]
+        ]
+    }
 ]
