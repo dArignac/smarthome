@@ -8,10 +8,13 @@
 - show Corona incidence
 
 ## Raspad adjustments
-Should open Chromium in Kiosk mode on startup and hide the mouse cursor.
+Should open Chromium in Kiosk mode on startup and hide the mouse cursor. Screen must be correctly aligned when standing in landscape mode.
 
 - install `unclutter` for hiding the mouse cursor `sudo apt install unclutter`
 - copy the `autostart` file to `~/.config/lxsession/LXDE-pi/autostart`
+- edit `sudo nano /boot/config.txt` and add ([source](https://howchoo.com/pi/raspberry-pi-display-rotation))
+  - `display_rotate=2`
+  - `lcd_rotate=2`
 
 ## Development TODO
 - check if there is a dashboard framework or so that is up to date and does what we need or code yourself
