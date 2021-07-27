@@ -10,3 +10,15 @@
     level ERROR
   }
 }
+
+:8081 {
+  file_server browse {
+    root /usr/share/caddy
+  }
+
+  log {
+    output stdout
+    format console
+    level INFO
+  }
+}

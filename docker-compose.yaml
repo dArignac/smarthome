@@ -60,9 +60,11 @@ services:
     image: caddy:2.3.0-alpine
     ports:
       - 8080:8080
+      - 8081:8081
     container_name: caddy
     depends_on:
       - grafana
     restart: always
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./dashboard:/usr/share/caddy
