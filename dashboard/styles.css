@@ -1,0 +1,29 @@
+/* Raspad 2 has 1280x800px */
+body {
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.line-1,
+.line-2,
+.line-3 {
+  display: grid;
+  grid-template-columns: 960px 320px;
+  grid-gap: 0;
+}
+
+.line-1 > div,
+.line-2 > div,
+.line-3 > div {
+  /* border: 1px solid #000; */
+}
+
+.line-1 {
+  height: 400px;
+}
+
+.line-2,
+.line-3 {
+  height: 200px;
+}
