@@ -1,0 +1,248 @@
+[
+  {
+      "id": "f8043785.b55a88",
+      "type": "tab",
+      "label": "Control Air Humidifier",
+      "disabled": false,
+      "info": "# Air Humidifier\n\n - the humidifier is attached to a Fritz! plug\n - the ideal air humidity is between 40 and 60%\n\n# Control rules\n\nThe air humidity goal is configured on the first functions as well as the AIN of the appropriate plug.\n\nThe following rules are modeled:\n\n - it is checked every 15 minutes for the rules\n - if the air humidity value is below the goal, the plug is activated\n - if the air humidity value is equal or above the goal, the plug is deactivated\n - per weekday a humidify time is configurable where the plug is activated\n - if humidify time applies and the humidity value is below the goal, then the plug is actived, else deactivated\n - TODO exception for humidify time applies if a certain plug is active - means the humidify check is skipped in this case (scenario: I am working outside the humidify times with the plug of my desk in state active)\n - TODO be able to define a vacation mode, where humidifying is not active"
+  },
+  {
+      "id": "f69db8e8.c5e2d8",
+      "type": "debug",
+      "z": "f8043785.b55a88",
+      "name": "",
+      "active": true,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "true",
+      "targetType": "full",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 970,
+      "y": 420,
+      "wires": []
+  },
+  {
+      "id": "9520540e.c55dc8",
+      "type": "fritz-outlet",
+      "z": "f8043785.b55a88",
+      "connection": "e2778272.e650e",
+      "name": "Get State",
+      "action": "getSwitchState",
+      "x": 580,
+      "y": 220,
+      "wires": [
+          [
+              "2a04828d.c9258e"
+          ]
+      ]
+  },
+  {
+      "id": "bc61421b.e78f6",
+      "type": "function",
+      "z": "f8043785.b55a88",
+      "name": "Set targets and adjust msg",
+      "func": "return {\n    \"ain\": flow.get(\"ain\"),\n    \"desiredPlugState\": msg.payload[0].last < flow.get(\"targetHumidity\")\n};",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "// Code added here will be run once\n// whenever the node is deployed.\n\n// AIN of the air humidifier plug\nflow.set(\"ain\", \"087610469336\");\n\n// humidity goal\nflow.set(\"targetHumidity\", 55);",
+      "finalize": "",
+      "x": 640,
+      "y": 160,
+      "wires": [
+          [
+              "9520540e.c55dc8"
+          ]
+      ]
+  },
+  {
+      "id": "2a04828d.c9258e",
+      "type": "switch",
+      "z": "f8043785.b55a88",
+      "name": "Need to switch?",
+      "property": "payload",
+      "propertyType": "msg",
+      "rules": [
+          {
+              "t": "neq",
+              "v": "desiredPlugState",
+              "vt": "msg"
+          }
+      ],
+      "checkall": "true",
+      "repair": false,
+      "outputs": 1,
+      "x": 600,
+      "y": 300,
+      "wires": [
+          [
+              "82f404d.3c831f8"
+          ]
+      ]
+  },
+  {
+      "id": "fa88e338.55818",
+      "type": "fritz-outlet",
+      "z": "f8043785.b55a88",
+      "connection": "e2778272.e650e",
+      "name": "Set state",
+      "action": "setSwitchState",
+      "x": 1000,
+      "y": 200,
+      "wires": [
+          []
+      ]
+  },
+  {
+      "id": "82f404d.3c831f8",
+      "type": "change",
+      "z": "f8043785.b55a88",
+      "name": "Set outlet target state payload",
+      "rules": [
+          {
+              "t": "set",
+              "p": "payload",
+              "pt": "msg",
+              "to": "desiredPlugState",
+              "tot": "msg"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": 650,
+      "y": 360,
+      "wires": [
+          [
+              "fa88e338.55818",
+              "f69db8e8.c5e2d8"
+          ]
+      ]
+  },
+  {
+      "id": "a980133.73f70f",
+      "type": "influxdb in",
+      "z": "f8043785.b55a88",
+      "influxdb": "c038e80e.695a38",
+      "name": "",
+      "query": "select last(humidity) from lacrosses where time > now() - 15m and sensor = 'Arbeitszimmer'",
+      "rawOutput": false,
+      "precision": "",
+      "retentionPolicy": "",
+      "org": "organisation",
+      "x": 600,
+      "y": 100,
+      "wires": [
+          [
+              "5a42101b.dbf9",
+              "bc61421b.e78f6"
+          ]
+      ]
+  },
+  {
+      "id": "9b5cc48c.1baf68",
+      "type": "inject",
+      "z": "f8043785.b55a88",
+      "name": "Trigger every 15min",
+      "props": [],
+      "repeat": "900",
+      "crontab": "",
+      "once": true,
+      "onceDelay": "1",
+      "topic": "",
+      "payloadType": "str",
+      "x": 160,
+      "y": 40,
+      "wires": [
+          [
+              "1aa199d9.478ea6"
+          ]
+      ]
+  },
+  {
+      "id": "5a42101b.dbf9",
+      "type": "debug",
+      "z": "f8043785.b55a88",
+      "name": "Current humidity from InfluxDB",
+      "active": true,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "payload[0].last",
+      "targetType": "jsonata",
+      "statusVal": "",
+      "statusType": "auto",
+      "x": 970,
+      "y": 40,
+      "wires": []
+  },
+  {
+      "id": "1aa199d9.478ea6",
+      "type": "function",
+      "z": "f8043785.b55a88",
+      "name": "Time to humidify?",
+      "func": "const now = new Date();\nconst todaysDay = now.getDay();\nconst activeTimes = flow.get(\"activeTimes\")[todaysDay];\n\n// convert all to minutes\nconst nowValue = now.getUTCHours() * 60 + now.getUTCMinutes();\n\n// return true if it's time to humidify\nreturn {\"payload\": nowValue >= activeTimes[0] && nowValue <= activeTimes[1]};",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "// UTC values\n// times are calculated as minute values\nconst activeTimes = {\n    // Monday\n    1: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Tuesday\n    2: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Wednesday\n    3: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Thursday\n    4: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Friday\n    5: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Saturday\n    6: [8 * 60 + 0, 19 * 60 + 0], // 08:00 - 19:00\n    // Sunday\n    0: [8 * 60 + 0, 19 * 60 + 0], // 08:00 - 19:00\n};\nflow.set(\"activeTimes\", activeTimes);",
+      "finalize": "",
+      "x": 390,
+      "y": 40,
+      "wires": [
+          [
+              "333e741e.b5d01c"
+          ]
+      ]
+  },
+  {
+      "id": "333e741e.b5d01c",
+      "type": "switch",
+      "z": "f8043785.b55a88",
+      "name": "Humidify no/yes",
+      "property": "payload",
+      "propertyType": "msg",
+      "rules": [
+          {
+              "t": "false"
+          },
+          {
+              "t": "true"
+          }
+      ],
+      "checkall": "true",
+      "repair": false,
+      "outputs": 2,
+      "x": 600,
+      "y": 40,
+      "wires": [
+          [
+              "fa88e338.55818"
+          ],
+          [
+              "a980133.73f70f"
+          ]
+      ]
+  },
+  {
+      "id": "e2778272.e650e",
+      "type": "fritz-api",
+      "name": "Fritz Box Cable",
+      "host": "http://fritz.box",
+      "strictSSL": false
+  },
+  {
+      "id": "c038e80e.695a38",
+      "type": "influxdb",
+      "hostname": "influxdb",
+      "port": "8086",
+      "protocol": "http",
+      "database": "db0",
+      "name": "InfluxDB",
+      "usetls": false,
+      "tls": "",
+      "influxdbVersion": "1.x"
+  }
+]
