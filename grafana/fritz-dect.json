@@ -156,7 +156,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "FritzBox AZ",
+      "title": "Air Humidifier",
       "type": "timeseries"
     },
     {
@@ -270,7 +270,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "PC",
+      "title": "Desk Alex",
       "type": "timeseries"
     },
     {
@@ -488,50 +488,6 @@
               "value": "116300035048"
             }
           ]
-        },
-        {
-          "alias": "Temperatur",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "linear"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "fritz_dect",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "temperature"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "ain",
-              "operator": "=",
-              "value": "116300035048"
-            }
-          ]
         }
       ],
       "timeFrom": null,
@@ -559,5 +515,5 @@
   "timezone": "",
   "title": "Fritz DECT",
   "uid": "Y4rCYrZRz",
-  "version": 9
+  "version": 12
 }
