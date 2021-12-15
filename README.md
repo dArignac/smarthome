@@ -97,7 +97,21 @@ If you use PiCoolFAN4 for cooling the Raspberry Pi, check out [PiCoolFAN4/README
 /home/miflora
 ```
 
-### Influxdb shell
+### Influxdb
+
+#### Issues when starting
+
+If influxdb cannot be started with some error like `influxdb     | run: open server: open tsdb store: lstat /var/lib/influxdb/data/db0/autogen/320: bad message` then check the hard disk.
+Stop all services beforehand.
+
+```
+umount /mnt/pi1
+sudo fsck /mnt/pi1
+mount /mnt/pi1
+<start services again>
+```
+
+#### Shell
 
 Run `docker-compose exec influxdb influx -precision rfc3339 -database db0`
 
