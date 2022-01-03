@@ -1,392 +1,541 @@
 [
-  {
-      "id": "f8043785.b55a88",
-      "type": "tab",
-      "label": "Control Air Humidifier",
-      "disabled": false,
-      "info": "# Air Humidifier\n\n - the humidifier is attached to a Fritz! plug\n - the ideal air humidity is between 40 and 60%\n\n# Control rules\n\nThe air humidity goal is configured on the first functions as well as the AIN of the appropriate plug.\n\nThe following rules are modeled:\n\n - it is checked every 15 minutes for the rules\n - if the air humidity value is below the goal, the plug is activated\n - if the air humidity value is equal or above the goal, the plug is deactivated\n - per weekday a humidify time is configurable where the plug is activated\n - if humidify time applies and the humidity value is below the goal, then the plug is actived, else deactivated\n - exception for humidify time applies if a certain plug is active - means the humidify check is skipped in this case (scenario: I am working outside the humidify times with the plug of my desk in state active)\n - for defined holidays the activation of the plug is disabled"
-  },
-  {
-      "id": "9520540e.c55dc8",
-      "type": "fritz-outlet",
-      "z": "f8043785.b55a88",
-      "connection": "e2778272.e650e",
-      "name": "Get State",
-      "action": "getSwitchState",
-      "x": 920,
-      "y": 220,
-      "wires": [
-          [
-              "2a04828d.c9258e"
-          ]
-      ]
-  },
-  {
-      "id": "bc61421b.e78f6",
-      "type": "function",
-      "z": "f8043785.b55a88",
-      "name": "Set desired plug state",
-      "func": "msg[\"desiredPlugState\"] = msg.payload[0].last < flow.get(\"targetHumidity\");\nreturn msg;",
-      "outputs": 1,
-      "noerr": 0,
-      "initialize": "",
-      "finalize": "",
-      "x": 680,
-      "y": 280,
-      "wires": [
-          [
-              "9520540e.c55dc8"
-          ]
-      ]
-  },
-  {
-      "id": "2a04828d.c9258e",
-      "type": "switch",
-      "z": "f8043785.b55a88",
-      "name": "Need to switch?",
-      "property": "payload",
-      "propertyType": "msg",
-      "rules": [
-          {
-              "t": "neq",
-              "v": "desiredPlugState",
-              "vt": "msg"
-          }
-      ],
-      "checkall": "true",
-      "repair": false,
-      "outputs": 1,
-      "x": 1100,
-      "y": 220,
-      "wires": [
-          [
-              "82f404d.3c831f8"
-          ]
-      ]
-  },
-  {
-      "id": "fa88e338.55818",
-      "type": "fritz-outlet",
-      "z": "f8043785.b55a88",
-      "connection": "e2778272.e650e",
-      "name": "Set state",
-      "action": "setSwitchState",
-      "x": 1320,
-      "y": 280,
-      "wires": [
-          []
-      ]
-  },
-  {
-      "id": "82f404d.3c831f8",
-      "type": "change",
-      "z": "f8043785.b55a88",
-      "name": "Set outlet target state payload",
-      "rules": [
-          {
-              "t": "set",
-              "p": "payload",
-              "pt": "msg",
-              "to": "desiredPlugState",
-              "tot": "msg"
-          }
-      ],
-      "action": "",
-      "property": "",
-      "from": "",
-      "to": "",
-      "reg": false,
-      "x": 1070,
-      "y": 280,
-      "wires": [
-          [
-              "fa88e338.55818",
-              "2dc43aa5.c69c86"
-          ]
-      ]
-  },
-  {
-      "id": "a980133.73f70f",
-      "type": "influxdb in",
-      "z": "f8043785.b55a88",
-      "influxdb": "c038e80e.695a38",
-      "name": "",
-      "query": "select last(humidity) from lacrosses where time > now() - 15m and sensor = 'Arbeitszimmer'",
-      "rawOutput": false,
-      "precision": "",
-      "retentionPolicy": "",
-      "org": "organisation",
-      "x": 420,
-      "y": 280,
-      "wires": [
-          [
-              "5a42101b.dbf9",
-              "bc61421b.e78f6"
-          ]
-      ]
-  },
-  {
-      "id": "9b5cc48c.1baf68",
-      "type": "inject",
-      "z": "f8043785.b55a88",
-      "name": "Trigger every 15min",
-      "props": [],
-      "repeat": "900",
-      "crontab": "",
-      "once": true,
-      "onceDelay": "1",
-      "topic": "",
-      "payloadType": "str",
-      "x": 160,
-      "y": 40,
-      "wires": [
-          [
-              "1aa199d9.478ea6"
-          ]
-      ]
-  },
-  {
-      "id": "5a42101b.dbf9",
-      "type": "debug",
-      "z": "f8043785.b55a88",
-      "name": "Current humidity from InfluxDB",
-      "active": false,
-      "tosidebar": true,
-      "console": false,
-      "tostatus": false,
-      "complete": "payload[0].last",
-      "targetType": "jsonata",
-      "statusVal": "",
-      "statusType": "auto",
-      "x": 390,
-      "y": 360,
-      "wires": []
-  },
-  {
-      "id": "1aa199d9.478ea6",
-      "type": "function",
-      "z": "f8043785.b55a88",
-      "name": "Time to humidify?",
-      "func": "const now = new Date();\n\nfunction filterToday(value, index) {\n  return value[0] === now.getFullYear()\n    && value[1] === now.getMonth() + 1\n    && value[2] === now.getDate()\n}\n\nif (flow.get(\"holidays\").filter(filterToday).length > 0) {\n    msg[\"payload\"] = false;\n} else {\n    const todaysDay = now.getDay();\n    const activeTimes = flow.get(\"activeTimes\")[todaysDay];\n    const nowValue = now.getUTCHours() * 60 + now.getUTCMinutes();\n    msg[\"payload\"] = nowValue >= activeTimes[0] && nowValue <= activeTimes[1];\n}\n\nmsg[\"ain\"] = flow.get(\"ain\");\nreturn msg;",
-      "outputs": 1,
-      "noerr": 0,
-      "initialize": "// AIN of the air humidifier plug\nflow.set(\"ain\", \"087610469336\");\n\n// humidity goal\nflow.set(\"targetHumidity\", 55);\n\n// UTC values\n// times are calculated as minute values\nconst activeTimes = {\n    // Monday\n    1: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Tuesday\n    2: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Wednesday\n    3: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Thursday\n    4: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Friday\n    5: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Saturday\n    6: [8 * 60 + 0, 19 * 60 + 0], // 08:00 - 19:00\n    // Sunday\n    0: [8 * 60 + 0, 19 * 60 + 0], // 08:00 - 19:00\n};\nflow.set(\"activeTimes\", activeTimes);\n\n// holiday mode\nconst holidays = [\n    //[2021, 12, 15],\n];\nflow.set(\"holidays\", holidays);\n\n// Fritz!DECT plug that overrides the active times\nflow.set(\"overridePlug\", \"116300168356\");",
-      "finalize": "",
-      "x": 390,
-      "y": 40,
-      "wires": [
-          [
-              "d1cfeb74.f75f68"
-          ]
-      ]
-  },
-  {
-      "id": "333e741e.b5d01c",
-      "type": "switch",
-      "z": "f8043785.b55a88",
-      "name": "Humidify no/yes",
-      "property": "payload",
-      "propertyType": "msg",
-      "rules": [
-          {
-              "t": "false"
-          },
-          {
-              "t": "true"
-          }
-      ],
-      "checkall": "true",
-      "repair": false,
-      "outputs": 2,
-      "x": 160,
-      "y": 220,
-      "wires": [
-          [
-              "74c23b71.c8f9d4"
-          ],
-          [
-              "a980133.73f70f"
-          ]
-      ]
-  },
-  {
-      "id": "74c23b71.c8f9d4",
-      "type": "change",
-      "z": "f8043785.b55a88",
-      "name": "Set desired plug state for off",
-      "rules": [
-          {
-              "t": "set",
-              "p": "desiredPlugState",
-              "pt": "msg",
-              "to": "payload",
-              "tot": "msg"
-          }
-      ],
-      "action": "",
-      "property": "",
-      "from": "",
-      "to": "",
-      "reg": false,
-      "x": 460,
-      "y": 220,
-      "wires": [
-          [
-              "9520540e.c55dc8"
-          ]
-      ]
-  },
-  {
-      "id": "d1cfeb74.f75f68",
-      "type": "switch",
-      "z": "f8043785.b55a88",
-      "name": "Check if plug override is set",
-      "property": "overridePlug",
-      "propertyType": "flow",
-      "rules": [
-          {
-              "t": "nnull"
-          },
-          {
-              "t": "null"
-          }
-      ],
-      "checkall": "true",
-      "repair": false,
-      "outputs": 2,
-      "x": 180,
-      "y": 120,
-      "wires": [
-          [
-              "97482ecd.c0c0a"
-          ],
-          [
-              "333e741e.b5d01c"
-          ]
-      ]
-  },
-  {
-      "id": "2dc43aa5.c69c86",
-      "type": "debug",
-      "z": "f8043785.b55a88",
-      "name": "out1",
-      "active": false,
-      "tosidebar": true,
-      "console": false,
-      "tostatus": false,
-      "complete": "true",
-      "targetType": "full",
-      "statusVal": "",
-      "statusType": "auto",
-      "x": 1010,
-      "y": 360,
-      "wires": []
-  },
-  {
-      "id": "e3649ec4.a8e08",
-      "type": "fritz-outlet",
-      "z": "f8043785.b55a88",
-      "connection": "e2778272.e650e",
-      "name": "Get State",
-      "action": "getSwitchState",
-      "x": 700,
-      "y": 120,
-      "wires": [
-          [
-              "562e4f1b.b150b"
-          ]
-      ]
-  },
-  {
-      "id": "97482ecd.c0c0a",
-      "type": "change",
-      "z": "f8043785.b55a88",
-      "name": "Set AIN to override plug",
-      "rules": [
-          {
-              "t": "set",
-              "p": "originalAIN",
-              "pt": "msg",
-              "to": "ain",
-              "tot": "msg"
-          },
-          {
-              "t": "set",
-              "p": "ain",
-              "pt": "msg",
-              "to": "overridePlug",
-              "tot": "flow"
-          },
-          {
-              "t": "set",
-              "p": "payload",
-              "pt": "msg",
-              "to": "false",
-              "tot": "bool"
-          }
-      ],
-      "action": "",
-      "property": "",
-      "from": "",
-      "to": "",
-      "reg": false,
-      "x": 490,
-      "y": 120,
-      "wires": [
-          [
-              "e3649ec4.a8e08"
-          ]
-      ]
-  },
-  {
-      "id": "562e4f1b.b150b",
-      "type": "change",
-      "z": "f8043785.b55a88",
-      "name": "Reset AIN",
-      "rules": [
-          {
-              "t": "set",
-              "p": "ain",
-              "pt": "msg",
-              "to": "originalAIN",
-              "tot": "msg"
-          },
-          {
-              "t": "delete",
-              "p": "originalAIN",
-              "pt": "msg"
-          }
-      ],
-      "action": "",
-      "property": "",
-      "from": "",
-      "to": "",
-      "reg": false,
-      "x": 860,
-      "y": 120,
-      "wires": [
-          [
-              "333e741e.b5d01c"
-          ]
-      ]
-  },
-  {
-      "id": "e2778272.e650e",
-      "type": "fritz-api",
-      "name": "Fritz Box Cable",
-      "host": "http://fritz.box",
-      "strictSSL": false
-  },
-  {
-      "id": "c038e80e.695a38",
-      "type": "influxdb",
-      "hostname": "influxdb",
-      "port": "8086",
-      "protocol": "http",
-      "database": "db0",
-      "name": "InfluxDB",
-      "usetls": false,
-      "tls": "",
-      "influxdbVersion": "1.x"
-  }
+    {
+        "id": "f8043785.b55a88",
+        "type": "tab",
+        "label": "Control Air Humidifier",
+        "disabled": false,
+        "info": "# Air Humidifier\n\n - the humidifier is attached to a Fritz! plug\n - the ideal air humidity is between 40 and 60%\n\n# Control rules\n\nThe air humidity goal is configured on the first functions as well as the AIN of the appropriate plug.\n\nThe following rules are modeled:\n\n - it is checked every 15 minutes for the rules\n - if the air humidity value is below the goal, the plug is activated\n - if the air humidity value is equal or above the goal, the plug is deactivated\n - per weekday a humidify time is configurable where the plug is activated\n - if humidify time applies and the humidity value is below the goal, then the plug is actived, else deactivated\n - exception for humidify time applies if a certain plug is active - means the humidify check is skipped in this case (scenario: I am working outside the humidify times with the plug of my desk in state active)\n - for defined holidays the activation of the plug is disabled"
+    },
+    {
+        "id": "9520540e.c55dc8",
+        "type": "fritz-outlet",
+        "z": "f8043785.b55a88",
+        "connection": "e2778272.e650e",
+        "name": "Get State",
+        "action": "getSwitchState",
+        "x": 920,
+        "y": 220,
+        "wires": [
+            [
+                "2a04828d.c9258e",
+                "15ad56.e2ace2aa"
+            ]
+        ]
+    },
+    {
+        "id": "bc61421b.e78f6",
+        "type": "function",
+        "z": "f8043785.b55a88",
+        "name": "Set desired plug state",
+        "func": "msg[\"desiredPlugState\"] = msg.payload[0].last < flow.get(\"targetHumidity\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 680,
+        "y": 280,
+        "wires": [
+            [
+                "9520540e.c55dc8"
+            ]
+        ]
+    },
+    {
+        "id": "2a04828d.c9258e",
+        "type": "switch",
+        "z": "f8043785.b55a88",
+        "name": "Need to switch?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "desiredPlugState",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1100,
+        "y": 220,
+        "wires": [
+            [
+                "82f404d.3c831f8"
+            ]
+        ]
+    },
+    {
+        "id": "fa88e338.55818",
+        "type": "fritz-outlet",
+        "z": "f8043785.b55a88",
+        "connection": "e2778272.e650e",
+        "name": "Set state",
+        "action": "setSwitchState",
+        "x": 1320,
+        "y": 280,
+        "wires": [
+            [
+                "4d1b5c60.495674"
+            ]
+        ]
+    },
+    {
+        "id": "82f404d.3c831f8",
+        "type": "change",
+        "z": "f8043785.b55a88",
+        "name": "Set outlet target state payload",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "desiredPlugState",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 280,
+        "wires": [
+            [
+                "fa88e338.55818",
+                "2dc43aa5.c69c86",
+                "7b5bc14e.7aea"
+            ]
+        ]
+    },
+    {
+        "id": "a980133.73f70f",
+        "type": "influxdb in",
+        "z": "f8043785.b55a88",
+        "influxdb": "c038e80e.695a38",
+        "name": "",
+        "query": "select last(humidity) from lacrosses where time > now() - 15m and sensor = 'Arbeitszimmer'",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "org": "organisation",
+        "x": 420,
+        "y": 280,
+        "wires": [
+            [
+                "5a42101b.dbf9",
+                "bc61421b.e78f6",
+                "c3475f65.fd8e1"
+            ]
+        ]
+    },
+    {
+        "id": "9b5cc48c.1baf68",
+        "type": "inject",
+        "z": "f8043785.b55a88",
+        "name": "Trigger every 15min",
+        "props": [],
+        "repeat": "900",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payloadType": "str",
+        "x": 160,
+        "y": 40,
+        "wires": [
+            [
+                "1aa199d9.478ea6"
+            ]
+        ]
+    },
+    {
+        "id": "5a42101b.dbf9",
+        "type": "debug",
+        "z": "f8043785.b55a88",
+        "name": "Current humidity from InfluxDB",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload[0].last",
+        "targetType": "jsonata",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 390,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "1aa199d9.478ea6",
+        "type": "function",
+        "z": "f8043785.b55a88",
+        "name": "Time to humidify?",
+        "func": "const now = new Date();\n\nfunction filterToday(value, index) {\n  return value[0] === now.getFullYear()\n    && value[1] === now.getMonth() + 1\n    && value[2] === now.getDate()\n}\n\nif (flow.get(\"holidays\").filter(filterToday).length > 0) {\n    msg[\"payload\"] = false;\n} else {\n    const todaysDay = now.getDay();\n    const activeTimes = flow.get(\"activeTimes\")[todaysDay];\n    const nowValue = now.getUTCHours() * 60 + now.getUTCMinutes();\n    msg[\"payload\"] = nowValue >= activeTimes[0] && nowValue <= activeTimes[1];\n}\n\n// FIXME remove\nconsole.log(new Date(), \"time to humidify?\", msg[\"payload\"]);\n\nmsg[\"ain\"] = flow.get(\"ain\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "// AIN of the air humidifier plug\nflow.set(\"ain\", \"087610469336\");\n\n// humidity goal\nflow.set(\"targetHumidity\", 55);\n\n// UTC values\n// times are calculated as minute values\nconst activeTimes = {\n    // Monday\n    1: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Tuesday\n    2: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Wednesday\n    3: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Thursday\n    4: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Friday\n    5: [6 * 60 + 30, 19 * 60 + 0], // 06:30 - 19:00\n    // Saturday\n    6: [8 * 60 + 0, 19 * 60 + 0], // 08:00 - 19:00\n    // Sunday\n    0: [8 * 60 + 0, 19 * 60 + 0], // 08:00 - 19:00\n};\nflow.set(\"activeTimes\", activeTimes);\n\n// holiday mode\nconst holidays = [\n    //[2021, 12, 15],\n];\nflow.set(\"holidays\", holidays);\n\n// Fritz!DECT plug that overrides the active times\nflow.set(\"overridePlug\", \"116300168356\");",
+        "finalize": "",
+        "x": 390,
+        "y": 40,
+        "wires": [
+            [
+                "d1cfeb74.f75f68"
+            ]
+        ]
+    },
+    {
+        "id": "333e741e.b5d01c",
+        "type": "switch",
+        "z": "f8043785.b55a88",
+        "name": "Humidify no/yes",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "74c23b71.c8f9d4",
+                "da272719.dbd328"
+            ],
+            [
+                "a980133.73f70f",
+                "50c85217.d9cb8c"
+            ]
+        ]
+    },
+    {
+        "id": "74c23b71.c8f9d4",
+        "type": "change",
+        "z": "f8043785.b55a88",
+        "name": "Set desired plug state for off",
+        "rules": [
+            {
+                "t": "set",
+                "p": "desiredPlugState",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 220,
+        "wires": [
+            [
+                "9520540e.c55dc8"
+            ]
+        ]
+    },
+    {
+        "id": "d1cfeb74.f75f68",
+        "type": "switch",
+        "z": "f8043785.b55a88",
+        "name": "Check if plug override is set",
+        "property": "overridePlug",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "97482ecd.c0c0a",
+                "b0f1d7e7.a82318"
+            ],
+            [
+                "333e741e.b5d01c"
+            ]
+        ]
+    },
+    {
+        "id": "2dc43aa5.c69c86",
+        "type": "debug",
+        "z": "f8043785.b55a88",
+        "name": "out1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "e3649ec4.a8e08",
+        "type": "fritz-outlet",
+        "z": "f8043785.b55a88",
+        "connection": "e2778272.e650e",
+        "name": "Get State",
+        "action": "getSwitchState",
+        "x": 700,
+        "y": 120,
+        "wires": [
+            [
+                "562e4f1b.b150b",
+                "a06c83d6.c155"
+            ]
+        ]
+    },
+    {
+        "id": "97482ecd.c0c0a",
+        "type": "change",
+        "z": "f8043785.b55a88",
+        "name": "Set AIN to override plug",
+        "rules": [
+            {
+                "t": "set",
+                "p": "originalAIN",
+                "pt": "msg",
+                "to": "ain",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "ain",
+                "pt": "msg",
+                "to": "overridePlug",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "humidify",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 490,
+        "y": 120,
+        "wires": [
+            [
+                "e3649ec4.a8e08"
+            ]
+        ]
+    },
+    {
+        "id": "562e4f1b.b150b",
+        "type": "change",
+        "z": "f8043785.b55a88",
+        "name": "Reset AIN",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ain",
+                "pt": "msg",
+                "to": "originalAIN",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "originalAIN",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "humidify",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 120,
+        "wires": [
+            [
+                "333e741e.b5d01c"
+            ]
+        ]
+    },
+    {
+        "id": "b0f1d7e7.a82318",
+        "type": "function",
+        "z": "f8043785.b55a88",
+        "name": "",
+        "func": "console.log(\"checking override\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 640,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a06c83d6.c155",
+        "type": "function",
+        "z": "f8043785.b55a88",
+        "name": "",
+        "func": "console.log(\"override plug state is\", msg[\"payload\"]);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 910,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "50c85217.d9cb8c",
+        "type": "function",
+        "z": "f8043785.b55a88",
+        "name": "",
+        "func": "console.log(\"we shall humidify\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "da272719.dbd328",
+        "type": "function",
+        "z": "f8043785.b55a88",
+        "name": "",
+        "func": "console.log(\"we shall NOT humidify\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 120,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c3475f65.fd8e1",
+        "type": "function",
+        "z": "f8043785.b55a88",
+        "name": "",
+        "func": "console.log(\"Influx reports humidity of \", msg.payload[0].last);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 710,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "15ad56.e2ace2aa",
+        "type": "function",
+        "z": "f8043785.b55a88",
+        "name": "",
+        "func": "console.log(\"is target plug on?\", msg[\"payload\"]);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1190,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7b5bc14e.7aea",
+        "type": "function",
+        "z": "f8043785.b55a88",
+        "name": "",
+        "func": "console.log(\"now switching on the plug\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1310,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4d1b5c60.495674",
+        "type": "function",
+        "z": "f8043785.b55a88",
+        "name": "",
+        "func": "console.log(\"plug was switched on\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1330,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e2778272.e650e",
+        "type": "fritz-api",
+        "name": "Fritz Box Cable",
+        "host": "http://fritz.box",
+        "strictSSL": false
+    },
+    {
+        "id": "c038e80e.695a38",
+        "type": "influxdb",
+        "hostname": "influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "db0",
+        "name": "InfluxDB",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x"
+    }
 ]
