@@ -3,7 +3,7 @@ version: "2.4"
 services:
 
   mosquitto:
-    image: eclipse-mosquitto:1.6.10
+    image: eclipse-mosquitto:latest
     ports:
       - "1883:1883"
     user: "1000:995"
@@ -11,8 +11,6 @@ services:
     restart: always
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
-      - /mnt/pi1/mosquitto/data:/mosquitto/data
-      - /mnt/pi1/mosquitto/log:/mosquitto/log
 
   nodered:
     image: darignac/node-red:1.2.9

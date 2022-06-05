@@ -83,7 +83,7 @@ uid=1000(pi) gid=1000(pi) groups=1000(pi),4(adm),20(dialout),24(cdrom),27(sudo),
 Create the folders and set the permissions:
 
 ```
-sudo mkdir -p /mnt/pi1/mosquitto/data /mnt/pi1/mosquitto/log /mnt/pi1/nodered /mnt/pi1/influxdb /mnt/pi1/grafana
+sudo mkdir -p /mnt/pi1/nodered /mnt/pi1/influxdb /mnt/pi1/grafana
 sudo chown 1000:995 -R /mnt/pi1/mosquitto /mnt/pi1/nodered /mnt/pi1/influxdb /mnt/pi1/grafana
 ```
 

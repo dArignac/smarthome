@@ -92,9 +92,10 @@ If you use PiCoolFAN4 for cooling the Raspberry Pi, check out [PiCoolFAN4/README
 ### MQTT Topics
 
 ```
-# topic for all raspberry pis data
+# topics for all monitored raspberry pis
 /home/pis/<pi-name>/health
-/home/miflora
+# miflora
+/home/bluetooth/miflora
 ```
 
 ### Influxdb
