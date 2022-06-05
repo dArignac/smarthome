@@ -30,6 +30,10 @@ package "Environment" as E3 <<Environment>> {
   fritzPlug <-up-> fritzBox: exchange data
 }
 
+package "Environment" as E4 <<Environment>> {
+  class "Inkbird Sensor(s)" as sensorInkbird
+}
+
 package RaspberryPi <<RaspberryPi>> {
   package "Attached Hardware" <<Hardware>> {
     class "JeeLink" as jeelink
@@ -63,6 +67,7 @@ package "External" as Ex {
 sensorLacrosse -left-> jeelink: send data
 jeelink -left-> nodered : receive data
 scriptBlue-right-> sensorMiflora: poll data
+scriptBlue-up-> sensorInkbird: poll data
 scriptBlue -down-> mosquitto: send miflora data
 nodered -down--> discord: send notifications
 nodered -right-> fritzBox: get plug data via API

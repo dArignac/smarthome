@@ -1,0 +1,59 @@
+[
+  {
+    "id": "fd489b35.130b88",
+    "type": "tab",
+    "label": "Inkbird",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "7893d47d.f9e93c",
+    "type": "mqtt in",
+    "z": "fd489b35.130b88",
+    "name": "",
+    "topic": "/home/bluetooth/inkbird",
+    "qos": "2",
+    "datatype": "auto",
+    "broker": "5da78d9f.208014",
+    "x": 330,
+    "y": 180,
+    "wires": [["d0a08e46.88a8a"]]
+  },
+  {
+    "id": "d0a08e46.88a8a",
+    "type": "debug",
+    "z": "fd489b35.130b88",
+    "name": "",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 560,
+    "y": 180,
+    "wires": []
+  },
+  {
+    "id": "5da78d9f.208014",
+    "type": "mqtt-broker",
+    "name": "mosquittoe",
+    "broker": "mosquitto",
+    "port": "1883",
+    "clientid": "",
+    "usetls": false,
+    "compatmode": false,
+    "keepalive": "60",
+    "cleansession": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": ""
+  }
+]
