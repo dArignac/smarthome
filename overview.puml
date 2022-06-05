@@ -12,11 +12,6 @@ skinparam package {
   BackgroundColor<<Docker>> LightSkyBlue
 }
 
-skinparam class {
-  BackgroundColor none
-  BorderColor Black
-}
-
 hide members
 hide circle
 hide stereotype
@@ -53,9 +48,9 @@ package RaspberryPi <<RaspberryPi>> {
 
   package "Crontab Scripts" {
     class "raspi-health.py" as scriptRaspiHealth
-    class "miflora/gather.py" as scriptMiflora
+    class "bluedevices/gather.py" as scriptBlue
 
-    scriptRaspiHealth -right[hidden]-> scriptMiflora
+    scriptRaspiHealth -right[hidden]-> scriptBlue
   }
 
   scriptRaspiHealth -down-> mosquitto: send RPi health data
@@ -67,8 +62,8 @@ package "External" as Ex {
 
 sensorLacrosse -left-> jeelink: send data
 jeelink -left-> nodered : receive data
-scriptMiflora -right-> sensorMiflora: poll data
-scriptMiflora -down-> mosquitto: send miflora data
+scriptBlue-right-> sensorMiflora: poll data
+scriptBlue -down-> mosquitto: send miflora data
 nodered -down--> discord: send notifications
-nodered -left-> fritzBox: get plug data via API
+nodered -right-> fritzBox: get plug data via API
 @enduml

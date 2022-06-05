@@ -6,10 +6,11 @@ import os
 import sys
 import json
 
+from bluepy.btle import Scanner
+
 import paho.mqtt.client as mqtt
 from btlewrap import BluepyBackend
 
-from miflora import miflora_scanner
 from miflora.miflora_poller import (
     MI_BATTERY,
     MI_CONDUCTIVITY,
@@ -22,7 +23,61 @@ from miflora.miflora_poller import (
 client = mqtt.Client()
 
 DEBUG = False
-SENSOR_TYPES = ["miflora"]
+SENSOR_TYPES = ["miflora", "inkbird"]
+
+
+class Inkbird():
+    def __init__(self, name, mac, mqtt) -> None:
+        self.name = name
+        self.mac = mac.lower()
+        self.mqtt = mqtt
+        self.scanner = Scanner()
+        self.scanner.clear()
+        self.scanner.start()
+        self.update()
+
+    def update(self):
+        try:
+            self.scanner.process(timeout=8.0)
+        except:
+            print("error scanning bluetooth for inkbird", sys.exec_info()[0])
+
+        for dev in self.scanner.getDevices():
+            if dev.addr == self.mac:
+                self.handleDevice(dev)
+
+    def handleDevice(self, dev):
+        if DEBUG:
+            print("Bluetooth querying inkbird device {} ({}), RSSI={} dB".format(
+                dev.addr, dev.addrType, dev.rssi))
+        for (adtype, desc, value) in dev.getScanData():
+            # print("[%s]  %s = %s" % (adtype, desc, value))
+            if adtype == 255:
+                humidity = int(value[6:8]+value[4:6], 16)/100
+                temperature = int(value[2:4]+value[:2], 16)
+                temperature_bits = 16
+                if temperature & (1 << (temperature_bits-1)):
+                    temperature -= 1 << temperature_bits
+                temperature = (temperature / 100)
+                battery = int(value[14:16], 16)
+                self.toMQTT(temperature, humidity, battery)
+
+    def toMQTT(self, temperature, humidity, battery):
+        payload = {
+            "battery": battery,
+            "humidity": humidity,
+            "temperature": temperature,
+            "sensor": self.name
+        }
+        try:
+            client.publish(
+                "/home/bluetooth/inkbird",
+                payload=json.dumps(payload),
+                qos=1
+            )
+        except:
+            print(
+                f"Unable to publish data for inkbird sensor {self.name} to mqtt")
 
 
 def read_config():
@@ -44,6 +99,14 @@ def read_config():
     except:
         pass
     return sensors
+
+
+# FIXME the job handling is inefficient if we have multiple inkbirds, as we scan for each device again
+def publish_inkbird(sensor_name, sensor_mac):
+    if DEBUG:
+        print(
+            f"Querying inkbird sensor '{sensor_name}' with mac '{sensor_mac}")
+    Inkbird(sensor_name, sensor_mac, client)
 
 
 def publish_miflora(sensor_name, sensor_mac):
@@ -72,8 +135,11 @@ def publish_miflora(sensor_name, sensor_mac):
             print(
                 f"Publishing miflora sensor '{sensor_name}' with id '{sensor_mac}")
         try:
-            client.publish("/home/bluetooth/miflora",
-                           payload=json.dumps(data), qos=1)
+            client.publish(
+                "/home/bluetooth/miflora",
+                payload=json.dumps(data),
+                qos=1
+            )
         except:
             print(
                 f"Unable to publish data for miflora sensor {sensor_name} to mqtt")

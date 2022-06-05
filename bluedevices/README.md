@@ -4,10 +4,12 @@ specific MQTT topic. Please read this whole document for setting it up properly.
 
 Therefore the script `bluedevices/gather.py` is used and set up via crontab.
 See the crontab entry in `bluedevices/setup.sh`. If you just want a specific type, you can 
-adjust it there.
+adjust it there. *Note that the inkbird script is added to the root user's crontab as it needs to 
+access bluetooth*.
 
 *Supported types*
 * `miflora` - [Xiaomi Mi Plant sensors](https://de.gearbest.com/other-garden-supplies/pp_373947.html).
+* `inkbird` - Inkbird devices, only tested wih [Inkbird IBS-TH1](https://inkbird.com/products/bluetooth-thermometer-ibs-th1)
 
 ## Device identification
 To configure the bluetooth device, we need its MAC address. There are multiple ways to gather it.

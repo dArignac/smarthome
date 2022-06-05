@@ -96,6 +96,8 @@ If you use PiCoolFAN4 for cooling the Raspberry Pi, check out [PiCoolFAN4/README
 /home/pis/<pi-name>/health
 # miflora
 /home/bluetooth/miflora
+# inkbird
+/home/bluetooth/inkbird
 ```
 
 ### Influxdb
