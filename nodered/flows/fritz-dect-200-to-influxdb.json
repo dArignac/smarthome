@@ -1,280 +1,206 @@
 [
   {
-      "id": "d4b20020.5f9b2",
-      "type": "tab",
-      "label": "Fritz DECT 200 to Influx",
-      "disabled": false,
-      "info": ""
+    "id": "d4b20020.5f9b2",
+    "type": "tab",
+    "label": "Fritz DECT 200 to Influx",
+    "disabled": false,
+    "info": ""
   },
   {
-      "id": "b937d1dc.0d101",
-      "type": "fritz-outlet",
-      "z": "d4b20020.5f9b2",
-      "connection": "e2778272.e650e",
-      "name": "Get power in watt",
-      "action": "getSwitchPower",
-      "x": 890,
-      "y": 120,
-      "wires": [
-          [
-              "a9930154.cd9e7"
-          ]
-      ]
+    "id": "b937d1dc.0d101",
+    "type": "fritz-outlet",
+    "z": "d4b20020.5f9b2",
+    "connection": "e2778272.e650e",
+    "name": "Get power in watt",
+    "action": "getSwitchPower",
+    "x": 890,
+    "y": 120,
+    "wires": [["a9930154.cd9e7"]]
   },
   {
-      "id": "d93616b2.6780a8",
-      "type": "fritz-outlet",
-      "z": "d4b20020.5f9b2",
-      "connection": "e2778272.e650e",
-      "name": "Get state",
-      "action": "getSwitchState",
-      "x": 460,
-      "y": 180,
-      "wires": [
-          [
-              "779fd0a6.788d8"
-          ]
-      ]
+    "id": "d93616b2.6780a8",
+    "type": "fritz-outlet",
+    "z": "d4b20020.5f9b2",
+    "connection": "e2778272.e650e",
+    "name": "Get state",
+    "action": "getSwitchState",
+    "x": 460,
+    "y": 180,
+    "wires": [["779fd0a6.788d8"]]
   },
   {
-      "id": "779fd0a6.788d8",
-      "type": "function",
-      "z": "d4b20020.5f9b2",
-      "name": "Return if plug is on",
-      "func": "if (msg.payload) {\n    return msg;\n}",
-      "outputs": 1,
-      "noerr": 0,
-      "initialize": "",
-      "finalize": "",
-      "x": 630,
-      "y": 180,
-      "wires": [
-          [
-              "b937d1dc.0d101",
-              "fb4f479b.4d8e28",
-              "2007e426.6aea0c"
-          ]
-      ]
+    "id": "779fd0a6.788d8",
+    "type": "function",
+    "z": "d4b20020.5f9b2",
+    "name": "Return if plug is on",
+    "func": "if (msg.payload) {\n    return msg;\n}",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 630,
+    "y": 180,
+    "wires": [["b937d1dc.0d101", "fb4f479b.4d8e28", "2007e426.6aea0c"]]
   },
   {
-      "id": "fb4f479b.4d8e28",
-      "type": "fritz-outlet",
-      "z": "d4b20020.5f9b2",
-      "connection": "e2778272.e650e",
-      "name": "Get energy in Wh",
-      "action": "getSwitchEnergy",
-      "x": 890,
-      "y": 180,
-      "wires": [
-          [
-              "ba140c61.39a4d"
-          ]
-      ]
+    "id": "fb4f479b.4d8e28",
+    "type": "fritz-outlet",
+    "z": "d4b20020.5f9b2",
+    "connection": "e2778272.e650e",
+    "name": "Get energy in Wh",
+    "action": "getSwitchEnergy",
+    "x": 890,
+    "y": 180,
+    "wires": [["ba140c61.39a4d"]]
   },
   {
-      "id": "2007e426.6aea0c",
-      "type": "fritz-outlet",
-      "z": "d4b20020.5f9b2",
-      "connection": "e2778272.e650e",
-      "name": "Get temperature",
-      "action": "getTemperature",
-      "x": 880,
-      "y": 240,
-      "wires": [
-          [
-              "8076b1c2.b92e2"
-          ]
-      ]
+    "id": "2007e426.6aea0c",
+    "type": "fritz-outlet",
+    "z": "d4b20020.5f9b2",
+    "connection": "e2778272.e650e",
+    "name": "Get temperature",
+    "action": "getTemperature",
+    "x": 880,
+    "y": 240,
+    "wires": [["8076b1c2.b92e2"]]
   },
   {
-      "id": "bda1dd04.d41f8",
-      "type": "influxdb out",
-      "z": "d4b20020.5f9b2",
-      "influxdb": "c038e80e.695a38",
-      "name": "",
-      "measurement": "fritz_dect",
-      "precision": "",
-      "retentionPolicy": "",
-      "database": "database",
-      "precisionV18FluxV20": "ms",
-      "retentionPolicyV18Flux": "",
-      "org": "organisation",
-      "bucket": "bucket",
-      "x": 1450,
-      "y": 180,
-      "wires": []
+    "id": "bda1dd04.d41f8",
+    "type": "influxdb out",
+    "z": "d4b20020.5f9b2",
+    "influxdb": "c038e80e.695a38",
+    "name": "",
+    "measurement": "fritz_dect",
+    "precision": "",
+    "retentionPolicy": "",
+    "database": "database",
+    "precisionV18FluxV20": "ms",
+    "retentionPolicyV18Flux": "",
+    "org": "organisation",
+    "bucket": "bucket",
+    "x": 1450,
+    "y": 180,
+    "wires": []
   },
   {
-      "id": "a9930154.cd9e7",
-      "type": "function",
-      "z": "d4b20020.5f9b2",
-      "name": "Prepare power for influxdb",
-      "func": "const fields = {\n    \"power\": msg.payload\n};\nconst tags = {\n    'ain': msg.ain\n};\nreturn {\n    'payload': [fields, tags]\n};",
-      "outputs": 1,
-      "noerr": 0,
-      "initialize": "",
-      "finalize": "",
-      "x": 1140,
-      "y": 120,
-      "wires": [
-          [
-              "bda1dd04.d41f8"
-          ]
-      ]
+    "id": "a9930154.cd9e7",
+    "type": "function",
+    "z": "d4b20020.5f9b2",
+    "name": "Prepare power for influxdb",
+    "func": "const fields = {\n    \"power\": msg.payload\n};\nconst tags = {\n    'ain': msg.ain\n};\nreturn {\n    'payload': [fields, tags]\n};",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 1140,
+    "y": 120,
+    "wires": [["bda1dd04.d41f8"]]
   },
   {
-      "id": "ba140c61.39a4d",
-      "type": "function",
-      "z": "d4b20020.5f9b2",
-      "name": "Prepare energy for influxdb",
-      "func": "const fields = {\n    \"energy\": msg.payload\n};\nconst tags = {\n    'ain': msg.ain\n};\nreturn {\n    'payload': [fields, tags]\n};",
-      "outputs": 1,
-      "noerr": 0,
-      "initialize": "",
-      "finalize": "",
-      "x": 1140,
-      "y": 180,
-      "wires": [
-          [
-              "bda1dd04.d41f8"
-          ]
-      ]
+    "id": "ba140c61.39a4d",
+    "type": "function",
+    "z": "d4b20020.5f9b2",
+    "name": "Prepare energy for influxdb",
+    "func": "const fields = {\n    \"energy\": msg.payload\n};\nconst tags = {\n    'ain': msg.ain\n};\nreturn {\n    'payload': [fields, tags]\n};",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 1140,
+    "y": 180,
+    "wires": [["bda1dd04.d41f8"]]
   },
   {
-      "id": "8076b1c2.b92e2",
-      "type": "function",
-      "z": "d4b20020.5f9b2",
-      "name": "Prepare temperature for influxdb",
-      "func": "const fields = {\n    \"temperature\": msg.payload\n};\nconst tags = {\n    'ain': msg.ain\n};\nreturn {\n    'payload': [fields, tags]\n};",
-      "outputs": 1,
-      "noerr": 0,
-      "initialize": "",
-      "finalize": "",
-      "x": 1150,
-      "y": 240,
-      "wires": [
-          [
-              "bda1dd04.d41f8"
-          ]
-      ]
+    "id": "8076b1c2.b92e2",
+    "type": "function",
+    "z": "d4b20020.5f9b2",
+    "name": "Prepare temperature for influxdb",
+    "func": "const fields = {\n    \"temperature\": msg.payload\n};\nconst tags = {\n    'ain': msg.ain\n};\nreturn {\n    'payload': [fields, tags]\n};",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 1150,
+    "y": 240,
+    "wires": [["bda1dd04.d41f8"]]
   },
   {
-      "id": "6b4f0e8b.62191",
-      "type": "inject",
-      "z": "d4b20020.5f9b2",
-      "name": "Inject Plug \"Desk Alex\"",
-      "props": [
-          {
-              "p": "ain",
-              "v": "116300168356",
-              "vt": "str"
-          }
-      ],
-      "repeat": "60",
-      "crontab": "",
-      "once": true,
-      "onceDelay": "5",
-      "topic": "",
-      "x": 170,
-      "y": 80,
-      "wires": [
-          [
-              "d93616b2.6780a8"
-          ]
-      ]
+    "id": "6b4f0e8b.62191",
+    "type": "inject",
+    "z": "d4b20020.5f9b2",
+    "name": "Inject Plug \"Desk Alex\"",
+    "props": [{ "p": "ain", "v": "116300168356", "vt": "str" }],
+    "repeat": "60",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "5",
+    "topic": "",
+    "x": 170,
+    "y": 80,
+    "wires": [["d93616b2.6780a8"]]
   },
   {
-      "id": "f63250a8.9a30f",
-      "type": "inject",
-      "z": "d4b20020.5f9b2",
-      "name": "Inject Plug \"Air Humidifier\"",
-      "props": [
-          {
-              "p": "ain",
-              "v": "087610469336",
-              "vt": "str"
-          }
-      ],
-      "repeat": "60",
-      "crontab": "",
-      "once": true,
-      "onceDelay": "5",
-      "topic": "",
-      "x": 180,
-      "y": 140,
-      "wires": [
-          [
-              "d93616b2.6780a8"
-          ]
-      ]
+    "id": "f63250a8.9a30f",
+    "type": "inject",
+    "z": "d4b20020.5f9b2",
+    "name": "Inject Plug \"Air Humidifier\"",
+    "props": [{ "p": "ain", "v": "087610469336", "vt": "str" }],
+    "repeat": "60",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "5",
+    "topic": "",
+    "x": 180,
+    "y": 140,
+    "wires": [["d93616b2.6780a8"]]
   },
   {
-      "id": "5498cd.c06c7734",
-      "type": "inject",
-      "z": "d4b20020.5f9b2",
-      "name": "Inject plug \"LED Strip\"",
-      "props": [
-          {
-              "p": "ain",
-              "v": "116300035048",
-              "vt": "str"
-          }
-      ],
-      "repeat": "60",
-      "crontab": "",
-      "once": true,
-      "onceDelay": "5",
-      "topic": "",
-      "x": 170,
-      "y": 200,
-      "wires": [
-          [
-              "d93616b2.6780a8"
-          ]
-      ]
+    "id": "5498cd.c06c7734",
+    "type": "inject",
+    "z": "d4b20020.5f9b2",
+    "name": "Inject plug \"LED Strip\"",
+    "props": [{ "p": "ain", "v": "116300035048", "vt": "str" }],
+    "repeat": "60",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "5",
+    "topic": "",
+    "x": 170,
+    "y": 200,
+    "wires": [["d93616b2.6780a8"]]
   },
   {
-      "id": "9fcb26eb.8d1eb8",
-      "type": "inject",
-      "z": "d4b20020.5f9b2",
-      "name": "Inject plug \"TV Light\"",
-      "props": [
-          {
-              "p": "ain",
-              "v": "087610469337",
-              "vt": "str"
-          }
-      ],
-      "repeat": "60",
-      "crontab": "",
-      "once": true,
-      "onceDelay": "5",
-      "topic": "",
-      "x": 160,
-      "y": 260,
-      "wires": [
-          [
-              "d93616b2.6780a8"
-          ]
-      ]
+    "id": "9fcb26eb.8d1eb8",
+    "type": "inject",
+    "z": "d4b20020.5f9b2",
+    "name": "Inject plug \"TV Light\"",
+    "props": [{ "p": "ain", "v": "087610469337", "vt": "str" }],
+    "repeat": "60",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "5",
+    "topic": "",
+    "x": 160,
+    "y": 260,
+    "wires": [["d93616b2.6780a8"]]
   },
   {
-      "id": "e2778272.e650e",
-      "type": "fritz-api",
-      "name": "Fritz Box Cable",
-      "host": "http://fritz.box",
-      "strictSSL": false
+    "id": "e2778272.e650e",
+    "type": "fritz-api",
+    "name": "Fritz Box Cable",
+    "host": "http://fritz.box",
+    "strictSSL": false
   },
   {
-      "id": "c038e80e.695a38",
-      "type": "influxdb",
-      "hostname": "influxdb",
-      "port": "8086",
-      "protocol": "http",
-      "database": "db0",
-      "name": "InfluxDB",
-      "usetls": false,
-      "tls": "",
-      "influxdbVersion": "1.x"
+    "id": "c038e80e.695a38",
+    "type": "influxdb",
+    "hostname": "influxdb",
+    "port": "8086",
+    "protocol": "http",
+    "database": "db0",
+    "name": "InfluxDB",
+    "usetls": false,
+    "tls": "",
+    "influxdbVersion": "1.x"
   }
 ]

@@ -15,9 +15,9 @@
     "qos": "2",
     "datatype": "auto",
     "broker": "5da78d9f.208014",
-    "x": 330,
-    "y": 180,
-    "wires": [["d0a08e46.88a8a"]]
+    "x": 140,
+    "y": 40,
+    "wires": [["9f5d4da4.ab7d"]]
   },
   {
     "id": "d0a08e46.88a8a",
@@ -31,8 +31,52 @@
     "complete": "false",
     "statusVal": "",
     "statusType": "auto",
-    "x": 560,
-    "y": 180,
+    "x": 770,
+    "y": 120,
+    "wires": []
+  },
+  {
+    "id": "8efca62c.87c778",
+    "type": "function",
+    "z": "fd489b35.130b88",
+    "name": "Prepare for influxdb",
+    "func": "const fields = {\n    \"battery\": msg.payload.battery,\n    \"humidity\": msg.payload.humidity,\n    \"temperature\": msg.payload.temperature\n};\nconst tags = {\n    'sensor': msg.payload.sensor\n};\nreturn {\n    'payload': [fields, tags]\n};",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "x": 550,
+    "y": 40,
+    "wires": [["d0a08e46.88a8a", "513a767e.61fec8"]]
+  },
+  {
+    "id": "9f5d4da4.ab7d",
+    "type": "json",
+    "z": "fd489b35.130b88",
+    "name": "",
+    "property": "payload",
+    "action": "obj",
+    "pretty": false,
+    "x": 350,
+    "y": 40,
+    "wires": [["8efca62c.87c778"]]
+  },
+  {
+    "id": "513a767e.61fec8",
+    "type": "influxdb out",
+    "z": "fd489b35.130b88",
+    "influxdb": "c038e80e.695a38",
+    "name": "",
+    "measurement": "inkbirds",
+    "precision": "",
+    "retentionPolicy": "",
+    "database": "database",
+    "precisionV18FluxV20": "ms",
+    "retentionPolicyV18Flux": "",
+    "org": "organisation",
+    "bucket": "bucket",
+    "x": 800,
+    "y": 40,
     "wires": []
   },
   {
@@ -55,5 +99,17 @@
     "willTopic": "",
     "willQos": "0",
     "willPayload": ""
+  },
+  {
+    "id": "c038e80e.695a38",
+    "type": "influxdb",
+    "hostname": "influxdb",
+    "port": "8086",
+    "protocol": "http",
+    "database": "db0",
+    "name": "InfluxDB",
+    "usetls": false,
+    "tls": "",
+    "influxdbVersion": "1.x"
   }
 ]
