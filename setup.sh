@@ -36,8 +36,8 @@ echo ">>> Please logout and login again to be able to use docker with the curren
 echo "> Installing scripts prerequisites..."
 scripts/setup.sh
 
-echo "> Installing miflora prerequisites..."
-miflora/setup.sh
+echo "> Installing bluetooth devices prerequisites..."
+bluedevices/setup.sh
 
 echo "> Setting up crontab to reload nodered flows daily at 5 am"
 crontab -l > /tmp/crontab; echo "0 5 * * * curl -X POST -H \"Content-Type: application/json\" -H \"Node-RED-Deployment-Type: reload\" http://localhost:1880/flows" >> /tmp/crontab; crontab /tmp/crontab; rm /tmp/crontab
