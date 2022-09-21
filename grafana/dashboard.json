@@ -214,6 +214,56 @@
               "value": "Schlafzimmer"
             }
           ]
+        },
+        {
+          "alias": "Bad 1",
+          "groupBy": [],
+          "hide": false,
+          "measurement": "lacrosses",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["temperature"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "sensor",
+              "operator": "=",
+              "value": "Bad 1"
+            }
+          ]
+        },
+        {
+          "alias": "Bad 2",
+          "groupBy": [],
+          "hide": false,
+          "measurement": "lacrosses",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["temperature"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "sensor",
+              "operator": "=",
+              "value": "Bad 2"
+            }
+          ]
         }
       ],
       "title": "Temperatures",
@@ -381,6 +431,56 @@
               "value": "Schlafzimmer"
             }
           ]
+        },
+        {
+          "alias": "Bad 1",
+          "groupBy": [],
+          "hide": false,
+          "measurement": "lacrosses",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["humidity"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "sensor",
+              "operator": "=",
+              "value": "Bad 1"
+            }
+          ]
+        },
+        {
+          "alias": "Bad 2",
+          "groupBy": [],
+          "hide": false,
+          "measurement": "lacrosses",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["humidity"],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "sensor",
+              "operator": "=",
+              "value": "Bad 2"
+            }
+          ]
         }
       ],
       "timeFrom": null,
@@ -486,7 +586,20 @@
           },
           "unit": "watt"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Desk Alex"
+            },
+            "properties": [
+              {
+                "id": "noValue",
+                "value": "0"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 5,
@@ -511,13 +624,21 @@
       "pluginVersion": "7.4.3",
       "targets": [
         {
-          "groupBy": [],
+          "alias": "Desk Alex",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
           "hide": false,
           "measurement": "fritz_dect",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"power\") FROM \"fritz_dect\" WHERE (\"ain\" = '116300168356') AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -525,6 +646,10 @@
               {
                 "params": ["power"],
                 "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
               }
             ]
           ],
@@ -537,7 +662,7 @@
           ]
         }
       ],
-      "title": "Desk Alex",
+      "title": "",
       "type": "stat"
     },
     {
@@ -560,7 +685,20 @@
           },
           "unit": "watt"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Desk Heidi"
+            },
+            "properties": [
+              {
+                "id": "noValue",
+                "value": "0"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 5,
@@ -585,14 +723,21 @@
       "pluginVersion": "7.4.3",
       "targets": [
         {
-          "alias": "",
-          "groupBy": [],
+          "alias": "Desk Heidi",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
           "hide": false,
           "measurement": "fritz_dect",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"power\") FROM \"fritz_dect\" WHERE (\"ain\" = '116300168356') AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -600,6 +745,10 @@
               {
                 "params": ["power"],
                 "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
               }
             ]
           ],
@@ -612,7 +761,7 @@
           ]
         }
       ],
-      "title": "Desk Heidi",
+      "title": "",
       "type": "stat"
     },
     {
@@ -635,7 +784,20 @@
           },
           "unit": "watt"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Air Humidifier"
+            },
+            "properties": [
+              {
+                "id": "noValue",
+                "value": "0"
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 5,
@@ -660,14 +822,21 @@
       "pluginVersion": "7.4.3",
       "targets": [
         {
-          "alias": "",
-          "groupBy": [],
+          "alias": "Air Humidifier",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
           "hide": false,
           "measurement": "fritz_dect",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"power\") FROM \"fritz_dect\" WHERE (\"ain\" = '116300168356') AND $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -675,6 +844,10 @@
               {
                 "params": ["power"],
                 "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
               }
             ]
           ],
@@ -687,7 +860,7 @@
           ]
         }
       ],
-      "title": "Air Humidifier",
+      "title": "",
       "type": "stat"
     },
     {
@@ -740,6 +913,7 @@
       "pluginVersion": "7.4.3",
       "targets": [
         {
+          "alias": "RPi nodered",
           "groupBy": [],
           "hide": false,
           "measurement": "raspberries",
@@ -764,7 +938,7 @@
           ]
         }
       ],
-      "title": "RPi nodered",
+      "title": "",
       "type": "stat"
     }
   ],
@@ -783,5 +957,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "ZZGUCrigk",
-  "version": 15
+  "version": 21
 }
