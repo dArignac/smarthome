@@ -47,7 +47,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1614432829169,
+  "iteration": 1664903731476,
   "links": [],
   "panels": [
     {
@@ -103,15 +103,11 @@
           "alias": "$tag_sensor Temperature",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -126,9 +122,7 @@
           "select": [
             [
               {
-                "params": [
-                  "temperature"
-                ],
+                "params": ["temperature"],
                 "type": "field"
               },
               {
@@ -149,15 +143,11 @@
           "alias": "$tag_sensor Moisture",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -171,9 +161,7 @@
           "select": [
             [
               {
-                "params": [
-                  "moisture"
-                ],
+                "params": ["moisture"],
                 "type": "field"
               },
               {
@@ -194,15 +182,11 @@
           "alias": "$tag_sensor Light",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -216,9 +200,7 @@
           "select": [
             [
               {
-                "params": [
-                  "light"
-                ],
+                "params": ["light"],
                 "type": "field"
               },
               {
@@ -239,15 +221,11 @@
           "alias": "$tag_sensor Conductivity",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -261,9 +239,7 @@
           "select": [
             [
               {
-                "params": [
-                  "conductivity"
-                ],
+                "params": ["conductivity"],
                 "type": "field"
               },
               {
@@ -284,15 +260,11 @@
           "alias": "$tag_sensor Battery",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "null"
-              ],
+              "params": ["null"],
               "type": "fill"
             }
           ],
@@ -305,9 +277,7 @@
           "select": [
             [
               {
-                "params": [
-                  "value"
-                ],
+                "params": ["value"],
                 "type": "field"
               },
               {
@@ -364,10 +334,7 @@
   "refresh": "1m",
   "schemaVersion": 27,
   "style": "dark",
-  "tags": [
-    "smarthome",
-    "miflora"
-  ],
+  "tags": ["smarthome", "miflora"],
   "templating": {
     "list": [
       {

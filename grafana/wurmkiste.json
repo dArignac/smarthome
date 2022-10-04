@@ -92,7 +92,6 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "$$hashKey": "object:547",
           "alias": "Temperature",
           "yaxis": 2
         }
@@ -105,15 +104,11 @@
           "alias": "Battery",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "none"
-              ],
+              "params": ["none"],
               "type": "fill"
             }
           ],
@@ -125,9 +120,7 @@
           "select": [
             [
               {
-                "params": [
-                  "battery"
-                ],
+                "params": ["battery"],
                 "type": "field"
               },
               {
@@ -135,9 +128,7 @@
                 "type": "mean"
               },
               {
-                "params": [
-                  "30"
-                ],
+                "params": ["30"],
                 "type": "moving_average"
               }
             ]
@@ -154,15 +145,11 @@
           "alias": "Humidity",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "none"
-              ],
+              "params": ["none"],
               "type": "fill"
             }
           ],
@@ -175,9 +162,7 @@
           "select": [
             [
               {
-                "params": [
-                  "humidity"
-                ],
+                "params": ["humidity"],
                 "type": "field"
               },
               {
@@ -198,15 +183,11 @@
           "alias": "Temperature",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "none"
-              ],
+              "params": ["none"],
               "type": "fill"
             }
           ],
@@ -219,9 +200,7 @@
           "select": [
             [
               {
-                "params": [
-                  "temperature"
-                ],
+                "params": ["temperature"],
                 "type": "field"
               },
               {
@@ -240,7 +219,9 @@
         }
       ],
       "thresholds": [],
+      "timeFrom": null,
       "timeRegions": [],
+      "timeShift": null,
       "title": "Overview",
       "tooltip": {
         "shared": true,
@@ -257,7 +238,6 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:529",
           "format": "percent",
           "label": null,
           "logBase": 1,
@@ -266,7 +246,6 @@
           "show": true
         },
         {
-          "$$hashKey": "object:530",
           "format": "celsius",
           "label": null,
           "logBase": 1,
@@ -284,17 +263,17 @@
   "refresh": "1m",
   "schemaVersion": 27,
   "style": "dark",
-  "tags": [],
+  "tags": ["wurmkiste"],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Wurmkiste",
   "uid": "66c7xzzgk",
-  "version": 4
+  "version": 6
 }

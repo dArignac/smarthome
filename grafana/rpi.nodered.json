@@ -93,9 +93,7 @@
         "displayMode": "lcd",
         "orientation": "horizontal",
         "reduceOptions": {
-          "calcs": [
-            "mean"
-          ],
+          "calcs": ["mean"],
           "fields": "",
           "values": false
         },
@@ -114,9 +112,7 @@
           "select": [
             [
               {
-                "params": [
-                  "cpu_temp"
-                ],
+                "params": ["cpu_temp"],
                 "type": "field"
               },
               {
@@ -192,15 +188,11 @@
           "alias": "user level",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -212,9 +204,7 @@
           "select": [
             [
               {
-                "params": [
-                  "cpu_usr"
-                ],
+                "params": ["cpu_usr"],
                 "type": "field"
               },
               {
@@ -235,15 +225,11 @@
           "alias": "user processes labeled \"nice\"",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -255,9 +241,7 @@
           "select": [
             [
               {
-                "params": [
-                  "cpu_nice"
-                ],
+                "params": ["cpu_nice"],
                 "type": "field"
               },
               {
@@ -278,15 +262,11 @@
           "alias": "system level",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -298,9 +278,7 @@
           "select": [
             [
               {
-                "params": [
-                  "cpu_sys"
-                ],
+                "params": ["cpu_sys"],
                 "type": "field"
               },
               {
@@ -321,15 +299,11 @@
           "alias": "idling waiting on a disk read/write",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -341,9 +315,7 @@
           "select": [
             [
               {
-                "params": [
-                  "cpu_iowait"
-                ],
+                "params": ["cpu_iowait"],
                 "type": "field"
               },
               {
@@ -364,15 +336,11 @@
           "alias": "hardware interrupts",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -384,9 +352,7 @@
           "select": [
             [
               {
-                "params": [
-                  "cpu_irq"
-                ],
+                "params": ["cpu_irq"],
                 "type": "field"
               },
               {
@@ -407,15 +373,11 @@
           "alias": "being forced to wait for a hypervisor handling other virtual processors",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -427,9 +389,7 @@
           "select": [
             [
               {
-                "params": [
-                  "cpu_steal"
-                ],
+                "params": ["cpu_steal"],
                 "type": "field"
               },
               {
@@ -450,15 +410,11 @@
           "alias": "spent running a virtual processor",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -470,9 +426,7 @@
           "select": [
             [
               {
-                "params": [
-                  "cpu_guest"
-                ],
+                "params": ["cpu_guest"],
                 "type": "field"
               },
               {
@@ -493,15 +447,11 @@
           "alias": "idle time",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -513,9 +463,7 @@
           "select": [
             [
               {
-                "params": [
-                  "cpu_idle"
-                ],
+                "params": ["cpu_idle"],
                 "type": "field"
               },
               {
@@ -626,15 +574,11 @@
           "alias": "CPU Temperature",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -646,9 +590,7 @@
           "select": [
             [
               {
-                "params": [
-                  "cpu_temp"
-                ],
+                "params": ["cpu_temp"],
                 "type": "field"
               },
               {
@@ -711,10 +653,7 @@
   "refresh": "1m",
   "schemaVersion": 27,
   "style": "dark",
-  "tags": [
-    "smarthome",
-    "raspberry"
-  ],
+  "tags": ["smarthome", "raspberry"],
   "templating": {
     "list": []
   },

@@ -68,117 +68,6 @@
               "tooltip": false
             },
             "lineInterpolation": "smooth",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": true
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "watt"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 12,
-        "x": 0,
-        "y": 0
-      },
-      "id": 4,
-      "options": {
-        "graph": {},
-        "legend": {
-          "calcs": [],
-          "displayMode": "hidden",
-          "placement": "bottom"
-        },
-        "tooltipOptions": {
-          "mode": "single"
-        }
-      },
-      "pluginVersion": "7.4.3",
-      "targets": [
-        {
-          "alias": "Leistung",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "linear"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "fritz_dect",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "power"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "ain",
-              "operator": "=",
-              "value": "087610469336"
-            }
-          ]
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Air Humidifier",
-      "type": "timeseries"
-    },
-    {
-      "datasource": "${DS_INFLUXDB}",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "Leistung",
-            "axisPlacement": "right",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 10,
-            "gradientMode": "none",
-            "hideFrom": {
-              "graph": false,
-              "legend": false,
-              "tooltip": false
-            },
-            "lineInterpolation": "smooth",
             "lineStyle": {
               "fill": "solid"
             },
@@ -207,7 +96,7 @@
       "gridPos": {
         "h": 10,
         "w": 12,
-        "x": 12,
+        "x": 0,
         "y": 0
       },
       "id": 2,
@@ -228,15 +117,11 @@
           "alias": "Leistung",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -248,9 +133,7 @@
           "select": [
             [
               {
-                "params": [
-                  "power"
-                ],
+                "params": ["power"],
                 "type": "field"
               },
               {
@@ -318,10 +201,10 @@
       "gridPos": {
         "h": 10,
         "w": 12,
-        "x": 0,
-        "y": 10
+        "x": 12,
+        "y": 0
       },
-      "id": 5,
+      "id": 6,
       "options": {
         "graph": {},
         "legend": {
@@ -339,15 +222,11 @@
           "alias": "Leistung",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -359,9 +238,7 @@
           "select": [
             [
               {
-                "params": [
-                  "power"
-                ],
+                "params": ["power"],
                 "type": "field"
               },
               {
@@ -374,14 +251,119 @@
             {
               "key": "ain",
               "operator": "=",
-              "value": "087610469337"
+              "value": "116570527961"
             }
           ]
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "TV Ambilight",
+      "title": "Desk Heidi",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "Leistung",
+            "axisPlacement": "right",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 10
+      },
+      "id": 4,
+      "options": {
+        "graph": {},
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltipOptions": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "7.4.3",
+      "targets": [
+        {
+          "alias": "Leistung",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "fritz_dect",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["power"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "ain",
+              "operator": "=",
+              "value": "087610469336"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Air Humidifier",
       "type": "timeseries"
     },
     {
@@ -450,15 +432,11 @@
           "alias": "Leistung",
           "groupBy": [
             {
-              "params": [
-                "$__interval"
-              ],
+              "params": ["$__interval"],
               "type": "time"
             },
             {
-              "params": [
-                "linear"
-              ],
+              "params": ["linear"],
               "type": "fill"
             }
           ],
@@ -470,9 +448,7 @@
           "select": [
             [
               {
-                "params": [
-                  "power"
-                ],
+                "params": ["power"],
                 "type": "field"
               },
               {
@@ -494,16 +470,117 @@
       "timeShift": null,
       "title": "LED Strip",
       "type": "timeseries"
+    },
+    {
+      "datasource": "${DS_INFLUXDB}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "Leistung",
+            "axisPlacement": "right",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "graph": false,
+              "legend": false,
+              "tooltip": false
+            },
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 20
+      },
+      "id": 5,
+      "options": {
+        "graph": {},
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "bottom"
+        },
+        "tooltipOptions": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "7.4.3",
+      "targets": [
+        {
+          "alias": "Leistung",
+          "groupBy": [
+            {
+              "params": ["$__interval"],
+              "type": "time"
+            },
+            {
+              "params": ["linear"],
+              "type": "fill"
+            }
+          ],
+          "measurement": "fritz_dect",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": ["power"],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "ain",
+              "operator": "=",
+              "value": "087610469337"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "TV Ambilight",
+      "type": "timeseries"
     }
   ],
   "refresh": "1m",
   "schemaVersion": 27,
   "style": "dark",
-  "tags": [
-    "smarthome",
-    "fritz",
-    "dect"
-  ],
+  "tags": ["smarthome", "fritz", "dect"],
   "templating": {
     "list": []
   },
@@ -515,5 +592,5 @@
   "timezone": "",
   "title": "Fritz DECT",
   "uid": "Y4rCYrZRz",
-  "version": 12
+  "version": 13
 }

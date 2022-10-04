@@ -216,7 +216,7 @@
           ]
         },
         {
-          "alias": "Bad 1",
+          "alias": "Bad",
           "groupBy": [],
           "hide": false,
           "measurement": "lacrosses",
@@ -241,7 +241,7 @@
           ]
         },
         {
-          "alias": "Bad 2",
+          "alias": "WC",
           "groupBy": [],
           "hide": false,
           "measurement": "lacrosses",
@@ -433,7 +433,7 @@
           ]
         },
         {
-          "alias": "Bad 1",
+          "alias": "Bad",
           "groupBy": [],
           "hide": false,
           "measurement": "lacrosses",
@@ -458,7 +458,7 @@
           ]
         },
         {
-          "alias": "Bad 2",
+          "alias": "WC",
           "groupBy": [],
           "hide": false,
           "measurement": "lacrosses",
@@ -957,5 +957,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "ZZGUCrigk",
-  "version": 21
+  "version": 23
 }

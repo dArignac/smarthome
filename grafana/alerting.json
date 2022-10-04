@@ -61,11 +61,7 @@
               "type": "and"
             },
             "query": {
-              "params": [
-                "A",
-                "5m",
-                "now"
-              ]
+              "params": ["A", "10m", "now"]
             },
             "reducer": {
               "params": [],
@@ -75,7 +71,7 @@
           }
         ],
         "executionErrorState": "alerting",
-        "for": "5m",
+        "for": "10m",
         "frequency": "5m",
         "handler": 1,
         "message": "No values for temperature \"Balkon\".",
@@ -141,9 +137,7 @@
           "select": [
             [
               {
-                "params": [
-                  "temperature"
-                ],
+                "params": ["temperature"],
                 "type": "field"
               }
             ]
@@ -202,10 +196,7 @@
   "refresh": "10s",
   "schemaVersion": 27,
   "style": "dark",
-  "tags": [
-    "smarthome",
-    "alerting"
-  ],
+  "tags": ["smarthome", "alerting"],
   "templating": {
     "list": []
   },
@@ -230,5 +221,5 @@
   "timezone": "",
   "title": "Alerting Dashboard",
   "uid": "OZponGmRz",
-  "version": 8
+  "version": 9
 }
