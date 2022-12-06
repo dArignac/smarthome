@@ -239,31 +239,6 @@
               "value": "Bad 1"
             }
           ]
-        },
-        {
-          "alias": "WC",
-          "groupBy": [],
-          "hide": false,
-          "measurement": "lacrosses",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "F",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": ["temperature"],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "sensor",
-              "operator": "=",
-              "value": "Bad 2"
-            }
-          ]
         }
       ],
       "title": "Temperatures",
@@ -456,114 +431,11 @@
               "value": "Bad 1"
             }
           ]
-        },
-        {
-          "alias": "WC",
-          "groupBy": [],
-          "hide": false,
-          "measurement": "lacrosses",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "F",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": ["humidity"],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "sensor",
-              "operator": "=",
-              "value": "Bad 2"
-            }
-          ]
         }
       ],
       "timeFrom": null,
       "timeShift": null,
       "title": "Humidity",
-      "type": "stat"
-    },
-    {
-      "datasource": "${DS_INFLUXDB}",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "celsius"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 0,
-        "y": 12
-      },
-      "id": 6,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.4.3",
-      "targets": [
-        {
-          "alias": "Wurmkiste",
-          "groupBy": [],
-          "hide": false,
-          "measurement": "inkbirds",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": ["temperature"],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "sensor",
-              "operator": "=",
-              "value": "Wurmkiste"
-            }
-          ]
-        }
-      ],
-      "title": "",
       "type": "stat"
     },
     {
@@ -604,7 +476,7 @@
       "gridPos": {
         "h": 5,
         "w": 6,
-        "x": 6,
+        "x": 0,
         "y": 12
       },
       "id": 8,
@@ -703,7 +575,7 @@
       "gridPos": {
         "h": 5,
         "w": 6,
-        "x": 12,
+        "x": 6,
         "y": 12
       },
       "id": 9,
@@ -802,7 +674,7 @@
       "gridPos": {
         "h": 5,
         "w": 6,
-        "x": 18,
+        "x": 12,
         "y": 12
       },
       "id": 10,
@@ -862,84 +734,6 @@
       ],
       "title": "",
       "type": "stat"
-    },
-    {
-      "datasource": "${DS_INFLUXDB}",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {},
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "celsius"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 0,
-        "y": 17
-      },
-      "id": 11,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": ["lastNotNull"],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "7.4.3",
-      "targets": [
-        {
-          "alias": "RPi nodered",
-          "groupBy": [],
-          "hide": false,
-          "measurement": "raspberries",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": ["cpu_temp"],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "raspberry",
-              "operator": "=",
-              "value": "nodered"
-            }
-          ]
-        }
-      ],
-      "title": "",
-      "type": "stat"
     }
   ],
   "refresh": "1m",
@@ -957,5 +751,5 @@
   "timezone": "",
   "title": "Overview",
   "uid": "ZZGUCrigk",
-  "version": 23
+  "version": 26
 }
