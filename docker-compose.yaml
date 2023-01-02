@@ -8,6 +8,8 @@ services:
       - "1883:1883"
     user: "1000:995"
     container_name: mosquitto
+    depends_on:
+      - nodered
     restart: always
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
@@ -17,6 +19,8 @@ services:
     ports:
       - "1880:1880"
     container_name: nodered
+    depends_on:
+      - influxdb
     restart: always
     group_add:
       - 20
@@ -47,6 +51,7 @@ services:
     container_name: grafana
     depends_on:
       - influxdb
+      - nodered
     restart: always
     volumes:
       - /mnt/pi1/grafana:/var/lib/grafana
