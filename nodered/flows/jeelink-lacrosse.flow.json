@@ -71,7 +71,7 @@
     "type": "function",
     "z": "aa592603.a4b8d8",
     "name": "Filter unknown sensors & name sensors",
-    "func": "const values = msg.payload.split(' ');\nconst id = values[2];\nconst own = ['16', '38', '49', '56', '62'];\nif (own.includes(id)) {\n    let name = 'unknown';\n    switch (id) {\n        case '16':\n            name = 'Schlafzimmer';\n            break;\n        case '38':\n            name = 'Bad 1';\n            break;\n        case '49':\n            name = 'Balkon';\n            break;\n        case '56':\n            name = 'Arbeitszimmer';\n            break;\n        case '62':\n            name = 'Wohnzimmer';\n            break;\n    }\n    const data = {\n        'id': id,\n        'name': name,\n        'values': values\n    }\n    return {'payload': data};\n}\nreturn null;",
+    "func": "const values = msg.payload.split(' ');\nconst id = values[2];\nconst own = ['4', '16', '38', '57', '56', '62'];\nif (own.includes(id)) {\n    let name = 'unknown';\n    switch (id) {\n        case '4':\n            name = 'Arbeitszimmer Fenster'\n            break;\n        case '16':\n            name = 'Schlafzimmer';\n            break;\n        case '38':\n            name = 'Bad 1';\n            break;\n        case '57':\n            name = 'Balkon';\n            break;\n        case '56':\n            name = 'Arbeitszimmer';\n            break;\n        case '62':\n            name = 'Wohnzimmer';\n            break;\n    }\n    const data = {\n        'id': id,\n        'name': name,\n        'values': values\n    }\n    return {'payload': data};\n}\nreturn null;",
     "outputs": 1,
     "noerr": 0,
     "initialize": "",
@@ -88,15 +88,40 @@
     "property": "payload.id",
     "propertyType": "msg",
     "rules": [
-      { "t": "eq", "v": "56", "vt": "str" },
-      { "t": "eq", "v": "62", "vt": "str" },
-      { "t": "eq", "v": "49", "vt": "str" },
-      { "t": "eq", "v": "16", "vt": "str" },
-      { "t": "eq", "v": "38", "vt": "str" }
+      {
+        "t": "eq",
+        "v": "56",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "62",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "57",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "16",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "38",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "4",
+        "vt": "str"
+      }
     ],
     "checkall": "true",
     "repair": false,
-    "outputs": 5,
+    "outputs": 6,
     "x": 190,
     "y": 300,
     "wires": [
@@ -104,7 +129,8 @@
       ["b29994d6.cdd188"],
       ["45af2c57.b78c34"],
       ["cfa36989.460ba8"],
-      ["59b52478.18199c"]
+      ["59b52478.18199c"],
+      ["84fefcea.d57c2"]
     ]
   },
   {
@@ -145,7 +171,7 @@
     "type": "debug",
     "z": "aa592603.a4b8d8",
     "name": "",
-    "active": true,
+    "active": false,
     "tosidebar": true,
     "console": false,
     "tostatus": false,
@@ -240,14 +266,14 @@
     "finalize": "",
     "x": 600,
     "y": 100,
-    "wires": [["38e7664.b52c89a", "32bf56ef.01331a"]]
+    "wires": [["32bf56ef.01331a", "38e7664.b52c89a"]]
   },
   {
     "id": "f641dc47.6fa77",
     "type": "debug",
     "z": "aa592603.a4b8d8",
     "name": "",
-    "active": true,
+    "active": false,
     "tosidebar": true,
     "console": false,
     "tostatus": false,
@@ -265,7 +291,13 @@
     "name": "",
     "property": "payload.id",
     "propertyType": "msg",
-    "rules": [{ "t": "eq", "v": "49", "vt": "str" }],
+    "rules": [
+      {
+        "t": "eq",
+        "v": "57",
+        "vt": "str"
+      }
+    ],
     "checkall": "true",
     "repair": false,
     "outputs": 1,
@@ -288,6 +320,25 @@
     "x": 880,
     "y": 180,
     "wires": []
+  },
+  {
+    "id": "84fefcea.d57c2",
+    "type": "delay",
+    "z": "aa592603.a4b8d8",
+    "name": "Rate Limit Arbeitszimmer Fenster",
+    "pauseType": "rate",
+    "timeout": "5",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "30",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": true,
+    "x": 600,
+    "y": 400,
+    "wires": [["ba508541.967238"]]
   },
   {
     "id": "6a89d4c3.09c6ec",
